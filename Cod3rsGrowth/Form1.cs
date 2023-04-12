@@ -37,8 +37,11 @@ namespace Cod3rsGrowth
             parts.Add(new Part("4", "Porcas", "Porca Autotravante", "Espessura 8mm", 15));
             categoriesDataGridView.DataSource = parts;
 
-
-
+            categoriesDataGridView.Columns[0].HeaderText = "#";
+            categoriesDataGridView.Columns[1].HeaderText = "Categoria";
+            categoriesDataGridView.Columns[2].HeaderText = "Nome";
+            categoriesDataGridView.Columns[3].HeaderText = "Descrição";
+            categoriesDataGridView.Columns[4].HeaderText = "Estoque";
         }
     }
 }
