@@ -17,7 +17,12 @@ namespace Cod3rsGrowth
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new PartsManager());
+        }
+
+        public static void PopulatePartsDataGridView()
+        {
+            
         }
     }
 }
