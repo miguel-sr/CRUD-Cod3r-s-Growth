@@ -17,7 +17,20 @@ namespace Cod3rsGrowth
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            ListaDePecas = new List<Peca>
+                {
+                    new Peca(1, "Parafusos", "Parafuso Sextavado", "Espessura 8mm", 30, DateTime.Now.Date),
+                    new Peca(2, "Parafusos", "Parafuso Sextavado", "Espessura 6mm", 15, DateTime.Now.Date),
+                    new Peca(3, "Porcas", "Porca Autotravante", "Espessura 8mm", 30, DateTime.Now.Date),
+                    new Peca(4, "Porcas", "Porca Autotravante", "Espessura 6mm", 15, DateTime.Now.Date),
+                    new Peca(5, "Porcas", "Porca Autotravante", "Espessura 3mm", 0, DateTime.Now.Date)
+                };
+
             Application.Run(new ControleDePecas());
+
+            
         }
+        public static List<Peca> ListaDePecas { get; set; }
     }
 }

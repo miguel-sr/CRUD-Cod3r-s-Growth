@@ -46,17 +46,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControleDePecas.cs">
+    <Compile Include="Telas\ControleDePecas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ControleDePecas.Designer.cs">
+    <Compile Include="Telas\ControleDePecas.Designer.cs">
       <DependentUpon>ControleDePecas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\CadastroDePeca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\CadastroDePeca.Designer.cs">
+      <DependentUpon>CadastroDePeca.cs</DependentUpon>
     </Compile>
     <Compile Include="Modelos\Peca.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ControleDePecas.resx">
+    <EmbeddedResource Include="Telas\ControleDePecas.resx">
       <DependentUpon>ControleDePecas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\CadastroDePeca.resx">
+      <DependentUpon>CadastroDePeca.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
