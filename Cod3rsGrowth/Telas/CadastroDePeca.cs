@@ -1,6 +1,5 @@
-﻿using Cod3rsGrowth.Models;
+﻿using Cod3rsGrowth.Modelos;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
@@ -10,11 +9,6 @@ namespace Cod3rsGrowth
         public CadastroDePeca()
         {
             InitializeComponent();
-        }
-
-        private void CadastroDePeca_Load(object sender, EventArgs e)
-        {
-            
         }
 
         private void AoClicarCriarNovaPeca_Click(object sender, EventArgs e)
@@ -33,9 +27,6 @@ namespace Cod3rsGrowth
             CampoDescricaoDoFormularioCadastroDePecas.ResetText();
             CampoEstoqueDoFormularioCadastroDePecas.ResetText();
             CampoDataDoFormularioCadastroDePecas.ResetText();
-
-            ControleDePecas.GridDePecas.DataSource = null;
-            ControleDePecas.GridDePecas.DataSource = Program.ListaDePecas;
 
             this.Close();
 

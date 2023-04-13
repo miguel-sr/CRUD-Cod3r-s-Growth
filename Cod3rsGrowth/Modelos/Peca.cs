@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Cod3rsGrowth.Models
+namespace Cod3rsGrowth.Modelos
 {
     public class Peca
     {

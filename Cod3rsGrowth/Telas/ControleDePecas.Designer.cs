@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            GridDePecas = new System.Windows.Forms.DataGridView();
+            this.GridDePecas = new System.Windows.Forms.DataGridView();
             this.ColunaId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColunaCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColunaNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,13 +39,14 @@
             this.aoClicarRemoverPecaSelecionada = new System.Windows.Forms.Button();
             this.aoClicarTrocarParaMenuDeCriarPeca = new System.Windows.Forms.Button();
             this.aoClicarAbrirMenuDeEdicaoDePeca = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(GridDePecas)).BeginInit();
+            this.button1 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.GridDePecas)).BeginInit();
             this.SuspendLayout();
             // 
             // GridDePecas
             // 
-            GridDePecas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            GridDePecas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.GridDePecas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridDePecas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColunaId,
             this.ColunaCategoria,
             this.ColunaNome,
@@ -59,20 +60,21 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            GridDePecas.DefaultCellStyle = dataGridViewCellStyle1;
-            GridDePecas.Location = new System.Drawing.Point(12, 12);
-            GridDePecas.Name = "GridDePecas";
-            GridDePecas.Size = new System.Drawing.Size(796, 347);
-            GridDePecas.TabIndex = 0;
+            this.GridDePecas.DefaultCellStyle = dataGridViewCellStyle1;
+            this.GridDePecas.Location = new System.Drawing.Point(12, 12);
+            this.GridDePecas.Name = "GridDePecas";
+            this.GridDePecas.Size = new System.Drawing.Size(796, 347);
+            this.GridDePecas.TabIndex = 0;
+            this.GridDePecas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridDePecas_CellContentClick);
             // 
             // ColunaId
             // 
+            this.ColunaId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColunaId.DataPropertyName = "Id";
             this.ColunaId.FillWeight = 30F;
             this.ColunaId.HeaderText = "Código";
             this.ColunaId.Name = "ColunaId";
             this.ColunaId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ColunaId.Width = 60;
             // 
             // ColunaCategoria
             // 
@@ -81,7 +83,7 @@
             this.ColunaCategoria.FillWeight = 40F;
             this.ColunaCategoria.HeaderText = "Categoria";
             this.ColunaCategoria.Name = "ColunaCategoria";
-            this.ColunaCategoria.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColunaCategoria.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // ColunaNome
             // 
@@ -90,6 +92,7 @@
             this.ColunaNome.FillWeight = 80F;
             this.ColunaNome.HeaderText = "Nome";
             this.ColunaNome.Name = "ColunaNome";
+            this.ColunaNome.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // ColunaDescricao
             // 
@@ -97,6 +100,7 @@
             this.ColunaDescricao.DataPropertyName = "Descricao";
             this.ColunaDescricao.HeaderText = "Descrição";
             this.ColunaDescricao.Name = "ColunaDescricao";
+            this.ColunaDescricao.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // ColunaDataDeFabricacao
             // 
@@ -104,6 +108,7 @@
             this.ColunaDataDeFabricacao.DataPropertyName = "DataDeFabricacao";
             this.ColunaDataDeFabricacao.HeaderText = "Data de Fabricação";
             this.ColunaDataDeFabricacao.Name = "ColunaDataDeFabricacao";
+            this.ColunaDataDeFabricacao.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // ColunaEstoque
             // 
@@ -145,26 +150,35 @@
             this.aoClicarAbrirMenuDeEdicaoDePeca.Text = "Editar";
             this.aoClicarAbrirMenuDeEdicaoDePeca.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(178, 372);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 30);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ControleDePecas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(825, 435);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.aoClicarRemoverPecaSelecionada);
             this.Controls.Add(this.aoClicarAbrirMenuDeEdicaoDePeca);
-            this.Controls.Add(GridDePecas);
+            this.Controls.Add(this.GridDePecas);
             this.Controls.Add(this.aoClicarTrocarParaMenuDeCriarPeca);
             this.Name = "ControleDePecas";
             this.Text = "Controle de Peças";
             this.Load += new System.EventHandler(this.ControleDePecas_Load);
-            ((System.ComponentModel.ISupportInitialize)(GridDePecas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridDePecas)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        public static System.Windows.Forms.DataGridView GridDePecas;
         private System.Windows.Forms.Button aoClicarRemoverPecaSelecionada;
         private System.Windows.Forms.Button aoClicarTrocarParaMenuDeCriarPeca;
         private System.Windows.Forms.Button aoClicarAbrirMenuDeEdicaoDePeca;
@@ -174,6 +188,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaDescricao;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaDataDeFabricacao;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaEstoque;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView GridDePecas;
     }
 }
 

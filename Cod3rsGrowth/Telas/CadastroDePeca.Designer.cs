@@ -167,7 +167,6 @@
             this.Controls.Add(this.AoClicarCriarNovaPeca);
             this.Name = "CadastroDePeca";
             this.Text = "Cadastro de Peça";
-            this.Load += new System.EventHandler(this.CadastroDePeca_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

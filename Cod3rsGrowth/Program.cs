@@ -1,8 +1,6 @@
-﻿using Cod3rsGrowth.Models;
+﻿using Cod3rsGrowth.Modelos;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
