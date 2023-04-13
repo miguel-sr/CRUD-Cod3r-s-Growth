@@ -11,16 +11,16 @@ using System.Windows.Forms;
 
 namespace Cod3rsGrowth
 {
-    public partial class PartsManager : Form
+    public partial class ControleDePecas : Form
     {
-        public PartsManager()
+        public ControleDePecas()
         {
             InitializeComponent();
         }
        
         private void PartsManager_Load(object sender, EventArgs e)
         {
-            this.dataGridView1.DataSource = new List<Part>
+            this.dataGridView1.DataSource = new List<Peca>
             {
                 new Part("1", "Parafusos", "Parafuso Sextavado", "Espessura 8mm", 30),
                 new Part("2", "Parafusos", "Parafuso Sextavado", "Espessura 6mm", 15),
@@ -32,12 +32,12 @@ namespace Cod3rsGrowth
 
         private void ButtonToAddNewPart_Click(object sender, EventArgs e)
         {
-            pagesControl.SelectedTab = newPart;
+            controleDePagina.SelectedTab = criarPeca;
         }
 
         private void NewPartScreenReturnButton_Click(object sender, EventArgs e)
         {
-            pagesControl.SelectedTab = partsList;
+            controleDePagina.SelectedTab = listaDePecas;
         }
     }
 }

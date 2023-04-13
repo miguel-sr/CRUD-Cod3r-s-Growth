@@ -17,7 +17,7 @@ namespace Cod3rsGrowth
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PartsManager());
+            Application.Run(new ControleDePecas());
         }
     }
 }
