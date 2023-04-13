@@ -9,15 +9,17 @@ namespace Cod3rsGrowth.Models
 {
     public class Peca
     {
-        public Peca(string categoria, string nome, string descricao, int estoque) 
+        public Peca(int Id, string Categoria, string Nome, string Descricao, int Estoque, DateTime DataDeFabricacao) 
         {
-            this.Categoria = categoria;
-            this.Nome = nome;
-            this.Descricao = descricao;
-            this.Estoque = estoque;
+            this.Id = Id;
+            this.Categoria = Categoria;
+            this.Nome = Nome;
+            this.Descricao = Descricao;
+            this.Estoque = Estoque;
+            this.DataDeFabricacao = DataDeFabricacao;
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Categoria { get; set; }
 

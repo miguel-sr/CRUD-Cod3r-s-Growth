@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.GridDePecas = new System.Windows.Forms.DataGridView();
             this.ColunaId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColunaCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColunaNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,9 +39,9 @@
             this.aoClicarRemoverPecaSelecionada = new System.Windows.Forms.Button();
             this.aoClicarTrocarParaMenuDeCriarPeca = new System.Windows.Forms.Button();
             this.aoClicarAbrirMenuDeEdicaoDePeca = new System.Windows.Forms.Button();
-            this.controleDePagina = new System.Windows.Forms.TabControl();
-            this.listaDePecas = new System.Windows.Forms.TabPage();
-            this.criarPeca = new System.Windows.Forms.TabPage();
+            this.ControleDePagina = new System.Windows.Forms.TabControl();
+            this.paginaListaDePecas = new System.Windows.Forms.TabPage();
+            this.paginaCadastroDePeca = new System.Windows.Forms.TabPage();
             this.CampoDataDoFormularioCadastroDePecas = new System.Windows.Forms.DateTimePicker();
             this.CampoEstoqueDoFormularioCadastroDePecas = new System.Windows.Forms.TextBox();
             this.LabelCalendario = new System.Windows.Forms.Label();
@@ -52,18 +52,18 @@
             this.LabelNome = new System.Windows.Forms.Label();
             this.CampoCategoriaDoFormularioCadastroDePecas = new System.Windows.Forms.TextBox();
             this.LabelCategoria = new System.Windows.Forms.Label();
-            this.NewPartScreenReturnButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.controleDePagina.SuspendLayout();
-            this.listaDePecas.SuspendLayout();
-            this.criarPeca.SuspendLayout();
+            this.aoClicarRetornarParaPaginaListaDePecas = new System.Windows.Forms.Button();
+            this.aoClicarCriarNovaPeca = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.GridDePecas)).BeginInit();
+            this.ControleDePagina.SuspendLayout();
+            this.paginaListaDePecas.SuspendLayout();
+            this.paginaCadastroDePeca.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // gridDePecas
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.GridDePecas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridDePecas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColunaId,
             this.ColunaCategoria,
             this.ColunaNome,
@@ -77,11 +77,11 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 6);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(795, 347);
-            this.dataGridView1.TabIndex = 0;
+            this.GridDePecas.DefaultCellStyle = dataGridViewCellStyle2;
+            this.GridDePecas.Location = new System.Drawing.Point(8, 6);
+            this.GridDePecas.Name = "gridDePecas";
+            this.GridDePecas.Size = new System.Drawing.Size(795, 347);
+            this.GridDePecas.TabIndex = 0;
             // 
             // ColunaId
             // 
@@ -141,6 +141,7 @@
             this.aoClicarRemoverPecaSelecionada.TabIndex = 3;
             this.aoClicarRemoverPecaSelecionada.Text = "Remover";
             this.aoClicarRemoverPecaSelecionada.UseVisualStyleBackColor = true;
+            this.aoClicarRemoverPecaSelecionada.Click += new System.EventHandler(this.AoClicarRemoverPecaSelecionada_Click);
             // 
             // aoClicarTrocarParaMenuDeCriarPeca
             // 
@@ -151,7 +152,7 @@
             this.aoClicarTrocarParaMenuDeCriarPeca.TabIndex = 4;
             this.aoClicarTrocarParaMenuDeCriarPeca.Text = "Adicionar";
             this.aoClicarTrocarParaMenuDeCriarPeca.UseVisualStyleBackColor = true;
-            this.aoClicarTrocarParaMenuDeCriarPeca.Click += new System.EventHandler(this.ButtonToAddNewPart_Click);
+            this.aoClicarTrocarParaMenuDeCriarPeca.Click += new System.EventHandler(this.AoClicarTrocarParaMenuDeCriarPeca_Click);
             // 
             // aoClicarAbrirMenuDeEdicaoDePeca
             // 
@@ -162,52 +163,53 @@
             this.aoClicarAbrirMenuDeEdicaoDePeca.TabIndex = 5;
             this.aoClicarAbrirMenuDeEdicaoDePeca.Text = "Editar";
             this.aoClicarAbrirMenuDeEdicaoDePeca.UseVisualStyleBackColor = true;
+            this.aoClicarAbrirMenuDeEdicaoDePeca.Click += new System.EventHandler(this.AoClicarAbrirMenuDeEdicaoDePeca_Click);
             // 
             // controleDePagina
             // 
-            this.controleDePagina.Controls.Add(this.listaDePecas);
-            this.controleDePagina.Controls.Add(this.criarPeca);
-            this.controleDePagina.Location = new System.Drawing.Point(0, 0);
-            this.controleDePagina.Name = "controleDePagina";
-            this.controleDePagina.SelectedIndex = 0;
-            this.controleDePagina.Size = new System.Drawing.Size(817, 428);
-            this.controleDePagina.TabIndex = 6;
+            this.ControleDePagina.Controls.Add(this.paginaListaDePecas);
+            this.ControleDePagina.Controls.Add(this.paginaCadastroDePeca);
+            this.ControleDePagina.Location = new System.Drawing.Point(0, 0);
+            this.ControleDePagina.Name = "controleDePagina";
+            this.ControleDePagina.SelectedIndex = 0;
+            this.ControleDePagina.Size = new System.Drawing.Size(817, 428);
+            this.ControleDePagina.TabIndex = 6;
             // 
-            // listaDePecas
+            // paginaListaDePecas
             // 
-            this.listaDePecas.Controls.Add(this.dataGridView1);
-            this.listaDePecas.Controls.Add(this.aoClicarRemoverPecaSelecionada);
-            this.listaDePecas.Controls.Add(this.aoClicarAbrirMenuDeEdicaoDePeca);
-            this.listaDePecas.Controls.Add(this.aoClicarTrocarParaMenuDeCriarPeca);
-            this.listaDePecas.Location = new System.Drawing.Point(4, 22);
-            this.listaDePecas.Name = "listaDePecas";
-            this.listaDePecas.Padding = new System.Windows.Forms.Padding(3);
-            this.listaDePecas.Size = new System.Drawing.Size(809, 402);
-            this.listaDePecas.TabIndex = 0;
-            this.listaDePecas.Text = "Lista de Peças";
-            this.listaDePecas.UseVisualStyleBackColor = true;
+            this.paginaListaDePecas.Controls.Add(this.GridDePecas);
+            this.paginaListaDePecas.Controls.Add(this.aoClicarRemoverPecaSelecionada);
+            this.paginaListaDePecas.Controls.Add(this.aoClicarAbrirMenuDeEdicaoDePeca);
+            this.paginaListaDePecas.Controls.Add(this.aoClicarTrocarParaMenuDeCriarPeca);
+            this.paginaListaDePecas.Location = new System.Drawing.Point(4, 22);
+            this.paginaListaDePecas.Name = "paginaListaDePecas";
+            this.paginaListaDePecas.Padding = new System.Windows.Forms.Padding(3);
+            this.paginaListaDePecas.Size = new System.Drawing.Size(809, 402);
+            this.paginaListaDePecas.TabIndex = 0;
+            this.paginaListaDePecas.Text = "Lista de Peças";
+            this.paginaListaDePecas.UseVisualStyleBackColor = true;
             // 
-            // criarPeca
+            // paginaCadastroDePeca
             // 
-            this.criarPeca.Controls.Add(this.CampoDataDoFormularioCadastroDePecas);
-            this.criarPeca.Controls.Add(this.CampoEstoqueDoFormularioCadastroDePecas);
-            this.criarPeca.Controls.Add(this.LabelCalendario);
-            this.criarPeca.Controls.Add(this.CampoDescricaoDoFormularioCadastroDePecas);
-            this.criarPeca.Controls.Add(this.LabelDescricao);
-            this.criarPeca.Controls.Add(this.LabelEstoque);
-            this.criarPeca.Controls.Add(this.CampoNomeDoFormularioCadastroDePecas);
-            this.criarPeca.Controls.Add(this.LabelNome);
-            this.criarPeca.Controls.Add(this.CampoCategoriaDoFormularioCadastroDePecas);
-            this.criarPeca.Controls.Add(this.LabelCategoria);
-            this.criarPeca.Controls.Add(this.NewPartScreenReturnButton);
-            this.criarPeca.Controls.Add(this.button1);
-            this.criarPeca.Location = new System.Drawing.Point(4, 22);
-            this.criarPeca.Name = "criarPeca";
-            this.criarPeca.Padding = new System.Windows.Forms.Padding(3);
-            this.criarPeca.Size = new System.Drawing.Size(809, 402);
-            this.criarPeca.TabIndex = 1;
-            this.criarPeca.Text = "Cadastro de Peças";
-            this.criarPeca.UseVisualStyleBackColor = true;
+            this.paginaCadastroDePeca.Controls.Add(this.CampoDataDoFormularioCadastroDePecas);
+            this.paginaCadastroDePeca.Controls.Add(this.CampoEstoqueDoFormularioCadastroDePecas);
+            this.paginaCadastroDePeca.Controls.Add(this.LabelCalendario);
+            this.paginaCadastroDePeca.Controls.Add(this.CampoDescricaoDoFormularioCadastroDePecas);
+            this.paginaCadastroDePeca.Controls.Add(this.LabelDescricao);
+            this.paginaCadastroDePeca.Controls.Add(this.LabelEstoque);
+            this.paginaCadastroDePeca.Controls.Add(this.CampoNomeDoFormularioCadastroDePecas);
+            this.paginaCadastroDePeca.Controls.Add(this.LabelNome);
+            this.paginaCadastroDePeca.Controls.Add(this.CampoCategoriaDoFormularioCadastroDePecas);
+            this.paginaCadastroDePeca.Controls.Add(this.LabelCategoria);
+            this.paginaCadastroDePeca.Controls.Add(this.aoClicarRetornarParaPaginaListaDePecas);
+            this.paginaCadastroDePeca.Controls.Add(this.aoClicarCriarNovaPeca);
+            this.paginaCadastroDePeca.Location = new System.Drawing.Point(4, 22);
+            this.paginaCadastroDePeca.Name = "paginaCadastroDePeca";
+            this.paginaCadastroDePeca.Padding = new System.Windows.Forms.Padding(3);
+            this.paginaCadastroDePeca.Size = new System.Drawing.Size(809, 402);
+            this.paginaCadastroDePeca.TabIndex = 1;
+            this.paginaCadastroDePeca.Text = "Cadastro de Peças";
+            this.paginaCadastroDePeca.UseVisualStyleBackColor = true;
             // 
             // CampoDataDoFormularioCadastroDePecas
             // 
@@ -293,56 +295,57 @@
             this.LabelCategoria.TabIndex = 7;
             this.LabelCategoria.Text = "Categoria";
             // 
-            // NewPartScreenReturnButton
+            // aoClicarRetornarParaPaginaListaDePecas
             // 
-            this.NewPartScreenReturnButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.NewPartScreenReturnButton.Location = new System.Drawing.Point(625, 359);
-            this.NewPartScreenReturnButton.Name = "NewPartScreenReturnButton";
-            this.NewPartScreenReturnButton.Size = new System.Drawing.Size(138, 37);
-            this.NewPartScreenReturnButton.TabIndex = 6;
-            this.NewPartScreenReturnButton.Text = "Cancelar";
-            this.NewPartScreenReturnButton.UseVisualStyleBackColor = true;
-            this.NewPartScreenReturnButton.Click += new System.EventHandler(this.NewPartScreenReturnButton_Click);
+            this.aoClicarRetornarParaPaginaListaDePecas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.aoClicarRetornarParaPaginaListaDePecas.Location = new System.Drawing.Point(625, 359);
+            this.aoClicarRetornarParaPaginaListaDePecas.Name = "aoClicarRetornarParaPaginaListaDePecas";
+            this.aoClicarRetornarParaPaginaListaDePecas.Size = new System.Drawing.Size(138, 37);
+            this.aoClicarRetornarParaPaginaListaDePecas.TabIndex = 6;
+            this.aoClicarRetornarParaPaginaListaDePecas.Text = "Cancelar";
+            this.aoClicarRetornarParaPaginaListaDePecas.UseVisualStyleBackColor = true;
+            this.aoClicarRetornarParaPaginaListaDePecas.Click += new System.EventHandler(this.AoClicarRetornarParaPaginaListaDePecas_Click);
             // 
-            // button1
+            // aoClicarCriarNovaPeca
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(481, 359);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(138, 37);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Criar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.aoClicarCriarNovaPeca.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.aoClicarCriarNovaPeca.Location = new System.Drawing.Point(481, 359);
+            this.aoClicarCriarNovaPeca.Name = "aoClicarCriarNovaPeca";
+            this.aoClicarCriarNovaPeca.Size = new System.Drawing.Size(138, 37);
+            this.aoClicarCriarNovaPeca.TabIndex = 5;
+            this.aoClicarCriarNovaPeca.Text = "Criar";
+            this.aoClicarCriarNovaPeca.UseVisualStyleBackColor = true;
+            this.aoClicarCriarNovaPeca.Click += new System.EventHandler(this.AoClicarCriarNovaPeca_Click);
             // 
             // ControleDePecas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 435);
-            this.Controls.Add(this.controleDePagina);
+            this.Controls.Add(this.ControleDePagina);
             this.Name = "ControleDePecas";
             this.Text = "Controle de Peças";
-            this.Load += new System.EventHandler(this.PartsManager_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.controleDePagina.ResumeLayout(false);
-            this.listaDePecas.ResumeLayout(false);
-            this.criarPeca.ResumeLayout(false);
-            this.criarPeca.PerformLayout();
+            this.Load += new System.EventHandler(this.ControleDePecas_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.GridDePecas)).EndInit();
+            this.ControleDePagina.ResumeLayout(false);
+            this.paginaListaDePecas.ResumeLayout(false);
+            this.paginaCadastroDePeca.ResumeLayout(false);
+            this.paginaCadastroDePeca.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView GridDePecas;
         private System.Windows.Forms.Button aoClicarRemoverPecaSelecionada;
         private System.Windows.Forms.Button aoClicarTrocarParaMenuDeCriarPeca;
         private System.Windows.Forms.Button aoClicarAbrirMenuDeEdicaoDePeca;
-        private System.Windows.Forms.TabControl controleDePagina;
-        private System.Windows.Forms.TabPage listaDePecas;
-        private System.Windows.Forms.TabPage criarPeca;
-        private System.Windows.Forms.Button NewPartScreenReturnButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabControl ControleDePagina;
+        private System.Windows.Forms.TabPage paginaListaDePecas;
+        private System.Windows.Forms.TabPage paginaCadastroDePeca;
+        private System.Windows.Forms.Button aoClicarRetornarParaPaginaListaDePecas;
+        private System.Windows.Forms.Button aoClicarCriarNovaPeca;
         private System.Windows.Forms.Label LabelCategoria;
         private System.Windows.Forms.TextBox CampoDescricaoDoFormularioCadastroDePecas;
         private System.Windows.Forms.Label LabelDescricao;

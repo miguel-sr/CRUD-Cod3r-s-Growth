@@ -13,26 +13,62 @@ namespace Cod3rsGrowth
             InitializeComponent();
         }
        
-        private void PartsManager_Load(object sender, EventArgs e)
+        private void ControleDePecas_Load(object sender, EventArgs e)
         {
-            this.dataGridView1.DataSource = new List<Peca>
-            {
-                new Peca("Parafusos", "Parafuso Sextavado", "Espessura 8mm", 30),
-                new Peca("Parafusos", "Parafuso Sextavado", "Espessura 6mm", 15),
-                new Peca("Porcas", "Porca Autotravante", "Espessura 8mm", 30),
-                new Peca("Porcas", "Porca Autotravante", "Espessura 6mm", 15),
-                new Peca("Porcas", "Porca Autotravante", "Espessura 3mm", 0)
-            };
+            if (ListaDePecas == null) {
+                ListaDePecas = new List<Peca>
+                {
+                    new Peca(GerarIdParaPeca(), "Parafusos", "Parafuso Sextavado", "Espessura 8mm", 30, DateTime.Now),
+                    new Peca(GerarIdParaPeca(), "Parafusos", "Parafuso Sextavado", "Espessura 6mm", 15, DateTime.Now),
+                    new Peca(GerarIdParaPeca(), "Porcas", "Porca Autotravante", "Espessura 8mm", 30, DateTime.Now),
+                    new Peca(GerarIdParaPeca(), "Porcas", "Porca Autotravante", "Espessura 6mm", 15, DateTime.Now),
+                    new Peca(GerarIdParaPeca(), "Porcas", "Porca Autotravante", "Espessura 3mm", 0, DateTime.Now)
+                };
+            }
+
+            this.GridDePecas.DataSource = ListaDePecas;
         }
 
-        private void ButtonToAddNewPart_Click(object sender, EventArgs e)
+        private List<Peca> ListaDePecas { get; set; }
+
+        private void AoClicarTrocarParaMenuDeCriarPeca_Click(object sender, EventArgs e)
         {
-            controleDePagina.SelectedTab = criarPeca;
+            ControleDePagina.SelectedTab = paginaCadastroDePeca;
         }
 
-        private void NewPartScreenReturnButton_Click(object sender, EventArgs e)
+        private void AoClicarRetornarParaPaginaListaDePecas_Click(object sender, EventArgs e)
         {
-            controleDePagina.SelectedTab = listaDePecas;
+            ControleDePagina.SelectedTab = paginaListaDePecas;
+        }
+
+        private void AoClicarCriarNovaPeca_Click(object sender, EventArgs e)
+        {
+            ListaDePecas.Add(new Peca(
+                GerarIdParaPeca(),
+                this.CampoCategoriaDoFormularioCadastroDePecas.Text,
+                this.CampoNomeDoFormularioCadastroDePecas.Text,
+                this.CampoDescricaoDoFormularioCadastroDePecas.Text, 
+                Convert.ToInt32(this.CampoEstoqueDoFormularioCadastroDePecas.Text),
+                this.CampoDataDoFormularioCadastroDePecas.Value
+            ));
+
+            GridDePecas.DataSource = null;
+            GridDePecas.DataSource = ListaDePecas;
+        }
+        int contadorDeId = 0;
+        private int GerarIdParaPeca()
+        {
+            return contadorDeId++;
+        }
+
+        private void AoClicarAbrirMenuDeEdicaoDePeca_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AoClicarRemoverPecaSelecionada_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
