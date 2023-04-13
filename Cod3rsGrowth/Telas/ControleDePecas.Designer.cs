@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.GridDePecas = new System.Windows.Forms.DataGridView();
+            GridDePecas = new System.Windows.Forms.DataGridView();
             this.ColunaId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColunaCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColunaNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,13 +39,13 @@
             this.aoClicarRemoverPecaSelecionada = new System.Windows.Forms.Button();
             this.aoClicarTrocarParaMenuDeCriarPeca = new System.Windows.Forms.Button();
             this.aoClicarAbrirMenuDeEdicaoDePeca = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.GridDePecas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(GridDePecas)).BeginInit();
             this.SuspendLayout();
             // 
             // GridDePecas
             // 
-            this.GridDePecas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridDePecas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            GridDePecas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            GridDePecas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColunaId,
             this.ColunaCategoria,
             this.ColunaNome,
@@ -59,11 +59,11 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.GridDePecas.DefaultCellStyle = dataGridViewCellStyle1;
-            this.GridDePecas.Location = new System.Drawing.Point(12, 12);
-            this.GridDePecas.Name = "GridDePecas";
-            this.GridDePecas.Size = new System.Drawing.Size(796, 347);
-            this.GridDePecas.TabIndex = 0;
+            GridDePecas.DefaultCellStyle = dataGridViewCellStyle1;
+            GridDePecas.Location = new System.Drawing.Point(12, 12);
+            GridDePecas.Name = "GridDePecas";
+            GridDePecas.Size = new System.Drawing.Size(796, 347);
+            GridDePecas.TabIndex = 0;
             // 
             // ColunaId
             // 
@@ -152,19 +152,19 @@
             this.ClientSize = new System.Drawing.Size(825, 435);
             this.Controls.Add(this.aoClicarRemoverPecaSelecionada);
             this.Controls.Add(this.aoClicarAbrirMenuDeEdicaoDePeca);
-            this.Controls.Add(this.GridDePecas);
+            this.Controls.Add(GridDePecas);
             this.Controls.Add(this.aoClicarTrocarParaMenuDeCriarPeca);
             this.Name = "ControleDePecas";
             this.Text = "Controle de Peças";
             this.Load += new System.EventHandler(this.ControleDePecas_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.GridDePecas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(GridDePecas)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView GridDePecas;
+        public static System.Windows.Forms.DataGridView GridDePecas;
         private System.Windows.Forms.Button aoClicarRemoverPecaSelecionada;
         private System.Windows.Forms.Button aoClicarTrocarParaMenuDeCriarPeca;
         private System.Windows.Forms.Button aoClicarAbrirMenuDeEdicaoDePeca;

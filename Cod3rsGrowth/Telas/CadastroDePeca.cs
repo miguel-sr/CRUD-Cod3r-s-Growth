@@ -20,7 +20,7 @@ namespace Cod3rsGrowth
         private void AoClicarCriarNovaPeca_Click(object sender, EventArgs e)
         {
             Program.ListaDePecas.Add(new Peca(
-                GerarIdParaPeca(),
+                Program.GerarIdParaPeca(),
                 CampoCategoriaDoFormularioCadastroDePecas.Text,
                 CampoNomeDoFormularioCadastroDePecas.Text,
                 CampoDescricaoDoFormularioCadastroDePecas.Text,
@@ -28,18 +28,17 @@ namespace Cod3rsGrowth
                 CampoDataDoFormularioCadastroDePecas.Value.Date
             ));
 
-            //CampoCategoriaDoFormularioCadastroDePecas.ResetText();
-            //CampoNomeDoFormularioCadastroDePecas.ResetText();
-            //CampoDescricaoDoFormularioCadastroDePecas.ResetText();
-            //CampoEstoqueDoFormularioCadastroDePecas.ResetText();
-            //CampoDataDoFormularioCadastroDePecas.ResetText();
+            CampoCategoriaDoFormularioCadastroDePecas.ResetText();
+            CampoNomeDoFormularioCadastroDePecas.ResetText();
+            CampoDescricaoDoFormularioCadastroDePecas.ResetText();
+            CampoEstoqueDoFormularioCadastroDePecas.ResetText();
+            CampoDataDoFormularioCadastroDePecas.ResetText();
 
-        }
+            ControleDePecas.GridDePecas.DataSource = null;
+            ControleDePecas.GridDePecas.DataSource = Program.ListaDePecas;
 
-        int contadorDeId = 0;
-        public int GerarIdParaPeca()
-        {
-            return contadorDeId++;
+            this.Close();
+
         }
 
         private void AoClicarFecharJanela_Click(object sender, EventArgs e)
