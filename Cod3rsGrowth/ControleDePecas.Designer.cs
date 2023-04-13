@@ -30,30 +30,30 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.aoClicarRemoverPecaSelecionada = new System.Windows.Forms.Button();
-            this.aoClicarTrocarParaMenuDeCriarPeca = new System.Windows.Forms.Button();
-            this.aoClicarAbrirMenuDeEdicaoDePeca = new System.Windows.Forms.Button();
-            this.controleDePagina = new System.Windows.Forms.TabControl();
-            this.listaDePecas = new System.Windows.Forms.TabPage();
-            this.criarPeca = new System.Windows.Forms.TabPage();
-            this.CampoDescricao = new System.Windows.Forms.TextBox();
-            this.LabelDescricao = new System.Windows.Forms.Label();
-            this.LabelEstoque = new System.Windows.Forms.Label();
-            this.CampoNome = new System.Windows.Forms.TextBox();
-            this.LabelNome = new System.Windows.Forms.Label();
-            this.CampoCategoria = new System.Windows.Forms.TextBox();
-            this.LabelCategoria = new System.Windows.Forms.Label();
-            this.NewPartScreenReturnButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.ColunaId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColunaCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColunaNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColunaDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColunaDataDeFabricacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColunaEstoque = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aoClicarRemoverPecaSelecionada = new System.Windows.Forms.Button();
+            this.aoClicarTrocarParaMenuDeCriarPeca = new System.Windows.Forms.Button();
+            this.aoClicarAbrirMenuDeEdicaoDePeca = new System.Windows.Forms.Button();
+            this.controleDePagina = new System.Windows.Forms.TabControl();
+            this.listaDePecas = new System.Windows.Forms.TabPage();
+            this.criarPeca = new System.Windows.Forms.TabPage();
+            this.CampoDataDoFormularioCadastroDePecas = new System.Windows.Forms.DateTimePicker();
+            this.CampoEstoqueDoFormularioCadastroDePecas = new System.Windows.Forms.TextBox();
             this.LabelCalendario = new System.Windows.Forms.Label();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.CampoDescricaoDoFormularioCadastroDePecas = new System.Windows.Forms.TextBox();
+            this.LabelDescricao = new System.Windows.Forms.Label();
+            this.LabelEstoque = new System.Windows.Forms.Label();
+            this.CampoNomeDoFormularioCadastroDePecas = new System.Windows.Forms.TextBox();
+            this.LabelNome = new System.Windows.Forms.Label();
+            this.CampoCategoriaDoFormularioCadastroDePecas = new System.Windows.Forms.TextBox();
+            this.LabelCategoria = new System.Windows.Forms.Label();
+            this.NewPartScreenReturnButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.controleDePagina.SuspendLayout();
             this.listaDePecas.SuspendLayout();
@@ -82,6 +82,55 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(795, 347);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // ColunaId
+            // 
+            this.ColunaId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColunaId.DataPropertyName = "Id";
+            this.ColunaId.FillWeight = 30F;
+            this.ColunaId.HeaderText = "Código";
+            this.ColunaId.Name = "ColunaId";
+            this.ColunaId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // ColunaCategoria
+            // 
+            this.ColunaCategoria.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColunaCategoria.DataPropertyName = "Categoria";
+            this.ColunaCategoria.FillWeight = 40F;
+            this.ColunaCategoria.HeaderText = "Categoria";
+            this.ColunaCategoria.Name = "ColunaCategoria";
+            this.ColunaCategoria.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // ColunaNome
+            // 
+            this.ColunaNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColunaNome.DataPropertyName = "Nome";
+            this.ColunaNome.FillWeight = 80F;
+            this.ColunaNome.HeaderText = "Nome";
+            this.ColunaNome.Name = "ColunaNome";
+            // 
+            // ColunaDescricao
+            // 
+            this.ColunaDescricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColunaDescricao.DataPropertyName = "Descricao";
+            this.ColunaDescricao.HeaderText = "Descrição";
+            this.ColunaDescricao.Name = "ColunaDescricao";
+            // 
+            // ColunaDataDeFabricacao
+            // 
+            this.ColunaDataDeFabricacao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColunaDataDeFabricacao.DataPropertyName = "DataDeFabricacao";
+            this.ColunaDataDeFabricacao.HeaderText = "Data de Fabricação";
+            this.ColunaDataDeFabricacao.Name = "ColunaDataDeFabricacao";
+            // 
+            // ColunaEstoque
+            // 
+            this.ColunaEstoque.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColunaEstoque.DataPropertyName = "Estoque";
+            this.ColunaEstoque.FillWeight = 30F;
+            this.ColunaEstoque.HeaderText = "Estoque";
+            this.ColunaEstoque.Name = "ColunaEstoque";
+            this.ColunaEstoque.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // aoClicarRemoverPecaSelecionada
             // 
@@ -140,15 +189,15 @@
             // 
             // criarPeca
             // 
-            this.criarPeca.Controls.Add(this.textBox1);
-            this.criarPeca.Controls.Add(this.monthCalendar1);
+            this.criarPeca.Controls.Add(this.CampoDataDoFormularioCadastroDePecas);
+            this.criarPeca.Controls.Add(this.CampoEstoqueDoFormularioCadastroDePecas);
             this.criarPeca.Controls.Add(this.LabelCalendario);
-            this.criarPeca.Controls.Add(this.CampoDescricao);
+            this.criarPeca.Controls.Add(this.CampoDescricaoDoFormularioCadastroDePecas);
             this.criarPeca.Controls.Add(this.LabelDescricao);
             this.criarPeca.Controls.Add(this.LabelEstoque);
-            this.criarPeca.Controls.Add(this.CampoNome);
+            this.criarPeca.Controls.Add(this.CampoNomeDoFormularioCadastroDePecas);
             this.criarPeca.Controls.Add(this.LabelNome);
-            this.criarPeca.Controls.Add(this.CampoCategoria);
+            this.criarPeca.Controls.Add(this.CampoCategoriaDoFormularioCadastroDePecas);
             this.criarPeca.Controls.Add(this.LabelCategoria);
             this.criarPeca.Controls.Add(this.NewPartScreenReturnButton);
             this.criarPeca.Controls.Add(this.button1);
@@ -160,18 +209,44 @@
             this.criarPeca.Text = "Cadastro de Peças";
             this.criarPeca.UseVisualStyleBackColor = true;
             // 
-            // CampoDescricao
+            // CampoDataDoFormularioCadastroDePecas
             // 
-            this.CampoDescricao.Location = new System.Drawing.Point(36, 235);
-            this.CampoDescricao.Multiline = true;
-            this.CampoDescricao.Name = "CampoDescricao";
-            this.CampoDescricao.Size = new System.Drawing.Size(185, 74);
-            this.CampoDescricao.TabIndex = 14;
+            this.CampoDataDoFormularioCadastroDePecas.CustomFormat = "dd/MM/yyyy";
+            this.CampoDataDoFormularioCadastroDePecas.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
+            this.CampoDataDoFormularioCadastroDePecas.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.CampoDataDoFormularioCadastroDePecas.Location = new System.Drawing.Point(242, 40);
+            this.CampoDataDoFormularioCadastroDePecas.Name = "CampoDataDoFormularioCadastroDePecas";
+            this.CampoDataDoFormularioCadastroDePecas.Size = new System.Drawing.Size(185, 20);
+            this.CampoDataDoFormularioCadastroDePecas.TabIndex = 18;
+            // 
+            // CampoEstoqueDoFormularioCadastroDePecas
+            // 
+            this.CampoEstoqueDoFormularioCadastroDePecas.Location = new System.Drawing.Point(242, 95);
+            this.CampoEstoqueDoFormularioCadastroDePecas.Name = "CampoEstoqueDoFormularioCadastroDePecas";
+            this.CampoEstoqueDoFormularioCadastroDePecas.Size = new System.Drawing.Size(185, 20);
+            this.CampoEstoqueDoFormularioCadastroDePecas.TabIndex = 17;
+            // 
+            // LabelCalendario
+            // 
+            this.LabelCalendario.AutoSize = true;
+            this.LabelCalendario.Location = new System.Drawing.Point(239, 24);
+            this.LabelCalendario.Name = "LabelCalendario";
+            this.LabelCalendario.Size = new System.Drawing.Size(101, 13);
+            this.LabelCalendario.TabIndex = 15;
+            this.LabelCalendario.Text = "Data de Fabricação";
+            // 
+            // CampoDescricaoDoFormularioCadastroDePecas
+            // 
+            this.CampoDescricaoDoFormularioCadastroDePecas.Location = new System.Drawing.Point(36, 150);
+            this.CampoDescricaoDoFormularioCadastroDePecas.Multiline = true;
+            this.CampoDescricaoDoFormularioCadastroDePecas.Name = "CampoDescricaoDoFormularioCadastroDePecas";
+            this.CampoDescricaoDoFormularioCadastroDePecas.Size = new System.Drawing.Size(185, 74);
+            this.CampoDescricaoDoFormularioCadastroDePecas.TabIndex = 14;
             // 
             // LabelDescricao
             // 
             this.LabelDescricao.AutoSize = true;
-            this.LabelDescricao.Location = new System.Drawing.Point(33, 219);
+            this.LabelDescricao.Location = new System.Drawing.Point(33, 134);
             this.LabelDescricao.Name = "LabelDescricao";
             this.LabelDescricao.Size = new System.Drawing.Size(55, 13);
             this.LabelDescricao.TabIndex = 13;
@@ -180,34 +255,34 @@
             // LabelEstoque
             // 
             this.LabelEstoque.AutoSize = true;
-            this.LabelEstoque.Location = new System.Drawing.Point(33, 154);
+            this.LabelEstoque.Location = new System.Drawing.Point(239, 79);
             this.LabelEstoque.Name = "LabelEstoque";
             this.LabelEstoque.Size = new System.Drawing.Size(46, 13);
             this.LabelEstoque.TabIndex = 11;
             this.LabelEstoque.Text = "Estoque";
             // 
-            // CampoNome
+            // CampoNomeDoFormularioCadastroDePecas
             // 
-            this.CampoNome.Location = new System.Drawing.Point(36, 105);
-            this.CampoNome.Name = "CampoNome";
-            this.CampoNome.Size = new System.Drawing.Size(185, 20);
-            this.CampoNome.TabIndex = 10;
+            this.CampoNomeDoFormularioCadastroDePecas.Location = new System.Drawing.Point(36, 95);
+            this.CampoNomeDoFormularioCadastroDePecas.Name = "CampoNomeDoFormularioCadastroDePecas";
+            this.CampoNomeDoFormularioCadastroDePecas.Size = new System.Drawing.Size(185, 20);
+            this.CampoNomeDoFormularioCadastroDePecas.TabIndex = 10;
             // 
             // LabelNome
             // 
             this.LabelNome.AutoSize = true;
-            this.LabelNome.Location = new System.Drawing.Point(33, 89);
+            this.LabelNome.Location = new System.Drawing.Point(33, 79);
             this.LabelNome.Name = "LabelNome";
             this.LabelNome.Size = new System.Drawing.Size(35, 13);
             this.LabelNome.TabIndex = 9;
             this.LabelNome.Text = "Nome";
             // 
-            // CampoCategoria
+            // CampoCategoriaDoFormularioCadastroDePecas
             // 
-            this.CampoCategoria.Location = new System.Drawing.Point(36, 40);
-            this.CampoCategoria.Name = "CampoCategoria";
-            this.CampoCategoria.Size = new System.Drawing.Size(185, 20);
-            this.CampoCategoria.TabIndex = 8;
+            this.CampoCategoriaDoFormularioCadastroDePecas.Location = new System.Drawing.Point(36, 40);
+            this.CampoCategoriaDoFormularioCadastroDePecas.Name = "CampoCategoriaDoFormularioCadastroDePecas";
+            this.CampoCategoriaDoFormularioCadastroDePecas.Size = new System.Drawing.Size(185, 20);
+            this.CampoCategoriaDoFormularioCadastroDePecas.TabIndex = 8;
             // 
             // LabelCategoria
             // 
@@ -239,77 +314,6 @@
             this.button1.Text = "Criar";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // ColunaId
-            // 
-            this.ColunaId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaId.DataPropertyName = "Id";
-            this.ColunaId.FillWeight = 30F;
-            this.ColunaId.HeaderText = "Código";
-            this.ColunaId.Name = "ColunaId";
-            this.ColunaId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // ColunaCategoria
-            // 
-            this.ColunaCategoria.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaCategoria.DataPropertyName = "Categoria";
-            this.ColunaCategoria.FillWeight = 40F;
-            this.ColunaCategoria.HeaderText = "Categoria";
-            this.ColunaCategoria.Name = "ColunaCategoria";
-            this.ColunaCategoria.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // ColunaNome
-            // 
-            this.ColunaNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaNome.DataPropertyName = "Nome";
-            this.ColunaNome.FillWeight = 80F;
-            this.ColunaNome.HeaderText = "Nome";
-            this.ColunaNome.Name = "ColunaNome";
-            // 
-            // ColunaDescricao
-            // 
-            this.ColunaDescricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaDescricao.DataPropertyName = "Descricao";
-            this.ColunaDescricao.HeaderText = "Descrição";
-            this.ColunaDescricao.Name = "ColunaDescricao";
-            // 
-            // ColunaDataDeFabricacao
-            // 
-            this.ColunaDataDeFabricacao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaDataDeFabricacao.DataPropertyName = "DataDeFabricacao";
-            this.ColunaDataDeFabricacao.HeaderText = "Data de Fabricação";
-            this.ColunaDataDeFabricacao.Name = "ColunaDataDeFabricacao";
-            // 
-            // ColunaEstoque
-            // 
-            this.ColunaEstoque.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaEstoque.DataPropertyName = "Estoque";
-            this.ColunaEstoque.FillWeight = 30F;
-            this.ColunaEstoque.HeaderText = "Estoque";
-            this.ColunaEstoque.Name = "ColunaEstoque";
-            this.ColunaEstoque.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // LabelCalendario
-            // 
-            this.LabelCalendario.AutoSize = true;
-            this.LabelCalendario.Location = new System.Drawing.Point(239, 24);
-            this.LabelCalendario.Name = "LabelCalendario";
-            this.LabelCalendario.Size = new System.Drawing.Size(101, 13);
-            this.LabelCalendario.TabIndex = 15;
-            this.LabelCalendario.Text = "Data de Fabricação";
-            // 
-            // monthCalendar1
-            // 
-            this.monthCalendar1.Location = new System.Drawing.Point(242, 46);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 16;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(36, 170);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(185, 20);
-            this.textBox1.TabIndex = 17;
-            // 
             // ControleDePecas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -340,12 +344,12 @@
         private System.Windows.Forms.Button NewPartScreenReturnButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label LabelCategoria;
-        private System.Windows.Forms.TextBox CampoDescricao;
+        private System.Windows.Forms.TextBox CampoDescricaoDoFormularioCadastroDePecas;
         private System.Windows.Forms.Label LabelDescricao;
         private System.Windows.Forms.Label LabelEstoque;
-        private System.Windows.Forms.TextBox CampoNome;
+        private System.Windows.Forms.TextBox CampoNomeDoFormularioCadastroDePecas;
         private System.Windows.Forms.Label LabelNome;
-        private System.Windows.Forms.TextBox CampoCategoria;
+        private System.Windows.Forms.TextBox CampoCategoriaDoFormularioCadastroDePecas;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaCategoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaNome;
@@ -353,8 +357,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaDataDeFabricacao;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaEstoque;
         private System.Windows.Forms.Label LabelCalendario;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox CampoEstoqueDoFormularioCadastroDePecas;
+        private System.Windows.Forms.DateTimePicker CampoDataDoFormularioCadastroDePecas;
     }
 }
 
