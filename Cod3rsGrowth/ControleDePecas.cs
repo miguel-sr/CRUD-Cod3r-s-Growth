@@ -18,11 +18,11 @@ namespace Cod3rsGrowth
             if (ListaDePecas == null) {
                 ListaDePecas = new List<Peca>
                 {
-                    new Peca(GerarIdParaPeca(), "Parafusos", "Parafuso Sextavado", "Espessura 8mm", 30, DateTime.Now),
-                    new Peca(GerarIdParaPeca(), "Parafusos", "Parafuso Sextavado", "Espessura 6mm", 15, DateTime.Now),
-                    new Peca(GerarIdParaPeca(), "Porcas", "Porca Autotravante", "Espessura 8mm", 30, DateTime.Now),
-                    new Peca(GerarIdParaPeca(), "Porcas", "Porca Autotravante", "Espessura 6mm", 15, DateTime.Now),
-                    new Peca(GerarIdParaPeca(), "Porcas", "Porca Autotravante", "Espessura 3mm", 0, DateTime.Now)
+                    new Peca(GerarIdParaPeca(), "Parafusos", "Parafuso Sextavado", "Espessura 8mm", 30, DateTime.Now.Date),
+                    new Peca(GerarIdParaPeca(), "Parafusos", "Parafuso Sextavado", "Espessura 6mm", 15, DateTime.Now.Date),
+                    new Peca(GerarIdParaPeca(), "Porcas", "Porca Autotravante", "Espessura 8mm", 30, DateTime.Now.Date),
+                    new Peca(GerarIdParaPeca(), "Porcas", "Porca Autotravante", "Espessura 6mm", 15, DateTime.Now.Date),
+                    new Peca(GerarIdParaPeca(), "Porcas", "Porca Autotravante", "Espessura 3mm", 0, DateTime.Now.Date)
                 };
             }
 
@@ -49,12 +49,13 @@ namespace Cod3rsGrowth
                 this.CampoNomeDoFormularioCadastroDePecas.Text,
                 this.CampoDescricaoDoFormularioCadastroDePecas.Text, 
                 Convert.ToInt32(this.CampoEstoqueDoFormularioCadastroDePecas.Text),
-                this.CampoDataDoFormularioCadastroDePecas.Value
+                this.CampoDataDoFormularioCadastroDePecas.Value.Date
             ));
 
             GridDePecas.DataSource = null;
             GridDePecas.DataSource = ListaDePecas;
         }
+
         int contadorDeId = 0;
         private int GerarIdParaPeca()
         {
