@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Cod3rsGrowth.Models
 {
-    public class Part
+    public class Peca
     {
-        public Part(string categoria, string nome, string descricao, int estoque) 
+        public Peca(string categoria, string nome, string descricao, int estoque) 
         {
             this.Categoria = categoria;
             this.Nome = nome;

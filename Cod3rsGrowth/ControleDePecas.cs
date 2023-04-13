@@ -1,12 +1,7 @@
-﻿using Cod3rsGrowth.Models;
+﻿
+using Cod3rsGrowth.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
@@ -22,11 +17,11 @@ namespace Cod3rsGrowth
         {
             this.dataGridView1.DataSource = new List<Peca>
             {
-                new Part("1", "Parafusos", "Parafuso Sextavado", "Espessura 8mm", 30),
-                new Part("2", "Parafusos", "Parafuso Sextavado", "Espessura 6mm", 15),
-                new Part("3", "Porcas", "Porca Autotravante", "Espessura 8mm", 30),
-                new Part("4", "Porcas", "Porca Autotravante", "Espessura 6mm", 15),
-                new Part("5", "Porcas", "Porca Autotravante", "Espessura 3mm", 0)
+                new Peca("Parafusos", "Parafuso Sextavado", "Espessura 8mm", 30),
+                new Peca("Parafusos", "Parafuso Sextavado", "Espessura 6mm", 15),
+                new Peca("Porcas", "Porca Autotravante", "Espessura 8mm", 30),
+                new Peca("Porcas", "Porca Autotravante", "Espessura 6mm", 15),
+                new Peca("Porcas", "Porca Autotravante", "Espessura 3mm", 0)
             };
         }
 
