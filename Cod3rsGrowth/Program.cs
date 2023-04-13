@@ -25,10 +25,11 @@ namespace Cod3rsGrowth
                     new Peca(GerarIdParaPeca(), "Porcas", "Porca Autotravante", "Espessura 3mm", 0, DateTime.Now.Date)
                 };
 
-            Application.Run(new ControleDePecas());
-
-            
+            ControleDePecas = new ControleDePecas();
+            Application.Run(ControleDePecas);
         }
+
+        public static ControleDePecas ControleDePecas { get; set; }
         public static List<Peca> ListaDePecas { get; set; }
 
         static int contadorDeId = 0;

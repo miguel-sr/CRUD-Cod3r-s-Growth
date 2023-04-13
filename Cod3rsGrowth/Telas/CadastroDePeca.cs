@@ -28,6 +28,8 @@ namespace Cod3rsGrowth
             CampoEstoqueDoFormularioCadastroDePecas.ResetText();
             CampoDataDoFormularioCadastroDePecas.ResetText();
 
+            Program.ControleDePecas.AtualizarGrid();
+
             this.Close();
 
         }

@@ -22,15 +22,10 @@ namespace Cod3rsGrowth
             cadastroDePeca.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void AtualizarGrid()
         {
             GridDePecas.DataSource = typeof(System.Collections.Generic.List<Peca>);
             GridDePecas.DataSource = Program.ListaDePecas;
-        }
-
-        private void GridDePecas_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }
