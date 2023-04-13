@@ -19,10 +19,5 @@ namespace Cod3rsGrowth
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new PartsManager());
         }
-
-        public static void PopulatePartsDataGridView()
-        {
-            
-        }
     }
 }

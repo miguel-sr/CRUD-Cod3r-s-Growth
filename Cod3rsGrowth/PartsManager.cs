@@ -30,9 +30,14 @@ namespace Cod3rsGrowth
             };
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ButtonToAddNewPart_Click(object sender, EventArgs e)
         {
+            pagesControl.SelectedTab = newPart;
+        }
 
+        private void NewPartScreenReturnButton_Click(object sender, EventArgs e)
+        {
+            pagesControl.SelectedTab = partsList;
         }
     }
 }
