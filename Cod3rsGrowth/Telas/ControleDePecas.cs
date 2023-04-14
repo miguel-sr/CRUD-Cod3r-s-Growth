@@ -27,7 +27,7 @@ namespace Cod3rsGrowth
 
         private void AoClicarAbrirMenuDeEdicaoDePeca_Click(object sender, EventArgs e)
         {
-            if (GridDePecas.SelectedRows.Count > 1)
+            if (GridDePecas.SelectedRows.Count != 1)
             {
                 MessageBox.Show("Selecione apenas uma peça!");
                 return;

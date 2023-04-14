@@ -20,6 +20,8 @@ namespace Cod3rsGrowth
 
             if (Index != -1)
             {
+
+                this.Text = "Editar Peça";
                 this.peca = ListaDePecas[Index];
 
                 CampoCategoriaDoFormularioCadastroDePecas.Text = peca.Categoria;
