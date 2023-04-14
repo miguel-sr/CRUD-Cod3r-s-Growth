@@ -47,15 +47,13 @@ namespace Cod3rsGrowth
 
             int quantidadeDePecas = ListaDePecas.Count;
 
-            ListaDePecas.RemoveAt(GridDePecas.SelectedRows[0].Index);
-
-            if (quantidadeDePecas == ListaDePecas.Count)
+            if (MessageBox.Show(
+                "Você tem certeza de que quer apagar esse registro?", 
+                "Sim", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                MessageBox.Show("A peça não foi apagada.");
-                return;
+                ListaDePecas.RemoveAt(GridDePecas.SelectedRows[0].Index);
+                MessageBox.Show("Registro apagado com sucesso.");
             }
-
-            MessageBox.Show("Peça apagada com sucesso.");
         }
     }
 }
