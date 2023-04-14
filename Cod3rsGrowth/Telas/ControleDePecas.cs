@@ -45,7 +45,17 @@ namespace Cod3rsGrowth
                 return;
             }
 
+            int quantidadeDePecas = ListaDePecas.Count;
+
             ListaDePecas.RemoveAt(GridDePecas.SelectedRows[0].Index);
+
+            if (quantidadeDePecas == ListaDePecas.Count)
+            {
+                MessageBox.Show("A peça não foi apagada.");
+                return;
+            }
+
+            MessageBox.Show("Peça apagada com sucesso.");
         }
     }
 }
