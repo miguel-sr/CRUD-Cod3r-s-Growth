@@ -1,8 +1,4 @@
-﻿using Cod3rsGrowth.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
@@ -17,7 +13,7 @@ namespace Cod3rsGrowth
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new ControleDePecas());
         }
     }
 }
