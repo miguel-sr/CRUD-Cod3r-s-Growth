@@ -36,5 +36,16 @@ namespace Cod3rsGrowth
             CadastroDePeca cadastroDePeca = new CadastroDePeca(ListaDePecas, GridDePecas.SelectedRows[0].Index);
             cadastroDePeca.ShowDialog();
         }
+
+        private void AoClicarRemoverPecaSelecionada_Click(object sender, EventArgs e)
+        {
+            if (GridDePecas.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("Selecione apenas uma peça!");
+                return;
+            }
+
+            ListaDePecas.RemoveAt(GridDePecas.SelectedRows[0].Index);
+        }
     }
 }

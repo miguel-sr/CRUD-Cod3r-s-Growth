@@ -154,6 +154,7 @@
             this.AoClicarRemoverPecaSelecionada.TabIndex = 3;
             this.AoClicarRemoverPecaSelecionada.Text = "Remover";
             this.AoClicarRemoverPecaSelecionada.UseVisualStyleBackColor = true;
+            this.AoClicarRemoverPecaSelecionada.Click += new System.EventHandler(this.AoClicarRemoverPecaSelecionada_Click);
             // 
             // AoClicarTrocarParaMenuDeCriarPeca
             // 
