@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Modelos;
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
@@ -13,19 +14,15 @@ namespace Cod3rsGrowth
 
         private void ControleDePecas_Load(object sender, EventArgs e)
         {
-            GridDePecas.DataSource = Program.ListaDePecas;
+            GridDePecas.DataSource = ListaDePecas;
         }
 
         private void AoClicarTrocarParaMenuDeCriarPeca_Click(object sender, EventArgs e)
         {
-            CadastroDePeca cadastroDePeca = new CadastroDePeca();
+            CadastroDePeca cadastroDePeca = new CadastroDePeca(ListaDePecas);
             cadastroDePeca.ShowDialog();
         }
 
-        public void AtualizarGrid()
-        {
-            GridDePecas.DataSource = typeof(System.Collections.Generic.List<Peca>);
-            GridDePecas.DataSource = Program.ListaDePecas;
-        }
+        private readonly BindingList<Peca> ListaDePecas = new BindingList<Peca>();
     }
 }

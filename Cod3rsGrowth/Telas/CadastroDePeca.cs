@@ -1,20 +1,23 @@
 ﻿using Cod3rsGrowth.Modelos;
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
 {
     public partial class CadastroDePeca : Form
     {
-        public CadastroDePeca()
+        readonly BindingList<Peca> ListaDePecas;
+        public CadastroDePeca(BindingList<Peca> ListaDePecas)
         {
             InitializeComponent();
+            this.ListaDePecas = ListaDePecas;
         }
 
         private void AoClicarCriarNovaPeca_Click(object sender, EventArgs e)
         {
-            Program.ListaDePecas.Add(new Peca(
-                Program.GerarIdParaPeca(),
+            ListaDePecas.Add(new Peca(
+                GerarIdParaPeca(),
                 CampoCategoriaDoFormularioCadastroDePecas.Text,
                 CampoNomeDoFormularioCadastroDePecas.Text,
                 CampoDescricaoDoFormularioCadastroDePecas.Text,
@@ -27,16 +30,17 @@ namespace Cod3rsGrowth
             CampoDescricaoDoFormularioCadastroDePecas.ResetText();
             CampoEstoqueDoFormularioCadastroDePecas.ResetText();
             CampoDataDoFormularioCadastroDePecas.ResetText();
-
-            Program.ControleDePecas.AtualizarGrid();
-
-            this.Close();
-
         }
 
         private void AoClicarFecharJanela_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        static int contadorDeId = 0;
+        public static int GerarIdParaPeca()
+        {
+            return contadorDeId++;
         }
     }
 }
