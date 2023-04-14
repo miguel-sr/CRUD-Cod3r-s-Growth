@@ -175,6 +175,7 @@
             this.AoClicarAbrirMenuDeEdicaoDePeca.TabIndex = 5;
             this.AoClicarAbrirMenuDeEdicaoDePeca.Text = "Editar";
             this.AoClicarAbrirMenuDeEdicaoDePeca.UseVisualStyleBackColor = true;
+            this.AoClicarAbrirMenuDeEdicaoDePeca.Click += new System.EventHandler(this.AoClicarAbrirMenuDeEdicaoDePeca_Click);
             // 
             // ControleDePecas
             // 
