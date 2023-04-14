@@ -112,6 +112,7 @@
             // 
             // CampoCategoriaDoFormularioCadastroDePecas
             // 
+            this.CampoCategoriaDoFormularioCadastroDePecas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.CampoCategoriaDoFormularioCadastroDePecas.Location = new System.Drawing.Point(12, 33);
             this.CampoCategoriaDoFormularioCadastroDePecas.Name = "CampoCategoriaDoFormularioCadastroDePecas";
             this.CampoCategoriaDoFormularioCadastroDePecas.Size = new System.Drawing.Size(185, 20);

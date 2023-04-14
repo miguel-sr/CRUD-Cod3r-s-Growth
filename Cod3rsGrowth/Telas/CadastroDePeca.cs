@@ -1,5 +1,7 @@
 ﻿using Cod3rsGrowth.Modelos;
+using Cod3rsGrowth.Serviços;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -32,6 +34,22 @@ namespace Cod3rsGrowth
 
         private void AoClicarSalvarPeca_Click(object sender, EventArgs e)
         {
+
+            List<Validacao.Campo> CamposParaValidar = new List<Validacao.Campo>
+            {
+                new Validacao.Campo("nome", CampoNomeDoFormularioCadastroDePecas.Text, true, false),
+                new Validacao.Campo("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
+            };
+
+            if (Validacao.CampoDeTexto(CamposParaValidar) != null)
+            {
+                MessageBox.Show(Validacao.CampoDeTexto(CamposParaValidar), "Aviso!");
+                return;
+            }
+
+            // TODO: Validar campo data
+
+
             if (Index == -1)
             {
                 ListaDePecas.Add(new Peca(
@@ -42,7 +60,8 @@ namespace Cod3rsGrowth
                     Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text),
                     CampoDataDoFormularioCadastroDePecas.Value.Date
                 ));
-            } else
+            }
+            else
             {
                 ListaDePecas[Index] = new Peca(
                     ListaDePecas[Index].Id,
