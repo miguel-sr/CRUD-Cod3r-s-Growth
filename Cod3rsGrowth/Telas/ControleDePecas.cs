@@ -7,6 +7,7 @@ namespace Cod3rsGrowth
 {
     public partial class ControleDePecas : Form
     {
+        private readonly BindingList<Peca> ListaDePecas = new BindingList<Peca>();
         public ControleDePecas()
         {
             InitializeComponent();
@@ -19,10 +20,10 @@ namespace Cod3rsGrowth
 
         private void AoClicarTrocarParaMenuDeCriarPeca_Click(object sender, EventArgs e)
         {
+            // Ao atualizar usuário?
             CadastroDePeca cadastroDePeca = new CadastroDePeca(ListaDePecas);
             cadastroDePeca.ShowDialog();
         }
 
-        private readonly BindingList<Peca> ListaDePecas = new BindingList<Peca>();
     }
 }
