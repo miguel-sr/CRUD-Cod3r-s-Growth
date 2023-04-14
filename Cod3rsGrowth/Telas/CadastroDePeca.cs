@@ -30,6 +30,8 @@ namespace Cod3rsGrowth
                 CampoEstoqueDoFormularioCadastroDePecas.Text = peca.Estoque.ToString();
                 CampoDataDoFormularioCadastroDePecas.Value = peca.DataDeFabricacao;
             }
+
+            CampoDataDoFormularioCadastroDePecas.MaxDate = DateTime.Today;
         }
 
         private void AoClicarSalvarPeca_Click(object sender, EventArgs e)
@@ -46,9 +48,6 @@ namespace Cod3rsGrowth
                 MessageBox.Show(Validacao.CampoDeTexto(CamposParaValidar), "Aviso!");
                 return;
             }
-
-            // TODO: Validar campo data
-
 
             if (Index == -1)
             {
