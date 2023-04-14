@@ -10,7 +10,6 @@ namespace Cod3rsGrowth
     public partial class CadastroDePeca : Form
     {
         readonly BindingList<Peca> ListaDePecas;
-        Peca peca;
         readonly int Index;
         public CadastroDePeca(BindingList<Peca> ListaDePecas, int Index = -1)
         {
@@ -20,9 +19,8 @@ namespace Cod3rsGrowth
 
             if (Index != -1)
             {
-
                 this.Text = "Editar Peça";
-                this.peca = ListaDePecas[Index];
+                var peca = ListaDePecas[Index] as Peca;
 
                 CampoCategoriaDoFormularioCadastroDePecas.Text = peca.Categoria;
                 CampoNomeDoFormularioCadastroDePecas.Text = peca.Nome;
@@ -47,7 +45,7 @@ namespace Cod3rsGrowth
             } else
             {
                 ListaDePecas[Index] = new Peca(
-                    peca.Id,
+                    ListaDePecas[Index].Id,
                     CampoCategoriaDoFormularioCadastroDePecas.Text,
                     CampoNomeDoFormularioCadastroDePecas.Text,
                     CampoDescricaoDoFormularioCadastroDePecas.Text,
@@ -64,7 +62,7 @@ namespace Cod3rsGrowth
             this.Close();
         }
 
-        static int contadorDeId = 0;
+        static int contadorDeId = 1;
         public static int GerarIdParaPeca()
         {
             return contadorDeId++;
