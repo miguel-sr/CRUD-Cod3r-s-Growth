@@ -33,7 +33,7 @@ namespace Cod3rsGrowth
                 return;
             }
 
-            CadastroDePeca cadastroDePeca = new CadastroDePeca(ListaDePecas, Convert.ToInt32(GridDePecas.SelectedRows[0].Index));
+            CadastroDePeca cadastroDePeca = new CadastroDePeca(ListaDePecas, GridDePecas.SelectedRows[0].Index);
             cadastroDePeca.ShowDialog();
         }
     }
