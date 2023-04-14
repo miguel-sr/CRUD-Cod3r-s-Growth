@@ -39,7 +39,7 @@
             this.CampoCategoriaDoFormularioCadastroDePecas = new System.Windows.Forms.TextBox();
             this.LabelCategoria = new System.Windows.Forms.Label();
             this.AoClicarFecharJanela = new System.Windows.Forms.Button();
-            this.AoClicarCriarNovaPeca = new System.Windows.Forms.Button();
+            this.AoClicarSalvarPeca = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CampoDataDoFormularioCadastroDePecas
@@ -137,16 +137,16 @@
             this.AoClicarFecharJanela.UseVisualStyleBackColor = true;
             this.AoClicarFecharJanela.Click += new System.EventHandler(this.AoClicarFecharJanela_Click);
             // 
-            // AoClicarCriarNovaPeca
+            // AoClicarSalvarPeca
             // 
-            this.AoClicarCriarNovaPeca.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AoClicarCriarNovaPeca.Location = new System.Drawing.Point(12, 259);
-            this.AoClicarCriarNovaPeca.Name = "AoClicarCriarNovaPeca";
-            this.AoClicarCriarNovaPeca.Size = new System.Drawing.Size(138, 37);
-            this.AoClicarCriarNovaPeca.TabIndex = 19;
-            this.AoClicarCriarNovaPeca.Text = "Criar";
-            this.AoClicarCriarNovaPeca.UseVisualStyleBackColor = true;
-            this.AoClicarCriarNovaPeca.Click += new System.EventHandler(this.AoClicarCriarNovaPeca_Click);
+            this.AoClicarSalvarPeca.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AoClicarSalvarPeca.Location = new System.Drawing.Point(12, 259);
+            this.AoClicarSalvarPeca.Name = "AoClicarSalvarPeca";
+            this.AoClicarSalvarPeca.Size = new System.Drawing.Size(138, 37);
+            this.AoClicarSalvarPeca.TabIndex = 19;
+            this.AoClicarSalvarPeca.Text = "Salvar";
+            this.AoClicarSalvarPeca.UseVisualStyleBackColor = true;
+            this.AoClicarSalvarPeca.Click += new System.EventHandler(this.AoClicarSalvarPeca_Click);
             // 
             // CadastroDePeca
             // 
@@ -164,7 +164,7 @@
             this.Controls.Add(this.CampoCategoriaDoFormularioCadastroDePecas);
             this.Controls.Add(this.LabelCategoria);
             this.Controls.Add(this.AoClicarFecharJanela);
-            this.Controls.Add(this.AoClicarCriarNovaPeca);
+            this.Controls.Add(this.AoClicarSalvarPeca);
             this.Name = "CadastroDePeca";
             this.Text = "Cadastro de Peça";
             this.ResumeLayout(false);
@@ -185,6 +185,6 @@
         private System.Windows.Forms.TextBox CampoCategoriaDoFormularioCadastroDePecas;
         private System.Windows.Forms.Label LabelCategoria;
         private System.Windows.Forms.Button AoClicarFecharJanela;
-        private System.Windows.Forms.Button AoClicarCriarNovaPeca;
+        private System.Windows.Forms.Button AoClicarSalvarPeca;
     }
 }

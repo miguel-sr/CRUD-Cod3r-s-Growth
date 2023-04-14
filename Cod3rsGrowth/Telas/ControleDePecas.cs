@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Modelos;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
@@ -20,10 +21,20 @@ namespace Cod3rsGrowth
 
         private void AoClicarTrocarParaMenuDeCriarPeca_Click(object sender, EventArgs e)
         {
-            // Ao atualizar usuário?
             CadastroDePeca cadastroDePeca = new CadastroDePeca(ListaDePecas);
             cadastroDePeca.ShowDialog();
         }
 
+        private void AoClicarAbrirMenuDeEdicaoDePeca_Click(object sender, EventArgs e)
+        {
+            if (GridDePecas.SelectedRows.Count > 1)
+            {
+                MessageBox.Show("Selecione apenas uma peça!");
+                return;
+            }
+
+            CadastroDePeca cadastroDePeca = new CadastroDePeca(ListaDePecas, Convert.ToInt32(GridDePecas.SelectedRows[0].Index));
+            cadastroDePeca.ShowDialog();
+        }
     }
 }
