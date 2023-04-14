@@ -25,11 +25,7 @@ namespace Cod3rsGrowth
                 CampoDataDoFormularioCadastroDePecas.Value.Date
             ));
 
-            CampoCategoriaDoFormularioCadastroDePecas.ResetText();
-            CampoNomeDoFormularioCadastroDePecas.ResetText();
-            CampoDescricaoDoFormularioCadastroDePecas.ResetText();
-            CampoEstoqueDoFormularioCadastroDePecas.ResetText();
-            CampoDataDoFormularioCadastroDePecas.ResetText();
+            this.Close();
         }
 
         private void AoClicarFecharJanela_Click(object sender, EventArgs e)
