@@ -49,7 +49,7 @@ namespace Cod3rsGrowth
             
             if (resultado == DialogResult.OK)
             {
-                _listaDePecas.RemoveAt(GridDePecas.SelectedRows[0].Index);
+                _listaDePecas.RemoveAt(GridDePecas.SelectedRows[default].Index);
                 MessageBox.Show("Registro apagado com sucesso.");
             }
         }

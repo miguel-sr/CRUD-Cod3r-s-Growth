@@ -38,7 +38,6 @@ namespace Cod3rsGrowth.Serviços
                         erros = string.Join(Environment.NewLine, $"O campo {campo.Nome} é obrigatório.", erros);
                         return;
                     }
-
                 }
 
                 if (campo.Numerico)

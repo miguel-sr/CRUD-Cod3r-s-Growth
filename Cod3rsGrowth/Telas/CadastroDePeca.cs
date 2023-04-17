@@ -10,17 +10,17 @@ namespace Cod3rsGrowth
     public partial class CadastroDePeca : Form
     {
         readonly BindingList<Peca> ListaDePecas;
-        readonly int Index;
+        readonly int _index;
         public CadastroDePeca(BindingList<Peca> listaDePecas, int index = -1)
         {
             InitializeComponent();
             ListaDePecas = listaDePecas;
-            Index = index;
+            _index = index;
 
-            if (Index != -1)
+            if (_index != -1)
             {
                 Text = "Editar Peça";
-                var peca = ListaDePecas[Index] as Peca;
+                var peca = ListaDePecas[_index] as Peca;
 
                 CampoCategoriaDoFormularioCadastroDePecas.Text = peca.Categoria;
                 CampoNomeDoFormularioCadastroDePecas.Text = peca.Nome;
@@ -49,28 +49,30 @@ namespace Cod3rsGrowth
                 return;
             }
 
-            if (Index == -1)
+            if (_index == -1)
             {
-                ListaDePecas.Add(new Peca(
+                var pecaParaAdicionar = new Peca(
                     GerarIdParaPeca(),
                     CampoCategoriaDoFormularioCadastroDePecas.Text,
                     CampoNomeDoFormularioCadastroDePecas.Text,
                     CampoDescricaoDoFormularioCadastroDePecas.Text,
                     Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text),
                     CampoDataDoFormularioCadastroDePecas.Value.Date
-                ));
-            }
-            else
-            {
-                ListaDePecas[Index] = new Peca(
-                    ListaDePecas[Index].Id,
-                    CampoCategoriaDoFormularioCadastroDePecas.Text,
-                    CampoNomeDoFormularioCadastroDePecas.Text,
-                    CampoDescricaoDoFormularioCadastroDePecas.Text,
-                    Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text),
-                    CampoDataDoFormularioCadastroDePecas.Value.Date
                 );
+
+                ListaDePecas.Add(pecaParaAdicionar);
+                this.Close();
+                return;
             }
+
+            ListaDePecas[_index] = new Peca(
+                ListaDePecas[_index].Id,
+                CampoCategoriaDoFormularioCadastroDePecas.Text,
+                CampoNomeDoFormularioCadastroDePecas.Text,
+                CampoDescricaoDoFormularioCadastroDePecas.Text,
+                Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text),
+                CampoDataDoFormularioCadastroDePecas.Value.Date
+            );
 
             this.Close();
         }
