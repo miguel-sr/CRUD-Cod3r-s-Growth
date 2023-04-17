@@ -1,8 +1,5 @@
-﻿using Cod3rsGrowth.Modelos;
-using Cod3rsGrowth.Serviços;
+﻿using Cod3rsGrowth.Serviços;
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
@@ -16,7 +13,7 @@ namespace Cod3rsGrowth
 
         private void ControleDePecas_Load(object sender, EventArgs e)
         {
-            GridDePecas.DataSource = Singleton.Instance().ListaDePecas;
+            GridDePecas.DataSource = BancoDeDados.Instance().ListaDePecas;
         }
 
         private void AoClicarTrocarParaMenuDeCriarPeca_Click(object sender, EventArgs e)
@@ -49,7 +46,7 @@ namespace Cod3rsGrowth
             
             if (resultado == DialogResult.OK)
             {
-                Singleton.Instance().ListaDePecas.RemoveAt(GridDePecas.SelectedRows[default].Index);
+                BancoDeDados.Instance().ListaDePecas.RemoveAt(GridDePecas.SelectedRows[default].Index);
             }
         }
     }

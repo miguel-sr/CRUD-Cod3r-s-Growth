@@ -1,27 +1,24 @@
 ﻿using Cod3rsGrowth.Modelos;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cod3rsGrowth.Serviços
 {
-    public class Singleton
+    public class BancoDeDados
     {
-        private Singleton() { }
+        private BancoDeDados() { }
 
-        private static Singleton _instance;
+        private static BancoDeDados _instance;
         public BindingList<Peca> ListaDePecas { get; private set; }
 
-        public static Singleton Instance()
+        public static BancoDeDados Instance()
         {
-            lock (typeof(Singleton))
+            lock (typeof(BancoDeDados))
                 if (_instance == null)
                 {
-                    _instance = new Singleton();
-                    _instance.ListaDePecas = new BindingList<Peca>();
+                    _instance = new BancoDeDados
+                    {
+                        ListaDePecas = new BindingList<Peca>()
+                    };
                 };
 
             return _instance;

@@ -2,7 +2,6 @@
 using Cod3rsGrowth.Serviços;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
@@ -18,7 +17,7 @@ namespace Cod3rsGrowth
             if (_index != -1)
             {
                 Text = "Editar Peça";
-                var peca = Singleton.Instance().ListaDePecas[_index] as Peca;
+                var peca = BancoDeDados.Instance().ListaDePecas[_index] as Peca;
 
                 CampoCategoriaDoFormularioCadastroDePecas.Text = peca.Categoria;
                 CampoNomeDoFormularioCadastroDePecas.Text = peca.Nome;
@@ -50,7 +49,7 @@ namespace Cod3rsGrowth
             if (_index == -1)
             {
                 var pecaParaAdicionar = new Peca(
-                    Singleton.GerarIdParaPeca(),
+                    BancoDeDados.GerarIdParaPeca(),
                     CampoCategoriaDoFormularioCadastroDePecas.Text,
                     CampoNomeDoFormularioCadastroDePecas.Text,
                     CampoDescricaoDoFormularioCadastroDePecas.Text,
@@ -58,13 +57,13 @@ namespace Cod3rsGrowth
                     CampoDataDoFormularioCadastroDePecas.Value.Date
                 );
 
-                Singleton.Instance().ListaDePecas.Add(pecaParaAdicionar);
+                BancoDeDados.Instance().ListaDePecas.Add(pecaParaAdicionar);
                 this.Close();
                 return;
             }
 
-            Singleton.Instance().ListaDePecas[_index] = new Peca(
-                Singleton.Instance().ListaDePecas[_index].Id,
+            BancoDeDados.Instance().ListaDePecas[_index] = new Peca(
+                BancoDeDados.Instance().ListaDePecas[_index].Id,
                 CampoCategoriaDoFormularioCadastroDePecas.Text,
                 CampoNomeDoFormularioCadastroDePecas.Text,
                 CampoDescricaoDoFormularioCadastroDePecas.Text,
