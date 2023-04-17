@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cod3rsGrowth.Serviços
+namespace Cod3rsGrowth.Servicos
 {
     public class Validacao
     {

@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Modelos;
 using System.ComponentModel;
 
-namespace Cod3rsGrowth.Serviços
+namespace Cod3rsGrowth.Servicos
 {
     public class BancoDeDados
     {
