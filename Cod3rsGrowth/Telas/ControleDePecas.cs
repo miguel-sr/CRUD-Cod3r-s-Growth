@@ -50,7 +50,6 @@ namespace Cod3rsGrowth
             if (resultado == DialogResult.OK)
             {
                 Singleton.Instance().ListaDePecas.RemoveAt(GridDePecas.SelectedRows[default].Index);
-                MessageBox.Show("Registro apagado com sucesso.");
             }
         }
     }

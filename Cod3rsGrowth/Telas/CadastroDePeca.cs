@@ -50,7 +50,7 @@ namespace Cod3rsGrowth
             if (_index == -1)
             {
                 var pecaParaAdicionar = new Peca(
-                    GerarIdParaPeca(),
+                    Singleton.GerarIdParaPeca(),
                     CampoCategoriaDoFormularioCadastroDePecas.Text,
                     CampoNomeDoFormularioCadastroDePecas.Text,
                     CampoDescricaoDoFormularioCadastroDePecas.Text,
@@ -78,12 +78,6 @@ namespace Cod3rsGrowth
         private void AoClicarFecharJanela_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        static int contadorDeId = 0;
-        public static int GerarIdParaPeca()
-        {
-            return ++contadorDeId;
         }
     }
 }

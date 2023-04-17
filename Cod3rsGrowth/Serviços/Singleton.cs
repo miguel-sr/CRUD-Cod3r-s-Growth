@@ -26,5 +26,11 @@ namespace Cod3rsGrowth.Serviços
 
             return _instance;
         }
+
+        static int contadorDeId = 0;
+        public static int GerarIdParaPeca()
+        {
+            return ++contadorDeId;
+        }
     }
 }
