@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace Cod3rsGrowth.Serviços
 {
@@ -9,51 +7,54 @@ namespace Cod3rsGrowth.Serviços
     {
         public class Campo
         {
-            public Campo(string Nome, string Texto, bool Obrigatorio, bool Numerico) 
+            public Campo(string nome, string texto, bool campoObrigatorio, bool campoNumerico) 
             {
-                this.Nome = Nome;
-                this.Texto = Texto;
-                this.Obrigatorio = Obrigatorio;
-                this.Numerico = Numerico;
+                Nome = nome;
+                Texto = texto;
+                Obrigatorio = campoObrigatorio;
+                Numerico = campoNumerico;
             }
+
             public string Nome { get; set; }
+            
             public string Texto { get; set; }
+            
             public bool Obrigatorio { get; set; } 
+            
             public bool Numerico { get; set; }
             
         }
 
-        public static string CampoDeTexto(List<Campo> CamposParaValidar) 
+        public static string CampoDeTexto(List<Campo> camposParaValidar) 
         {
-            string Erros = null;
+            string erros = null;
 
-            CamposParaValidar.ForEach(Campo =>
+            camposParaValidar.ForEach(campo =>
             {
-                if (Campo.Obrigatorio)
+                if (campo.Obrigatorio)
                 {
-                    if (Campo.Texto.Trim().Length < 1 || Campo.Texto == null)
+                    if (string.IsNullOrWhiteSpace(campo.Texto))
                     {
-                        Erros = string.Join(Environment.NewLine, $"O campo {Campo.Nome} é obrigatório.", Erros);
+                        erros = string.Join(Environment.NewLine, $"O campo {campo.Nome} é obrigatório.", erros);
                         return;
                     }
 
                 }
 
-                if (Campo.Numerico)
+                if (campo.Numerico)
                 {
                     try
                     {
-                        Convert.ToInt32(Campo.Texto);
+                        Convert.ToInt32(campo.Texto);
                     }
                     catch
                     {
-                        Erros = string.Join(Environment.NewLine, $"O campo {Campo.Nome} aceita apenas números.", Erros);
+                        erros = string.Join(Environment.NewLine, $"O campo {campo.Nome} aceita apenas números.", erros);
                     }
                 }
             });
 
-            return Erros;
-            
+            return erros;
         }
     }
 }

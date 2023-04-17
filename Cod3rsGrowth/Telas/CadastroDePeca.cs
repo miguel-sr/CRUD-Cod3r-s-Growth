@@ -11,15 +11,15 @@ namespace Cod3rsGrowth
     {
         readonly BindingList<Peca> ListaDePecas;
         readonly int Index;
-        public CadastroDePeca(BindingList<Peca> ListaDePecas, int Index = -1)
+        public CadastroDePeca(BindingList<Peca> listaDePecas, int index = -1)
         {
             InitializeComponent();
-            this.ListaDePecas = ListaDePecas;
-            this.Index = Index;
+            ListaDePecas = listaDePecas;
+            Index = index;
 
             if (Index != -1)
             {
-                this.Text = "Editar Peça";
+                Text = "Editar Peça";
                 var peca = ListaDePecas[Index] as Peca;
 
                 CampoCategoriaDoFormularioCadastroDePecas.Text = peca.Categoria;
