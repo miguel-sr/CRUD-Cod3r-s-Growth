@@ -8,7 +8,7 @@ namespace Cod3rsGrowth
 {
     public partial class ControleDePecas : Form
     {
-        private readonly BindingList<Peca> ListaDePecas = new BindingList<Peca>();
+        private readonly BindingList<Peca> _listaDePecas = new BindingList<Peca>();
         public ControleDePecas()
         {
             InitializeComponent();
@@ -16,12 +16,12 @@ namespace Cod3rsGrowth
 
         private void ControleDePecas_Load(object sender, EventArgs e)
         {
-            GridDePecas.DataSource = ListaDePecas;
+            GridDePecas.DataSource = _listaDePecas;
         }
 
         private void AoClicarTrocarParaMenuDeCriarPeca_Click(object sender, EventArgs e)
         {
-            CadastroDePeca cadastroDePeca = new CadastroDePeca(ListaDePecas);
+            CadastroDePeca cadastroDePeca = new CadastroDePeca(_listaDePecas);
             cadastroDePeca.ShowDialog();
         }
 
@@ -33,7 +33,7 @@ namespace Cod3rsGrowth
                 return;
             }
 
-            CadastroDePeca cadastroDePeca = new CadastroDePeca(ListaDePecas, GridDePecas.SelectedRows[0].Index);
+            CadastroDePeca cadastroDePeca = new CadastroDePeca(_listaDePecas, GridDePecas.SelectedRows[0].Index);
             cadastroDePeca.ShowDialog();
         }
 
@@ -49,7 +49,7 @@ namespace Cod3rsGrowth
             
             if (resultado == DialogResult.OK)
             {
-                ListaDePecas.RemoveAt(GridDePecas.SelectedRows[0].Index);
+                _listaDePecas.RemoveAt(GridDePecas.SelectedRows[default].Index);
                 MessageBox.Show("Registro apagado com sucesso.");
             }
         }

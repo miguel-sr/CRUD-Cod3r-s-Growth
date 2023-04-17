@@ -1,8 +1,8 @@
 ﻿using Cod3rsGrowth.Modelos;
+using Cod3rsGrowth.Serviços;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
@@ -10,17 +10,17 @@ namespace Cod3rsGrowth
     public partial class CadastroDePeca : Form
     {
         readonly BindingList<Peca> ListaDePecas;
-        readonly int Index;
-        public CadastroDePeca(BindingList<Peca> ListaDePecas, int Index = -1)
+        readonly int _index;
+        public CadastroDePeca(BindingList<Peca> listaDePecas, int index = -1)
         {
             InitializeComponent();
-            this.ListaDePecas = ListaDePecas;
-            this.Index = Index;
+            ListaDePecas = listaDePecas;
+            _index = index;
 
-            if (Index != -1)
+            if (_index != -1)
             {
-                this.Text = "Editar Peça";
-                var peca = ListaDePecas[Index] as Peca;
+                Text = "Editar Peça";
+                var peca = ListaDePecas[_index] as Peca;
 
                 CampoCategoriaDoFormularioCadastroDePecas.Text = peca.Categoria;
                 CampoNomeDoFormularioCadastroDePecas.Text = peca.Nome;
@@ -28,31 +28,51 @@ namespace Cod3rsGrowth
                 CampoEstoqueDoFormularioCadastroDePecas.Text = peca.Estoque.ToString();
                 CampoDataDoFormularioCadastroDePecas.Value = peca.DataDeFabricacao;
             }
+
+            CampoDataDoFormularioCadastroDePecas.MaxDate = DateTime.Today;
         }
 
         private void AoClicarSalvarPeca_Click(object sender, EventArgs e)
         {
-            if (Index == -1)
+
+            List<Validacao.Campo> CamposParaValidar = new List<Validacao.Campo>
             {
-                ListaDePecas.Add(new Peca(
+                new Validacao.Campo("nome", CampoNomeDoFormularioCadastroDePecas.Text, true, false),
+                new Validacao.Campo("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
+            };
+
+            String erros = Validacao.CampoDeTexto(CamposParaValidar);
+
+            if (erros != null)
+            {
+                MessageBox.Show(erros, "Aviso!");
+                return;
+            }
+
+            if (_index == -1)
+            {
+                var pecaParaAdicionar = new Peca(
                     GerarIdParaPeca(),
                     CampoCategoriaDoFormularioCadastroDePecas.Text,
                     CampoNomeDoFormularioCadastroDePecas.Text,
                     CampoDescricaoDoFormularioCadastroDePecas.Text,
                     Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text),
                     CampoDataDoFormularioCadastroDePecas.Value.Date
-                ));
-            } else
-            {
-                ListaDePecas[Index] = new Peca(
-                    ListaDePecas[Index].Id,
-                    CampoCategoriaDoFormularioCadastroDePecas.Text,
-                    CampoNomeDoFormularioCadastroDePecas.Text,
-                    CampoDescricaoDoFormularioCadastroDePecas.Text,
-                    Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text),
-                    CampoDataDoFormularioCadastroDePecas.Value.Date
                 );
+
+                ListaDePecas.Add(pecaParaAdicionar);
+                this.Close();
+                return;
             }
+
+            ListaDePecas[_index] = new Peca(
+                ListaDePecas[_index].Id,
+                CampoCategoriaDoFormularioCadastroDePecas.Text,
+                CampoNomeDoFormularioCadastroDePecas.Text,
+                CampoDescricaoDoFormularioCadastroDePecas.Text,
+                Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text),
+                CampoDataDoFormularioCadastroDePecas.Value.Date
+            );
 
             this.Close();
         }
