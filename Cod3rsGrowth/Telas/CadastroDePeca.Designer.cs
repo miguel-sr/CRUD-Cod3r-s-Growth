@@ -62,25 +62,25 @@
             this.CampoDataDoFormularioCadastroDePecas.CustomFormat = "dd/MM/yyyy";
             this.CampoDataDoFormularioCadastroDePecas.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
             this.CampoDataDoFormularioCadastroDePecas.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.CampoDataDoFormularioCadastroDePecas.Location = new System.Drawing.Point(259, 3);
+            this.CampoDataDoFormularioCadastroDePecas.Location = new System.Drawing.Point(279, 3);
             this.CampoDataDoFormularioCadastroDePecas.Name = "CampoDataDoFormularioCadastroDePecas";
-            this.CampoDataDoFormularioCadastroDePecas.Size = new System.Drawing.Size(250, 20);
+            this.CampoDataDoFormularioCadastroDePecas.Size = new System.Drawing.Size(270, 20);
             this.CampoDataDoFormularioCadastroDePecas.TabIndex = 30;
             // 
             // CampoEstoqueDoFormularioCadastroDePecas
             // 
             this.CampoEstoqueDoFormularioCadastroDePecas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CampoEstoqueDoFormularioCadastroDePecas.Location = new System.Drawing.Point(259, 3);
+            this.CampoEstoqueDoFormularioCadastroDePecas.Location = new System.Drawing.Point(279, 3);
             this.CampoEstoqueDoFormularioCadastroDePecas.Name = "CampoEstoqueDoFormularioCadastroDePecas";
-            this.CampoEstoqueDoFormularioCadastroDePecas.Size = new System.Drawing.Size(250, 20);
+            this.CampoEstoqueDoFormularioCadastroDePecas.Size = new System.Drawing.Size(270, 20);
             this.CampoEstoqueDoFormularioCadastroDePecas.TabIndex = 29;
             // 
             // LabelCalendario
             // 
             this.LabelCalendario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LabelCalendario.AutoSize = true;
-            this.LabelCalendario.Location = new System.Drawing.Point(259, 3);
+            this.LabelCalendario.Location = new System.Drawing.Point(279, 2);
             this.LabelCalendario.Name = "LabelCalendario";
             this.LabelCalendario.Size = new System.Drawing.Size(101, 13);
             this.LabelCalendario.TabIndex = 28;
@@ -89,17 +89,17 @@
             // CampoDescricaoDoFormularioCadastroDePecas
             // 
             this.CampoDescricaoDoFormularioCadastroDePecas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CampoDescricaoDoFormularioCadastroDePecas.Location = new System.Drawing.Point(33, 169);
+            this.CampoDescricaoDoFormularioCadastroDePecas.Location = new System.Drawing.Point(13, 160);
             this.CampoDescricaoDoFormularioCadastroDePecas.Multiline = true;
             this.CampoDescricaoDoFormularioCadastroDePecas.Name = "CampoDescricaoDoFormularioCadastroDePecas";
-            this.CampoDescricaoDoFormularioCadastroDePecas.Size = new System.Drawing.Size(512, 88);
+            this.CampoDescricaoDoFormularioCadastroDePecas.Size = new System.Drawing.Size(552, 109);
             this.CampoDescricaoDoFormularioCadastroDePecas.TabIndex = 27;
             // 
             // LabelDescricao
             // 
             this.LabelDescricao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LabelDescricao.AutoSize = true;
-            this.LabelDescricao.Location = new System.Drawing.Point(33, 144);
+            this.LabelDescricao.Location = new System.Drawing.Point(13, 144);
             this.LabelDescricao.Name = "LabelDescricao";
             this.LabelDescricao.Size = new System.Drawing.Size(55, 13);
             this.LabelDescricao.TabIndex = 26;
@@ -109,7 +109,7 @@
             // 
             this.LabelEstoque.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LabelEstoque.AutoSize = true;
-            this.LabelEstoque.Location = new System.Drawing.Point(259, 3);
+            this.LabelEstoque.Location = new System.Drawing.Point(279, 2);
             this.LabelEstoque.Name = "LabelEstoque";
             this.LabelEstoque.Size = new System.Drawing.Size(46, 13);
             this.LabelEstoque.TabIndex = 25;
@@ -121,14 +121,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CampoNomeDoFormularioCadastroDePecas.Location = new System.Drawing.Point(3, 3);
             this.CampoNomeDoFormularioCadastroDePecas.Name = "CampoNomeDoFormularioCadastroDePecas";
-            this.CampoNomeDoFormularioCadastroDePecas.Size = new System.Drawing.Size(250, 20);
+            this.CampoNomeDoFormularioCadastroDePecas.Size = new System.Drawing.Size(270, 20);
             this.CampoNomeDoFormularioCadastroDePecas.TabIndex = 24;
             // 
             // LabelNome
             // 
             this.LabelNome.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LabelNome.AutoSize = true;
-            this.LabelNome.Location = new System.Drawing.Point(3, 3);
+            this.LabelNome.Location = new System.Drawing.Point(3, 2);
             this.LabelNome.Name = "LabelNome";
             this.LabelNome.Size = new System.Drawing.Size(35, 13);
             this.LabelNome.TabIndex = 23;
@@ -141,14 +141,14 @@
             this.CampoCategoriaDoFormularioCadastroDePecas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.CampoCategoriaDoFormularioCadastroDePecas.Location = new System.Drawing.Point(3, 3);
             this.CampoCategoriaDoFormularioCadastroDePecas.Name = "CampoCategoriaDoFormularioCadastroDePecas";
-            this.CampoCategoriaDoFormularioCadastroDePecas.Size = new System.Drawing.Size(250, 20);
+            this.CampoCategoriaDoFormularioCadastroDePecas.Size = new System.Drawing.Size(270, 20);
             this.CampoCategoriaDoFormularioCadastroDePecas.TabIndex = 22;
             // 
             // LabelCategoria
             // 
             this.LabelCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LabelCategoria.AutoSize = true;
-            this.LabelCategoria.Location = new System.Drawing.Point(3, 3);
+            this.LabelCategoria.Location = new System.Drawing.Point(3, 2);
             this.LabelCategoria.Name = "LabelCategoria";
             this.LabelCategoria.Size = new System.Drawing.Size(52, 13);
             this.LabelCategoria.TabIndex = 21;
@@ -157,7 +157,7 @@
             // AoClicarFecharJanela
             // 
             this.AoClicarFecharJanela.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AoClicarFecharJanela.Location = new System.Drawing.Point(131, 3);
+            this.AoClicarFecharJanela.Location = new System.Drawing.Point(141, 3);
             this.AoClicarFecharJanela.Name = "AoClicarFecharJanela";
             this.AoClicarFecharJanela.Size = new System.Drawing.Size(114, 36);
             this.AoClicarFecharJanela.TabIndex = 20;
@@ -190,15 +190,15 @@
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(30);
+            this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(10);
             this.tableLayoutPanel3.RowCount = 7;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.499257F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.05125F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.499257F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.05125F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.499257F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.87948F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.52025F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.698422F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.44589F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.698422F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.44589F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.698422F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.24753F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.76543F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(578, 338);
             this.tableLayoutPanel3.TabIndex = 32;
             // 
@@ -210,11 +210,11 @@
             this.tableLayoutPanel7.Controls.Add(this.LabelNome, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.LabelEstoque, 1, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(33, 90);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(13, 76);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(512, 16);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(552, 15);
             this.tableLayoutPanel7.TabIndex = 33;
             // 
             // tableLayoutPanel6
@@ -225,11 +225,11 @@
             this.tableLayoutPanel6.Controls.Add(this.CampoDataDoFormularioCadastroDePecas, 1, 0);
             this.tableLayoutPanel6.Controls.Add(this.CampoCategoriaDoFormularioCadastroDePecas, 0, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(33, 55);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(13, 34);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(512, 29);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(552, 36);
             this.tableLayoutPanel6.TabIndex = 33;
             // 
             // tableLayoutPanel5
@@ -240,11 +240,11 @@
             this.tableLayoutPanel5.Controls.Add(this.CampoNomeDoFormularioCadastroDePecas, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.CampoEstoqueDoFormularioCadastroDePecas, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(33, 112);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(13, 97);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(512, 29);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(552, 36);
             this.tableLayoutPanel5.TabIndex = 29;
             // 
             // tableLayoutPanel2
@@ -257,11 +257,11 @@
             this.tableLayoutPanel2.Controls.Add(this.AoClicarFecharJanela, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.AoClicarSalvarPeca, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(33, 263);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(13, 275);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(512, 42);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(552, 50);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -272,11 +272,11 @@
             this.tableLayoutPanel4.Controls.Add(this.LabelCategoria, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.LabelCalendario, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(33, 33);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(13, 13);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(512, 16);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(552, 15);
             this.tableLayoutPanel4.TabIndex = 28;
             // 
             // CadastroDePeca
