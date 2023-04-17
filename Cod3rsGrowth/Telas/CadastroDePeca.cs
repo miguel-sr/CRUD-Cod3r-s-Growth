@@ -9,18 +9,16 @@ namespace Cod3rsGrowth
 {
     public partial class CadastroDePeca : Form
     {
-        readonly BindingList<Peca> ListaDePecas;
         readonly int _index;
-        public CadastroDePeca(BindingList<Peca> listaDePecas, int index = -1)
+        public CadastroDePeca(int index = -1)
         {
             InitializeComponent();
-            ListaDePecas = listaDePecas;
             _index = index;
 
             if (_index != -1)
             {
                 Text = "Editar Peça";
-                var peca = ListaDePecas[_index] as Peca;
+                var peca = Singleton.Instance().ListaDePecas[_index] as Peca;
 
                 CampoCategoriaDoFormularioCadastroDePecas.Text = peca.Categoria;
                 CampoNomeDoFormularioCadastroDePecas.Text = peca.Nome;
@@ -60,13 +58,13 @@ namespace Cod3rsGrowth
                     CampoDataDoFormularioCadastroDePecas.Value.Date
                 );
 
-                ListaDePecas.Add(pecaParaAdicionar);
+                Singleton.Instance().ListaDePecas.Add(pecaParaAdicionar);
                 this.Close();
                 return;
             }
 
-            ListaDePecas[_index] = new Peca(
-                ListaDePecas[_index].Id,
+            Singleton.Instance().ListaDePecas[_index] = new Peca(
+                Singleton.Instance().ListaDePecas[_index].Id,
                 CampoCategoriaDoFormularioCadastroDePecas.Text,
                 CampoNomeDoFormularioCadastroDePecas.Text,
                 CampoDescricaoDoFormularioCadastroDePecas.Text,
