@@ -22,6 +22,7 @@ namespace Cod3rsGrowth.Serviços
             public bool Numerico { get; set; }
             
         }
+
         public static string CampoDeTexto(List<Campo> CamposParaValidar) 
         {
             string Erros = null;

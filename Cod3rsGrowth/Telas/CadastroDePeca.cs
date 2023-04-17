@@ -3,8 +3,6 @@ using Cod3rsGrowth.Serviços;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
@@ -43,9 +41,11 @@ namespace Cod3rsGrowth
                 new Validacao.Campo("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
             };
 
-            if (Validacao.CampoDeTexto(CamposParaValidar) != null)
+            String erros = Validacao.CampoDeTexto(CamposParaValidar);
+
+            if (erros != null)
             {
-                MessageBox.Show(Validacao.CampoDeTexto(CamposParaValidar), "Aviso!");
+                MessageBox.Show(erros, "Aviso!");
                 return;
             }
 
