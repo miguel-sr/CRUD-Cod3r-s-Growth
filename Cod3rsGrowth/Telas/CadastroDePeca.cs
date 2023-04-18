@@ -3,6 +3,7 @@ using Cod3rsGrowth.Servicos;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using static Cod3rsGrowth.Servicos.Validacao;
 
 namespace Cod3rsGrowth
 {
@@ -37,13 +38,13 @@ namespace Cod3rsGrowth
         {
             try
             {
-                List<Validacao.Campo> CamposParaValidar = new List<Validacao.Campo>
+                List<Campo> CamposParaValidar = new List<Campo>
                 {
-                    new Validacao.Campo("nome", CampoNomeDoFormularioCadastroDePecas.Text, true, false),
-                    new Validacao.Campo("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
+                    new Campo("nome", CampoNomeDoFormularioCadastroDePecas.Text, true, false),
+                    new Campo("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
                 };
 
-                String erros = Validacao.CampoDeTexto(CamposParaValidar);
+                String erros = ValidarCampoDeTexto(CamposParaValidar);
 
                 if (erros != null)
                 {

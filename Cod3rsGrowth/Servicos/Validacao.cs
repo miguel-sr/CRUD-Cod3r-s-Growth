@@ -25,7 +25,7 @@ namespace Cod3rsGrowth.Servicos
             
         }
 
-        public static string CampoDeTexto(List<Campo> camposParaValidar) 
+        public static string ValidarCampoDeTexto(List<Campo> camposParaValidar) 
         {
             string erros = null;
 
