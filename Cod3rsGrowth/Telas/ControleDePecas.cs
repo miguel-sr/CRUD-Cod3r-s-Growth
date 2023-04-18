@@ -1,7 +1,6 @@
 ﻿using Cod3rsGrowth.Modelos;
 using Cod3rsGrowth.Servicos;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -34,15 +33,16 @@ namespace Cod3rsGrowth
                 AvisoAoUsuario.MostrarAviso("Selecione apenas uma peça!");
                 return;
             }
+            
+            var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
+            var pecaParaAtualizar = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
 
-            int _id = Convert.ToInt32(GridDePecas.SelectedRows[default].Cells[0].Value);
-            var pecaParaSerAtualizada = BancoDeDados.Instance().ListaDePecas.ToList().Find(x => x.Id == _id);
-
-            CadastroDePeca cadastroDePeca = new CadastroDePeca(pecaParaSerAtualizada);
+            CadastroDePeca cadastroDePeca = new CadastroDePeca(pecaParaAtualizar);
             cadastroDePeca.ShowDialog();
 
-            pecaParaSerAtualizada = cadastroDePeca.peca;
-            BancoDeDados.Instance().ListaDePecas[GridDePecas.SelectedRows[default].Index] = pecaParaSerAtualizada;
+            pecaParaAtualizar = cadastroDePeca.peca;
+            
+            BancoDeDados.Instance().ListaDePecas[indexDaLinhaSelecionada] = pecaParaAtualizar;
         }
 
         private void AoClicarRemoverPecaSelecionada_Click(object sender, EventArgs e)
@@ -59,10 +59,9 @@ namespace Cod3rsGrowth
 
                 if (resultado == DialogResult.OK)
                 {
-                    int _id = Convert.ToInt32(GridDePecas.SelectedRows[default].Cells[0].Value);
-                    var pecaParaRemover = BancoDeDados.Instance().ListaDePecas.ToList().Find(x => x.Id == _id);
+                    var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
 
-                    BancoDeDados.Instance().ListaDePecas.Remove(pecaParaRemover);
+                    BancoDeDados.Instance().ListaDePecas.RemoveAt(indexDaLinhaSelecionada);
                 }
             }
             catch (Exception)
