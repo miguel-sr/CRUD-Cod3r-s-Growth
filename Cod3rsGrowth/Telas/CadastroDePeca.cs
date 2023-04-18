@@ -66,8 +66,7 @@ namespace Cod3rsGrowth
             catch (Exception)
             {
                 DialogResult = DialogResult.Cancel;
-                Close();
-                //throw new Exception("Erro ao tentar salvar peça.");
+                throw new Exception("Erro ao tentar salvar peça.");
             }
         }
 
