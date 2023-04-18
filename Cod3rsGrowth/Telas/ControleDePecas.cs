@@ -47,20 +47,27 @@ namespace Cod3rsGrowth
 
         private void AoClicarRemoverPecaSelecionada_Click(object sender, EventArgs e)
         {
-            if (GridDePecas.SelectedRows.Count != 1)
+            try
             {
-                AvisoAoUsuario.MostrarAviso("Selecione apenas uma peça!");
-                return;
+                if (GridDePecas.SelectedRows.Count != 1)
+                {
+                    AvisoAoUsuario.MostrarAviso("Selecione apenas uma peça!");
+                    return;
+                }
+
+                var resultado = MessageBox.Show("Você tem certeza de que quer apagar esse registro?", "Aviso!", MessageBoxButtons.OKCancel);
+
+                if (resultado == DialogResult.OK)
+                {
+                    int _id = Convert.ToInt32(GridDePecas.SelectedRows[default].Cells[0].Value);
+                    var pecaParaRemover = BancoDeDados.Instance().ListaDePecas.ToList().Find(x => x.Id == _id);
+
+                    BancoDeDados.Instance().ListaDePecas.Remove(pecaParaRemover);
+                }
             }
-
-            var resultado = MessageBox.Show("Você tem certeza de que quer apagar esse registro?", "Aviso!", MessageBoxButtons.OKCancel);
-
-            if (resultado == DialogResult.OK)
+            catch (Exception)
             {
-                int _id = Convert.ToInt32(GridDePecas.SelectedRows[default].Cells[0].Value);
-                var pecaParaRemover = BancoDeDados.Instance().ListaDePecas.ToList().Find(x => x.Id == _id);
-
-                BancoDeDados.Instance().ListaDePecas.Remove(pecaParaRemover);
+                throw new Exception("Erro ao tentar remover peça.");
             }
         }
 
