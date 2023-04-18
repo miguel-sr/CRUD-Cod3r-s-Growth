@@ -20,14 +20,17 @@ namespace Cod3rsGrowth
 
         private void AoClicarTrocarParaMenuDeCriarPeca_Click(object sender, EventArgs e)
         {
-            var novaPeca = new Peca();
+            var novaPeca = new Peca(0, null, null, null, DateTime.Now);
 
             CadastroDePeca cadastroDePeca = new CadastroDePeca(novaPeca);
             cadastroDePeca.ShowDialog();
 
             novaPeca = cadastroDePeca.peca;
 
-            BancoDeDados.Instance().ListaDePecas.Add(novaPeca);
+            if (!string.IsNullOrEmpty(novaPeca.Nome))
+            {
+                BancoDeDados.Instance().ListaDePecas.Add(novaPeca);
+            }
         }
 
         private void AoClicarAbrirMenuDeEdicaoDePeca_Click(object sender, EventArgs e)
