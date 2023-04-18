@@ -1,5 +1,7 @@
-﻿using Cod3rsGrowth.Servicos;
+﻿using Cod3rsGrowth.Modelos;
+using Cod3rsGrowth.Servicos;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
@@ -18,8 +20,14 @@ namespace Cod3rsGrowth
 
         private void AoClicarTrocarParaMenuDeCriarPeca_Click(object sender, EventArgs e)
         {
-            CadastroDePeca cadastroDePeca = new CadastroDePeca();
+            var novaPeca = new Peca();
+
+            CadastroDePeca cadastroDePeca = new CadastroDePeca(novaPeca);
             cadastroDePeca.ShowDialog();
+
+            novaPeca = cadastroDePeca.peca;
+
+            BancoDeDados.Instance().ListaDePecas.Add(novaPeca);
         }
 
         private void AoClicarAbrirMenuDeEdicaoDePeca_Click(object sender, EventArgs e)
@@ -30,8 +38,14 @@ namespace Cod3rsGrowth
                 return;
             }
 
-            CadastroDePeca cadastroDePeca = new CadastroDePeca(GridDePecas.SelectedRows[0].Index);
+            int _id = Convert.ToInt32(GridDePecas.SelectedRows[default].Cells[0].Value);
+            var _pecaParaSerAtualizada = BancoDeDados.Instance().ListaDePecas.ToList().Find(x => x.Id == _id);
+
+            CadastroDePeca cadastroDePeca = new CadastroDePeca(_pecaParaSerAtualizada);
             cadastroDePeca.ShowDialog();
+
+            _pecaParaSerAtualizada = cadastroDePeca.peca;
+            BancoDeDados.Instance().ListaDePecas[GridDePecas.SelectedRows[default].Index] = _pecaParaSerAtualizada;
         }
 
         private void AoClicarRemoverPecaSelecionada_Click(object sender, EventArgs e)
@@ -46,7 +60,10 @@ namespace Cod3rsGrowth
             
             if (resultado == DialogResult.OK)
             {
-                BancoDeDados.Instance().ListaDePecas.RemoveAt(GridDePecas.SelectedRows[default].Index);
+                int _id = Convert.ToInt32(GridDePecas.SelectedRows[default].Cells[0].Value);
+                var _pecaParaSerApagada = BancoDeDados.Instance().ListaDePecas.ToList().Find(x => x.Id == _id);
+
+                BancoDeDados.Instance().ListaDePecas.Remove(_pecaParaSerApagada);
             }
         }
     }

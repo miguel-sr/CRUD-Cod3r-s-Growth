@@ -8,16 +8,15 @@ namespace Cod3rsGrowth
 {
     public partial class CadastroDePeca : Form
     {
-        readonly int _index;
-        public CadastroDePeca(int index = -1)
+        public readonly Peca peca;
+        public CadastroDePeca(Peca peca)
         {
             InitializeComponent();
-            _index = index;
+            this.peca = peca;
 
-            if (_index != -1)
+            if (!string.IsNullOrEmpty(peca.Nome))
             {
                 Text = "Editar Peça";
-                var peca = BancoDeDados.Instance().ListaDePecas[_index] as Peca;
 
                 CampoCategoriaDoFormularioCadastroDePecas.Text = peca.Categoria;
                 CampoNomeDoFormularioCadastroDePecas.Text = peca.Nome;
@@ -46,37 +45,19 @@ namespace Cod3rsGrowth
                 return;
             }
 
-            if (_index == -1)
-            {
-                var pecaParaAdicionar = new Peca(
-                    BancoDeDados.GerarIdParaPeca(),
-                    CampoCategoriaDoFormularioCadastroDePecas.Text,
-                    CampoNomeDoFormularioCadastroDePecas.Text,
-                    CampoDescricaoDoFormularioCadastroDePecas.Text,
-                    Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text),
-                    CampoDataDoFormularioCadastroDePecas.Value.Date
-                );
+            peca.Id = string.IsNullOrEmpty(peca.Nome) ? BancoDeDados.GerarIdParaPeca() : this.peca.Id;
+            peca.Categoria = CampoCategoriaDoFormularioCadastroDePecas.Text;
+            peca.Nome = CampoNomeDoFormularioCadastroDePecas.Text;
+            peca.Descricao = CampoDescricaoDoFormularioCadastroDePecas.Text;
+            peca.Estoque = Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text);
+            peca.DataDeFabricacao = CampoDataDoFormularioCadastroDePecas.Value.Date;
 
-                BancoDeDados.Instance().ListaDePecas.Add(pecaParaAdicionar);
-                this.Close();
-                return;
-            }
-
-            BancoDeDados.Instance().ListaDePecas[_index] = new Peca(
-                BancoDeDados.Instance().ListaDePecas[_index].Id,
-                CampoCategoriaDoFormularioCadastroDePecas.Text,
-                CampoNomeDoFormularioCadastroDePecas.Text,
-                CampoDescricaoDoFormularioCadastroDePecas.Text,
-                Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text),
-                CampoDataDoFormularioCadastroDePecas.Value.Date
-            );
-
-            this.Close();
+            Close();
         }
 
         private void AoClicarFecharJanela_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
