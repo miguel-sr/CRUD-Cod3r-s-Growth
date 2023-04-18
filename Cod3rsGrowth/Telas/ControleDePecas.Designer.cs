@@ -55,6 +55,8 @@
             // 
             // GridDePecas
             // 
+            this.GridDePecas.AllowUserToAddRows = false;
+            this.GridDePecas.AllowUserToDeleteRows = false;
             this.GridDePecas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -199,7 +201,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ControleDePecas";
             this.Text = "Controle de Peças";
-            this.Load += new System.EventHandler(this.ControleDePecas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GridDePecas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pecaBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -211,13 +212,13 @@
         private System.Windows.Forms.Button AoClicarTrocarParaMenuDeCriarPeca;
         private System.Windows.Forms.Button AoClicarAbrirMenuDeEdicaoDePeca;
         private System.Windows.Forms.DataGridView GridDePecas;
-        private System.Windows.Forms.BindingSource pecaBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaCategoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaNome;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaDescricao;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaEstoque;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaDataDeFabricacao;
+        private System.Windows.Forms.BindingSource pecaBindingSource;
     }
 }
 

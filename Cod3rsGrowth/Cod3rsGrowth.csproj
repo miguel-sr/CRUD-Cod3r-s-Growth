@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Servicos\BancoDeDados.cs" />
+    <Compile Include="Servicos\AvisoAoUsuario.cs" />
     <Compile Include="Servicos\Validacao.cs" />
     <Compile Include="Telas\ControleDePecas.cs">
       <SubType>Form</SubType>

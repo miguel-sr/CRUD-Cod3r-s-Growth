@@ -12,47 +12,63 @@ namespace Cod3rsGrowth
         public CadastroDePeca(Peca peca)
         {
             InitializeComponent();
-            this.peca = peca;
 
-            if (!string.IsNullOrEmpty(peca.Nome))
+            if (peca == null)
             {
+                this.peca = new Peca();
+            }
+            else
+            {
+                this.peca = peca;
+
                 Text = "Editar Peça";
 
-                CampoCategoriaDoFormularioCadastroDePecas.Text = peca.Categoria;
-                CampoNomeDoFormularioCadastroDePecas.Text = peca.Nome;
-                CampoDescricaoDoFormularioCadastroDePecas.Text = peca.Descricao;
-                CampoEstoqueDoFormularioCadastroDePecas.Text = peca.Estoque.ToString();
-                CampoDataDoFormularioCadastroDePecas.Value = peca.DataDeFabricacao;
+                CampoCategoriaDoFormularioCadastroDePecas.Text = this.peca.Categoria;
+                CampoNomeDoFormularioCadastroDePecas.Text = this.peca.Nome;
+                CampoDescricaoDoFormularioCadastroDePecas.Text = this.peca.Descricao;
+                CampoEstoqueDoFormularioCadastroDePecas.Text = this.peca.Estoque.ToString();
+                CampoDataDoFormularioCadastroDePecas.Value = this.peca.DataDeFabricacao;
             }
-
+   
             CampoDataDoFormularioCadastroDePecas.MaxDate = DateTime.Today;
         }
 
         private void AoClicarSalvarPeca_Click(object sender, EventArgs e)
         {
-
-            List<Validacao.Campo> CamposParaValidar = new List<Validacao.Campo>
+            try
             {
-                new Validacao.Campo("nome", CampoNomeDoFormularioCadastroDePecas.Text, true, false),
-                new Validacao.Campo("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
-            };
+                List<Validacao.Campo> CamposParaValidar = new List<Validacao.Campo>
+                {
+                    new Validacao.Campo("nome", CampoNomeDoFormularioCadastroDePecas.Text, true, false),
+                    new Validacao.Campo("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
+                };
 
-            String erros = Validacao.CampoDeTexto(CamposParaValidar);
+                String erros = Validacao.CampoDeTexto(CamposParaValidar);
 
-            if (erros != null)
-            {
-                MessageBox.Show(erros, "Aviso!");
-                return;
+                if (erros != null)
+                {
+                    AvisoAoUsuario.MostrarAviso(erros);
+                    DialogResult = DialogResult.Cancel;
+                    return;
+                }
+
+                peca.Id = peca.Id == 0 ? BancoDeDados.GerarIdParaPeca() : peca.Id;
+                peca.Categoria = CampoCategoriaDoFormularioCadastroDePecas.Text;
+                peca.Nome = CampoNomeDoFormularioCadastroDePecas.Text;
+                peca.Descricao = CampoDescricaoDoFormularioCadastroDePecas.Text;
+                peca.Estoque = Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text);
+                peca.DataDeFabricacao = CampoDataDoFormularioCadastroDePecas.Value.Date;
+
+                DialogResult = DialogResult.OK;
+                Close();
+
             }
-
-            peca.Id = string.IsNullOrEmpty(peca.Nome) ? BancoDeDados.GerarIdParaPeca() : this.peca.Id;
-            peca.Categoria = CampoCategoriaDoFormularioCadastroDePecas.Text;
-            peca.Nome = CampoNomeDoFormularioCadastroDePecas.Text;
-            peca.Descricao = CampoDescricaoDoFormularioCadastroDePecas.Text;
-            peca.Estoque = Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text);
-            peca.DataDeFabricacao = CampoDataDoFormularioCadastroDePecas.Value.Date;
-
-            Close();
+            catch (Exception)
+            {
+                DialogResult = DialogResult.Cancel;
+                Close();
+                //throw new Exception("Erro ao tentar salvar peça.");
+            }
         }
 
         private void AoClicarFecharJanela_Click(object sender, EventArgs e)
