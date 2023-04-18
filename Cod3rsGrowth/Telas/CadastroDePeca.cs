@@ -49,7 +49,6 @@ namespace Cod3rsGrowth
                 if (erros != null)
                 {
                     AvisoAoUsuario.MostrarAviso(erros);
-                    DialogResult = DialogResult.Cancel;
                     return;
                 }
 
