@@ -1,7 +1,6 @@
 ﻿using Cod3rsGrowth.Modelos;
 using Cod3rsGrowth.Servicos;
 using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
@@ -14,7 +13,7 @@ namespace Cod3rsGrowth
             AtualizarLista();
         }
 
-        private void AoClicarTrocarParaMenuDeCriarPeca_Click(object sender, EventArgs e)
+        private void AoClicarEmAdicionar(object sender, EventArgs e)
         {
             CadastroDePeca cadastroDePeca = new CadastroDePeca(null);
             cadastroDePeca.ShowDialog();
@@ -26,11 +25,11 @@ namespace Cod3rsGrowth
             BancoDeDados.Instancia().ListaDePecas.Add(novaPeca);
         }
 
-        private void AoClicarAbrirMenuDeEdicaoDePeca_Click(object sender, EventArgs e)
+        private void AoClicarEmEditar(object sender, EventArgs e)
         {
             if (GridDePecas.SelectedRows.Count != 1)
             {
-                AvisoAoUsuario.MostrarAviso("Selecione apenas uma peça!");
+                AvisoAoUsuario.ModalAviso("Selecione apenas uma peça!");
                 return;
             }
             
@@ -45,13 +44,13 @@ namespace Cod3rsGrowth
             BancoDeDados.Instancia().ListaDePecas[indexDaLinhaSelecionada] = pecaParaAtualizar;
         }
 
-        private void AoClicarRemoverPecaSelecionada_Click(object sender, EventArgs e)
+        private void AoClicarEmRemover(object sender, EventArgs e)
         {
             try
             {
                 if (GridDePecas.SelectedRows.Count != 1)
                 {
-                    AvisoAoUsuario.MostrarAviso("Selecione apenas uma peça!");
+                    AvisoAoUsuario.ModalAviso("Selecione apenas uma peça!");
                     return;
                 }
 

@@ -34,7 +34,7 @@ namespace Cod3rsGrowth
             CampoDataDoFormularioCadastroDePecas.MaxDate = DateTime.Today;
         }
 
-        private void AoClicarSalvarPeca_Click(object sender, EventArgs e)
+        private void AoClicarEmSalvar(object sender, EventArgs e)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace Cod3rsGrowth
 
                 if (erros != null)
                 {
-                    AvisoAoUsuario.MostrarAviso(erros);
+                    AvisoAoUsuario.ModalAviso(erros);
                     return;
                 }
 
@@ -70,7 +70,7 @@ namespace Cod3rsGrowth
             }
         }
 
-        private void AoClicarFecharJanela_Click(object sender, EventArgs e)
+        private void AoClicarEmCancelar(object sender, EventArgs e)
         {
             Close();
         }
