@@ -72,6 +72,7 @@
             this.CampoEstoqueDoFormularioCadastroDePecas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CampoEstoqueDoFormularioCadastroDePecas.Location = new System.Drawing.Point(279, 3);
+            this.CampoEstoqueDoFormularioCadastroDePecas.MaxLength = 10;
             this.CampoEstoqueDoFormularioCadastroDePecas.Name = "CampoEstoqueDoFormularioCadastroDePecas";
             this.CampoEstoqueDoFormularioCadastroDePecas.Size = new System.Drawing.Size(270, 20);
             this.CampoEstoqueDoFormularioCadastroDePecas.TabIndex = 29;
