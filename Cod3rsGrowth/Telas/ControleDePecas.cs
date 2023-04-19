@@ -87,14 +87,7 @@ namespace Cod3rsGrowth
 
         private void AtualizarLista()
         {
-            try
-            {
-                GridDePecas.DataSource = repositorio.ObterTodas();
-            }
-            catch (Exception erro)
-            {
-                throw new Exception($"Erro ao obter lista de peças. {erro}");
-            }
+            GridDePecas.DataSource = repositorio.ObterTodas();
         }
     }
 }
