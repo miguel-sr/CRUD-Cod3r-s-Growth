@@ -15,9 +15,9 @@ namespace Cod3rsGrowth.Repositorio
                 return BancoDeDados.Instancia().ListaDePecas.First(x => x.Id == id);
 
             }
-            catch (Exception)
+            catch (Exception erro)
             {
-                throw new Exception("Erro ao obter peça.");
+                throw new Exception($"Erro ao obter peça. {erro}");
             }
         }
 
@@ -27,9 +27,9 @@ namespace Cod3rsGrowth.Repositorio
             {
                 return BancoDeDados.Instancia().ListaDePecas;
             }
-            catch (Exception)
+            catch (Exception erro)
             {
-                throw new Exception("Erro ao obter lista de peças.");
+                throw new Exception($"Erro ao obter lista de peças. {erro}");
             }
         }
 
@@ -40,9 +40,9 @@ namespace Cod3rsGrowth.Repositorio
                 BancoDeDados.Instancia().ListaDePecas.Add(novaPeca);
 
             }
-            catch (Exception)
+            catch (Exception erro)
             {
-                throw new Exception("Erro ao criar peça.");
+                throw new Exception($"Erro ao criar peça. {erro}");
             }
         }
 
@@ -54,9 +54,9 @@ namespace Cod3rsGrowth.Repositorio
                 var index = BancoDeDados.Instancia().ListaDePecas.IndexOf(peca);
                 BancoDeDados.Instancia().ListaDePecas[index] = pecaAtualizada;
             }
-            catch (Exception)
+            catch (Exception erro)
             {
-                throw new Exception("Erro ao atualizar peça.");
+                throw new Exception($"Erro ao atualizar peça. {erro}");
             }
         }
 
@@ -66,10 +66,10 @@ namespace Cod3rsGrowth.Repositorio
             {
                 var pecaParaSerRemovida = ObterPorId(id);
                 BancoDeDados.Instancia().ListaDePecas.Remove(pecaParaSerRemovida);
-            } 
-            catch (Exception)
+            }
+            catch (Exception erro)
             {
-                throw new Exception("Erro ao remover peça.");
+                throw new Exception($"Erro ao remover peça. {erro}"); ;
             }
         }
     }

@@ -22,10 +22,8 @@ namespace Cod3rsGrowth
 
             var novaPeca = cadastroDePeca.peca;
 
-            repositorio.Criar(novaPeca);
-
-            if (cadastroDePeca.DialogResult == DialogResult.Cancel) return;
-
+            if (cadastroDePeca.DialogResult == DialogResult.OK) repositorio.Criar(novaPeca);
+            
         }
 
         private void AoClicarEmEditar(object sender, EventArgs e)
@@ -55,7 +53,7 @@ namespace Cod3rsGrowth
                     return;
                 }
 
-                var resultado = MessageBox.Show("Você tem certeza de que quer apagar esse registro?", "Aviso!", MessageBoxButtons.OKCancel);
+                var resultado = AvisoAoUsuario.ModalConfirmarAcao("Você tem certeza de que quer apagar esse registro?");
 
                 if (resultado == DialogResult.OK)
                 {
@@ -65,9 +63,9 @@ namespace Cod3rsGrowth
                     repositorio.Remover(pecaParaAtualizar.Id);
                 }
             }
-            catch (Exception)
+            catch (Exception erro)
             {
-                throw new Exception("Erro ao tentar remover peça.");
+                throw new Exception($"Erro ao tentar remover peça. {erro}");
             }
         }
 
