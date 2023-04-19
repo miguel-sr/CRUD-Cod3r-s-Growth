@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cod3rsGrowth.Serviços
+namespace Cod3rsGrowth.Servicos
 {
     public class Validacao
     {
@@ -25,7 +25,7 @@ namespace Cod3rsGrowth.Serviços
             
         }
 
-        public static string CampoDeTexto(List<Campo> camposParaValidar) 
+        public static string ValidarCampoDeTexto(List<Campo> camposParaValidar) 
         {
             string erros = null;
 

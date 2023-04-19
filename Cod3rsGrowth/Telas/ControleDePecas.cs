@@ -1,57 +1,78 @@
 ﻿using Cod3rsGrowth.Modelos;
+using Cod3rsGrowth.Servicos;
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Cod3rsGrowth
 {
     public partial class ControleDePecas : Form
     {
-        private readonly BindingList<Peca> _listaDePecas = new BindingList<Peca>();
         public ControleDePecas()
         {
             InitializeComponent();
+            AtualizarLista();
         }
 
-        private void ControleDePecas_Load(object sender, EventArgs e)
+        private void AoClicarEmAdicionar(object sender, EventArgs e)
         {
-            GridDePecas.DataSource = _listaDePecas;
-        }
-
-        private void AoClicarTrocarParaMenuDeCriarPeca_Click(object sender, EventArgs e)
-        {
-            CadastroDePeca cadastroDePeca = new CadastroDePeca(_listaDePecas);
+            CadastroDePeca cadastroDePeca = new CadastroDePeca(null);
             cadastroDePeca.ShowDialog();
+
+            var novaPeca = cadastroDePeca.peca;
+
+            if (cadastroDePeca.DialogResult == DialogResult.Cancel) return;
+
+            BancoDeDados.Instancia().ListaDePecas.Add(novaPeca);
         }
 
-        private void AoClicarAbrirMenuDeEdicaoDePeca_Click(object sender, EventArgs e)
+        private void AoClicarEmEditar(object sender, EventArgs e)
         {
             if (GridDePecas.SelectedRows.Count != 1)
             {
-                MessageBox.Show("Selecione apenas uma peça!");
+                AvisoAoUsuario.ModalAviso("Selecione apenas uma peça!");
                 return;
             }
-
-            CadastroDePeca cadastroDePeca = new CadastroDePeca(_listaDePecas, GridDePecas.SelectedRows[0].Index);
-            cadastroDePeca.ShowDialog();
-        }
-
-        private void AoClicarRemoverPecaSelecionada_Click(object sender, EventArgs e)
-        {
-            if (GridDePecas.SelectedRows.Count != 1)
-            {
-                MessageBox.Show("Selecione apenas uma peça!");
-                return;
-            }
-
-            var resultado = MessageBox.Show("Você tem certeza de que quer apagar esse registro?", "Aviso!", MessageBoxButtons.OKCancel);
             
-            if (resultado == DialogResult.OK)
+            var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
+            var pecaParaAtualizar = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
+
+            CadastroDePeca cadastroDePeca = new CadastroDePeca(pecaParaAtualizar);
+            cadastroDePeca.ShowDialog();
+
+            pecaParaAtualizar = cadastroDePeca.peca;
+            
+            BancoDeDados.Instancia().ListaDePecas[indexDaLinhaSelecionada] = pecaParaAtualizar;
+        }
+
+        private void AoClicarEmRemover(object sender, EventArgs e)
+        {
+            try
             {
-                _listaDePecas.RemoveAt(GridDePecas.SelectedRows[default].Index);
-                MessageBox.Show("Registro apagado com sucesso.");
+                if (GridDePecas.SelectedRows.Count != 1)
+                {
+                    AvisoAoUsuario.ModalAviso("Selecione apenas uma peça!");
+                    return;
+                }
+
+                var resultado = MessageBox.Show("Você tem certeza de que quer apagar esse registro?", "Aviso!", MessageBoxButtons.OKCancel);
+
+                if (resultado == DialogResult.OK)
+                {
+                    var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
+                    var pecaParaRemover = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
+
+                    BancoDeDados.Instancia().ListaDePecas.Remove(pecaParaRemover);
+                }
             }
+            catch (Exception)
+            {
+                throw new Exception("Erro ao tentar remover peça.");
+            }
+        }
+
+        private void AtualizarLista()
+        {
+            GridDePecas.DataSource = BancoDeDados.Instancia().ListaDePecas;
         }
     }
 }

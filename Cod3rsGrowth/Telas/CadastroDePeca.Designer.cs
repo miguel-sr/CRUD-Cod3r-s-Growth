@@ -163,7 +163,7 @@
             this.AoClicarFecharJanela.TabIndex = 20;
             this.AoClicarFecharJanela.Text = "Cancelar";
             this.AoClicarFecharJanela.UseVisualStyleBackColor = true;
-            this.AoClicarFecharJanela.Click += new System.EventHandler(this.AoClicarFecharJanela_Click);
+            this.AoClicarFecharJanela.Click += new System.EventHandler(this.AoClicarEmCancelar);
             // 
             // AoClicarSalvarPeca
             // 
@@ -174,7 +174,7 @@
             this.AoClicarSalvarPeca.TabIndex = 19;
             this.AoClicarSalvarPeca.Text = "Salvar";
             this.AoClicarSalvarPeca.UseVisualStyleBackColor = true;
-            this.AoClicarSalvarPeca.Click += new System.EventHandler(this.AoClicarSalvarPeca_Click);
+            this.AoClicarSalvarPeca.Click += new System.EventHandler(this.AoClicarEmSalvar);
             // 
             // tableLayoutPanel3
             // 
