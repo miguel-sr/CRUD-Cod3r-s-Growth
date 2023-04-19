@@ -11,7 +11,7 @@ namespace Cod3rsGrowth
         public ControleDePecas()
         {
             InitializeComponent();
-            AtualizarListaPecas();
+            AtualizarLista();
         }
 
         private void AoClicarTrocarParaMenuDeCriarPeca_Click(object sender, EventArgs e)
@@ -70,7 +70,7 @@ namespace Cod3rsGrowth
             }
         }
 
-        private void AtualizarListaPecas()
+        private void AtualizarLista()
         {
             GridDePecas.DataSource = BancoDeDados.Instance().ListaDePecas;
         }
