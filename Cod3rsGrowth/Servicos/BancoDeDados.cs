@@ -7,21 +7,21 @@ namespace Cod3rsGrowth.Servicos
     {
         private BancoDeDados() { }
 
-        private static BancoDeDados _instance;
+        private static BancoDeDados _instancia;
         public BindingList<Peca> ListaDePecas { get; private set; }
 
-        public static BancoDeDados Instance()
+        public static BancoDeDados Instancia()
         {
             lock (typeof(BancoDeDados))
-                if (_instance == null)
+                if (_instancia == null)
                 {
-                    _instance = new BancoDeDados
+                    _instancia = new BancoDeDados
                     {
                         ListaDePecas = new BindingList<Peca>()
                     };
                 };
 
-            return _instance;
+            return _instancia;
         }
 
         static int contadorDeId = 0;

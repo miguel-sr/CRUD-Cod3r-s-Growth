@@ -23,7 +23,7 @@ namespace Cod3rsGrowth
 
             if (cadastroDePeca.DialogResult == DialogResult.Cancel) return;
 
-            BancoDeDados.Instance().ListaDePecas.Add(novaPeca);
+            BancoDeDados.Instancia().ListaDePecas.Add(novaPeca);
         }
 
         private void AoClicarAbrirMenuDeEdicaoDePeca_Click(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace Cod3rsGrowth
 
             pecaParaAtualizar = cadastroDePeca.peca;
             
-            BancoDeDados.Instance().ListaDePecas[indexDaLinhaSelecionada] = pecaParaAtualizar;
+            BancoDeDados.Instancia().ListaDePecas[indexDaLinhaSelecionada] = pecaParaAtualizar;
         }
 
         private void AoClicarRemoverPecaSelecionada_Click(object sender, EventArgs e)
@@ -60,8 +60,9 @@ namespace Cod3rsGrowth
                 if (resultado == DialogResult.OK)
                 {
                     var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
+                    var pecaParaRemover = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
 
-                    BancoDeDados.Instance().ListaDePecas.RemoveAt(indexDaLinhaSelecionada);
+                    BancoDeDados.Instancia().ListaDePecas.Remove(pecaParaRemover);
                 }
             }
             catch (Exception)
@@ -72,7 +73,7 @@ namespace Cod3rsGrowth
 
         private void AtualizarLista()
         {
-            GridDePecas.DataSource = BancoDeDados.Instance().ListaDePecas;
+            GridDePecas.DataSource = BancoDeDados.Instancia().ListaDePecas;
         }
     }
 }
