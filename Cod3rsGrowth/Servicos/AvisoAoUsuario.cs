@@ -8,6 +8,7 @@ namespace Cod3rsGrowth.Servicos
         {
             MessageBox.Show(text, "Aviso!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
+
         public static DialogResult ModalConfirmarAcao(string text)
         {
             return MessageBox.Show(text, "Aviso!", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);

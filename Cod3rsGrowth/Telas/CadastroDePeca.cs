@@ -44,7 +44,7 @@ namespace Cod3rsGrowth
                     new Campo("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
                 };
 
-                String erros = ValidarCampoDeTexto(CamposParaValidar);
+                string erros = ValidarCampoDeTexto(CamposParaValidar);
 
                 if (erros != null)
                 {
@@ -63,10 +63,10 @@ namespace Cod3rsGrowth
                 Close();
 
             }
-            catch (Exception)
+            catch (Exception erro)
             {
                 DialogResult = DialogResult.Cancel;
-                throw new Exception("Erro ao tentar salvar peça.");
+                throw new Exception($"Erro ao coletar dados do formulário. {erro}");
             }
         }
 

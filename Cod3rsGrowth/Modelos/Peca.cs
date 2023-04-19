@@ -4,8 +4,6 @@ namespace Cod3rsGrowth.Modelos
 {
     public class Peca
     {
-        public Peca() { }
-
         public int Id { get; set; }
 
         public string Categoria { get; set; }

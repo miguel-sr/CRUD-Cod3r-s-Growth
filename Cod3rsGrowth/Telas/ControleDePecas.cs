@@ -17,30 +17,46 @@ namespace Cod3rsGrowth
 
         private void AoClicarEmAdicionar(object sender, EventArgs e)
         {
-            CadastroDePeca cadastroDePeca = new CadastroDePeca(null);
-            cadastroDePeca.ShowDialog();
+            try
+            {
+                CadastroDePeca cadastroDePeca = new CadastroDePeca(null);
+                cadastroDePeca.ShowDialog();
 
-            var novaPeca = cadastroDePeca.peca;
+                var novaPeca = cadastroDePeca.peca;
 
-            if (cadastroDePeca.DialogResult == DialogResult.OK) repositorio.Criar(novaPeca);
-            
+                if (cadastroDePeca.DialogResult == DialogResult.OK)
+                {
+                    repositorio.Criar(novaPeca);
+                }
+            }
+            catch (Exception erro)
+            {
+                throw new Exception($"Erro ao criar peça. {erro}");
+            }
         }
 
         private void AoClicarEmEditar(object sender, EventArgs e)
         {
-            if (GridDePecas.SelectedRows.Count != 1)
+            try
             {
-                AvisoAoUsuario.ModalAviso("Selecione apenas uma peça!");
-                return;
+                if (GridDePecas.SelectedRows.Count != 1)
+                {
+                    AvisoAoUsuario.ModalAviso("Selecione apenas uma peça!");
+                    return;
+                }
+
+                var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
+                var pecaParaAtualizar = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
+
+                CadastroDePeca cadastroDePeca = new CadastroDePeca(pecaParaAtualizar);
+                cadastroDePeca.ShowDialog();
+
+                repositorio.Atualizar(pecaParaAtualizar.Id, cadastroDePeca.peca);
             }
-            
-            var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
-            var pecaParaAtualizar = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
-
-            CadastroDePeca cadastroDePeca = new CadastroDePeca(pecaParaAtualizar);
-            cadastroDePeca.ShowDialog();
-
-            repositorio.Atualizar(pecaParaAtualizar.Id, cadastroDePeca.peca);
+            catch (Exception erro)
+            {
+                throw new Exception($"Erro ao atualizar peça. {erro}");
+            }
         }
 
         private void AoClicarEmRemover(object sender, EventArgs e)
@@ -65,13 +81,20 @@ namespace Cod3rsGrowth
             }
             catch (Exception erro)
             {
-                throw new Exception($"Erro ao tentar remover peça. {erro}");
+                throw new Exception($"Erro ao remover peça. {erro}");
             }
         }
 
         private void AtualizarLista()
         {
-            GridDePecas.DataSource = repositorio.ObterTodas();
+            try
+            {
+                GridDePecas.DataSource = repositorio.ObterTodas();
+            }
+            catch (Exception erro)
+            {
+                throw new Exception($"Erro ao obter lista de peças. {erro}");
+            }
         }
     }
 }

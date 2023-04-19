@@ -7,6 +7,7 @@ namespace Cod3rsGrowth.Servicos
     {
         private BancoDeDados() { }
 
+        static int _contadorDeId = 0;
         private static BancoDeDados _instancia;
         public BindingList<Peca> ListaDePecas { get; private set; }
 
@@ -24,10 +25,9 @@ namespace Cod3rsGrowth.Servicos
             return _instancia;
         }
 
-        static int contadorDeId = 0;
         public static int GerarIdParaPeca()
         {
-            return ++contadorDeId;
+            return ++_contadorDeId;
         }
     }
 }
