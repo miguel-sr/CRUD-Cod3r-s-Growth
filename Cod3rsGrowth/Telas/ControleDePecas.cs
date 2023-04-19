@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Modelos;
+using Cod3rsGrowth.Repositorio;
 using Cod3rsGrowth.Servicos;
 using System;
 using System.Windows.Forms;
@@ -7,6 +8,7 @@ namespace Cod3rsGrowth
 {
     public partial class ControleDePecas : Form
     {
+        readonly RepositorioListaSingleton repositorio = new RepositorioListaSingleton();
         public ControleDePecas()
         {
             InitializeComponent();
@@ -20,9 +22,10 @@ namespace Cod3rsGrowth
 
             var novaPeca = cadastroDePeca.peca;
 
+            repositorio.Criar(novaPeca);
+
             if (cadastroDePeca.DialogResult == DialogResult.Cancel) return;
 
-            BancoDeDados.Instancia().ListaDePecas.Add(novaPeca);
         }
 
         private void AoClicarEmEditar(object sender, EventArgs e)
@@ -39,9 +42,7 @@ namespace Cod3rsGrowth
             CadastroDePeca cadastroDePeca = new CadastroDePeca(pecaParaAtualizar);
             cadastroDePeca.ShowDialog();
 
-            pecaParaAtualizar = cadastroDePeca.peca;
-            
-            BancoDeDados.Instancia().ListaDePecas[indexDaLinhaSelecionada] = pecaParaAtualizar;
+            repositorio.Atualizar(pecaParaAtualizar.Id, cadastroDePeca.peca);
         }
 
         private void AoClicarEmRemover(object sender, EventArgs e)
@@ -59,9 +60,9 @@ namespace Cod3rsGrowth
                 if (resultado == DialogResult.OK)
                 {
                     var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
-                    var pecaParaRemover = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
+                    var pecaParaAtualizar = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
 
-                    BancoDeDados.Instancia().ListaDePecas.Remove(pecaParaRemover);
+                    repositorio.Remover(pecaParaAtualizar.Id);
                 }
             }
             catch (Exception)
@@ -72,7 +73,7 @@ namespace Cod3rsGrowth
 
         private void AtualizarLista()
         {
-            GridDePecas.DataSource = BancoDeDados.Instancia().ListaDePecas;
+            GridDePecas.DataSource = repositorio.ObterTodas();
         }
     }
 }

@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositorio\IRepositorio.cs" />
+    <Compile Include="Repositorio\RepositorioListaSingleton.cs" />
     <Compile Include="Servicos\BancoDeDados.cs" />
     <Compile Include="Servicos\AvisoAoUsuario.cs" />
     <Compile Include="Servicos\Validacao.cs" />
