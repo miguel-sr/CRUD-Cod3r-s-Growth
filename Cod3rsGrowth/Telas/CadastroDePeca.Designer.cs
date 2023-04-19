@@ -72,6 +72,7 @@
             this.CampoEstoqueDoFormularioCadastroDePecas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CampoEstoqueDoFormularioCadastroDePecas.Location = new System.Drawing.Point(279, 3);
+            this.CampoEstoqueDoFormularioCadastroDePecas.MaxLength = 10;
             this.CampoEstoqueDoFormularioCadastroDePecas.Name = "CampoEstoqueDoFormularioCadastroDePecas";
             this.CampoEstoqueDoFormularioCadastroDePecas.Size = new System.Drawing.Size(270, 20);
             this.CampoEstoqueDoFormularioCadastroDePecas.TabIndex = 29;
@@ -163,7 +164,7 @@
             this.AoClicarFecharJanela.TabIndex = 20;
             this.AoClicarFecharJanela.Text = "Cancelar";
             this.AoClicarFecharJanela.UseVisualStyleBackColor = true;
-            this.AoClicarFecharJanela.Click += new System.EventHandler(this.AoClicarFecharJanela_Click);
+            this.AoClicarFecharJanela.Click += new System.EventHandler(this.AoClicarEmCancelar);
             // 
             // AoClicarSalvarPeca
             // 
@@ -174,7 +175,7 @@
             this.AoClicarSalvarPeca.TabIndex = 19;
             this.AoClicarSalvarPeca.Text = "Salvar";
             this.AoClicarSalvarPeca.UseVisualStyleBackColor = true;
-            this.AoClicarSalvarPeca.Click += new System.EventHandler(this.AoClicarSalvarPeca_Click);
+            this.AoClicarSalvarPeca.Click += new System.EventHandler(this.AoClicarEmSalvar);
             // 
             // tableLayoutPanel3
             // 
