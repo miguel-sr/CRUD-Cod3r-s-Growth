@@ -52,6 +52,8 @@ namespace Cod3rsGrowth.Repositorio
             SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
             conexaoSql.Open();
 
+            // TODO: Correção da geração dos Id's, quando o programa é fechado os registros permanecem porém o contador é reiniciado
+
             SqlCommand comandoExecutado = 
                 new SqlCommand($"INSERT INTO Pecas (Id, Categoria, Nome, Descricao, Estoque, DataDeFabricacao) VALUES ('{novaPeca.Id}', '{novaPeca.Categoria}', '{novaPeca.Nome}', '{novaPeca.Descricao}', '{novaPeca.Estoque}', '{novaPeca.DataDeFabricacao}');", conexaoSql);
 
