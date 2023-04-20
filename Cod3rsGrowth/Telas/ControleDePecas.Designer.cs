@@ -55,6 +55,8 @@
             // 
             // GridDePecas
             // 
+            this.GridDePecas.AllowUserToAddRows = false;
+            this.GridDePecas.AllowUserToDeleteRows = false;
             this.GridDePecas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -100,7 +102,7 @@
             this.AoClicarRemoverPecaSelecionada.TabIndex = 3;
             this.AoClicarRemoverPecaSelecionada.Text = "Remover";
             this.AoClicarRemoverPecaSelecionada.UseVisualStyleBackColor = true;
-            this.AoClicarRemoverPecaSelecionada.Click += new System.EventHandler(this.AoClicarRemoverPecaSelecionada_Click);
+            this.AoClicarRemoverPecaSelecionada.Click += new System.EventHandler(this.AoClicarEmRemover);
             // 
             // AoClicarTrocarParaMenuDeCriarPeca
             // 
@@ -112,7 +114,7 @@
             this.AoClicarTrocarParaMenuDeCriarPeca.TabIndex = 4;
             this.AoClicarTrocarParaMenuDeCriarPeca.Text = "Adicionar";
             this.AoClicarTrocarParaMenuDeCriarPeca.UseVisualStyleBackColor = true;
-            this.AoClicarTrocarParaMenuDeCriarPeca.Click += new System.EventHandler(this.AoClicarTrocarParaMenuDeCriarPeca_Click);
+            this.AoClicarTrocarParaMenuDeCriarPeca.Click += new System.EventHandler(this.AoClicarEmAdicionar);
             // 
             // AoClicarAbrirMenuDeEdicaoDePeca
             // 
@@ -124,7 +126,7 @@
             this.AoClicarAbrirMenuDeEdicaoDePeca.TabIndex = 5;
             this.AoClicarAbrirMenuDeEdicaoDePeca.Text = "Editar";
             this.AoClicarAbrirMenuDeEdicaoDePeca.UseVisualStyleBackColor = true;
-            this.AoClicarAbrirMenuDeEdicaoDePeca.Click += new System.EventHandler(this.AoClicarAbrirMenuDeEdicaoDePeca_Click);
+            this.AoClicarAbrirMenuDeEdicaoDePeca.Click += new System.EventHandler(this.AoClicarEmEditar);
             // 
             // ColunaId
             // 
@@ -199,7 +201,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ControleDePecas";
             this.Text = "Controle de Peças";
-            this.Load += new System.EventHandler(this.ControleDePecas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GridDePecas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pecaBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -211,13 +212,13 @@
         private System.Windows.Forms.Button AoClicarTrocarParaMenuDeCriarPeca;
         private System.Windows.Forms.Button AoClicarAbrirMenuDeEdicaoDePeca;
         private System.Windows.Forms.DataGridView GridDePecas;
-        private System.Windows.Forms.BindingSource pecaBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaCategoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaNome;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaDescricao;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaEstoque;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColunaDataDeFabricacao;
+        private System.Windows.Forms.BindingSource pecaBindingSource;
     }
 }
 

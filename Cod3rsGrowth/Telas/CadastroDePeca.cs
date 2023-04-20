@@ -1,91 +1,78 @@
 ﻿using Cod3rsGrowth.Modelos;
-using Cod3rsGrowth.Serviços;
+using Cod3rsGrowth.Servicos;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows.Forms;
+using static Cod3rsGrowth.Servicos.Validacao;
 
 namespace Cod3rsGrowth
 {
     public partial class CadastroDePeca : Form
     {
-        readonly BindingList<Peca> ListaDePecas;
-        readonly int _index;
-        public CadastroDePeca(BindingList<Peca> listaDePecas, int index = -1)
+        public readonly Peca peca;
+        public CadastroDePeca(Peca peca)
         {
             InitializeComponent();
-            ListaDePecas = listaDePecas;
-            _index = index;
 
-            if (_index != -1)
+            if (peca == null)
             {
-                Text = "Editar Peça";
-                var peca = ListaDePecas[_index] as Peca;
-
-                CampoCategoriaDoFormularioCadastroDePecas.Text = peca.Categoria;
-                CampoNomeDoFormularioCadastroDePecas.Text = peca.Nome;
-                CampoDescricaoDoFormularioCadastroDePecas.Text = peca.Descricao;
-                CampoEstoqueDoFormularioCadastroDePecas.Text = peca.Estoque.ToString();
-                CampoDataDoFormularioCadastroDePecas.Value = peca.DataDeFabricacao;
+                this.peca = new Peca();
             }
+            else
+            {
+                this.peca = peca;
 
+                Text = "Editar Peça";
+
+                CampoCategoriaDoFormularioCadastroDePecas.Text = this.peca.Categoria;
+                CampoNomeDoFormularioCadastroDePecas.Text = this.peca.Nome;
+                CampoDescricaoDoFormularioCadastroDePecas.Text = this.peca.Descricao;
+                CampoEstoqueDoFormularioCadastroDePecas.Text = this.peca.Estoque.ToString();
+                CampoDataDoFormularioCadastroDePecas.Value = this.peca.DataDeFabricacao;
+            }
+   
             CampoDataDoFormularioCadastroDePecas.MaxDate = DateTime.Today;
         }
 
-        private void AoClicarSalvarPeca_Click(object sender, EventArgs e)
+        private void AoClicarEmSalvar(object sender, EventArgs e)
         {
-
-            List<Validacao.Campo> CamposParaValidar = new List<Validacao.Campo>
+            try
             {
-                new Validacao.Campo("nome", CampoNomeDoFormularioCadastroDePecas.Text, true, false),
-                new Validacao.Campo("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
-            };
+                List<Campo> CamposParaValidar = new List<Campo>
+                {
+                    new Campo("nome", CampoNomeDoFormularioCadastroDePecas.Text, true, false),
+                    new Campo("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
+                };
 
-            String erros = Validacao.CampoDeTexto(CamposParaValidar);
+                string erros = ValidarCampoDeTexto(CamposParaValidar);
 
-            if (erros != null)
-            {
-                MessageBox.Show(erros, "Aviso!");
-                return;
+                if (erros != null)
+                {
+                    AvisoAoUsuario.ModalAviso(erros);
+                    return;
+                }
+
+                peca.Id = peca.Id == 0 ? BancoDeDados.GerarIdParaPeca() : peca.Id;
+                peca.Categoria = CampoCategoriaDoFormularioCadastroDePecas.Text;
+                peca.Nome = CampoNomeDoFormularioCadastroDePecas.Text;
+                peca.Descricao = CampoDescricaoDoFormularioCadastroDePecas.Text;
+                peca.Estoque = Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text);
+                peca.DataDeFabricacao = CampoDataDoFormularioCadastroDePecas.Value.Date;
+
+                DialogResult = DialogResult.OK;
+                Close();
+
             }
-
-            if (_index == -1)
+            catch (Exception erro)
             {
-                var pecaParaAdicionar = new Peca(
-                    GerarIdParaPeca(),
-                    CampoCategoriaDoFormularioCadastroDePecas.Text,
-                    CampoNomeDoFormularioCadastroDePecas.Text,
-                    CampoDescricaoDoFormularioCadastroDePecas.Text,
-                    Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text),
-                    CampoDataDoFormularioCadastroDePecas.Value.Date
-                );
-
-                ListaDePecas.Add(pecaParaAdicionar);
-                this.Close();
-                return;
+                DialogResult = DialogResult.Cancel;
+                throw new Exception($"Erro ao coletar dados do formulário. {erro}");
             }
-
-            ListaDePecas[_index] = new Peca(
-                ListaDePecas[_index].Id,
-                CampoCategoriaDoFormularioCadastroDePecas.Text,
-                CampoNomeDoFormularioCadastroDePecas.Text,
-                CampoDescricaoDoFormularioCadastroDePecas.Text,
-                Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text),
-                CampoDataDoFormularioCadastroDePecas.Value.Date
-            );
-
-            this.Close();
         }
 
-        private void AoClicarFecharJanela_Click(object sender, EventArgs e)
+        private void AoClicarEmCancelar(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        static int contadorDeId = 0;
-        public static int GerarIdParaPeca()
-        {
-            return ++contadorDeId;
+            Close();
         }
     }
 }
