@@ -26,4 +26,24 @@ namespace Cod3rsGrowth.Migracoes
             Delete.Table("Pecas");
         }
     }
+
+    [Migration(20230420142100)]
+    public class AdicionaTabelaPecas2 : Migration
+    {
+        public override void Up()
+        {
+            Create.Table("Pecas")
+                .WithColumn("Id").AsInt32()
+                .WithColumn("Categoria").AsString()
+                .WithColumn("Nome").AsString()
+                .WithColumn("Descricao").AsString()
+                .WithColumn("Estoque").AsInt32()
+                .WithColumn("DataDeFabricacao").AsDateTime();
+        }
+
+        public override void Down()
+        {
+            Delete.Table("Pecas");
+        }
+    }
 }

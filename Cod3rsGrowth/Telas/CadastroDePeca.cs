@@ -52,7 +52,7 @@ namespace Cod3rsGrowth
                     return;
                 }
 
-                peca.Id = peca.Id == 0 ? BancoDeDados.GerarIdParaPeca() : peca.Id;
+                peca.Id = peca.Id == 0 ? Singleton.GerarIdParaPeca() : peca.Id;
                 peca.Categoria = CampoCategoriaDoFormularioCadastroDePecas.Text;
                 peca.Nome = CampoNomeDoFormularioCadastroDePecas.Text;
                 peca.Descricao = CampoDescricaoDoFormularioCadastroDePecas.Text;

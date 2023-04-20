@@ -8,7 +8,8 @@ namespace Cod3rsGrowth
 {
     public partial class ControleDePecas : Form
     {
-        readonly RepositorioListaSingleton repositorio = new RepositorioListaSingleton();
+        readonly ListaEmMemoria repositorio = new ListaEmMemoria();
+        readonly SQLServer sql = new SQLServer();
         public ControleDePecas()
         {
             InitializeComponent();
@@ -27,6 +28,7 @@ namespace Cod3rsGrowth
                 if (cadastroDePeca.DialogResult == DialogResult.OK)
                 {
                     repositorio.Criar(novaPeca);
+                    sql.Criar(novaPeca);
                 }
             }
             catch (Exception erro)
@@ -51,7 +53,7 @@ namespace Cod3rsGrowth
                 CadastroDePeca cadastroDePeca = new CadastroDePeca(pecaParaAtualizar);
                 cadastroDePeca.ShowDialog();
 
-                repositorio.Atualizar(pecaParaAtualizar.Id, cadastroDePeca.peca);
+                //repositorio.Atualizar(pecaParaAtualizar.Id, cadastroDePeca.peca);
             }
             catch (Exception erro)
             {
@@ -76,7 +78,8 @@ namespace Cod3rsGrowth
                     var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
                     var pecaParaAtualizar = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
 
-                    repositorio.Remover(pecaParaAtualizar.Id);
+                    //repositorio.Remover(pecaParaAtualizar.Id);
+                    sql.Remover(0);
                 }
             }
             catch (Exception erro)
@@ -87,7 +90,8 @@ namespace Cod3rsGrowth
 
         private void AtualizarLista()
         {
-            GridDePecas.DataSource = repositorio.ObterTodas();
+            //GridDePecas.DataSource = repositorio.ObterTodas();
+            GridDePecas.DataSource = sql.ObterTodas();
         }
     }
 }

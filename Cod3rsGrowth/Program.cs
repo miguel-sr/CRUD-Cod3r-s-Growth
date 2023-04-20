@@ -38,7 +38,7 @@ namespace Cod3rsGrowth
                 .ConfigureRunner(rb => rb
                     .AddSqlServer2016()
                     .WithGlobalConnectionString(stringDeConexao)
-                    .ScanIn(typeof(AdicionaTabelaPecas).Assembly).For.Migrations())
+                    .ScanIn(typeof(AdicionaTabelaPecas2).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
         }
@@ -46,7 +46,6 @@ namespace Cod3rsGrowth
         private static void AtualizarBancoDeDados(IServiceProvider serviceProvider)
         {
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-
             runner.MigrateUp();
         }
     }

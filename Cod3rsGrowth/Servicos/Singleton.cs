@@ -3,20 +3,20 @@ using System.ComponentModel;
 
 namespace Cod3rsGrowth.Servicos
 {
-    public class BancoDeDados
+    public class Singleton
     {
-        private BancoDeDados() { }
+        private Singleton() { }
 
         static int _contadorDeId = 0;
-        private static BancoDeDados _instancia;
+        private static Singleton _instancia;
         public BindingList<Peca> ListaDePecas { get; private set; }
 
-        public static BancoDeDados Instancia()
+        public static Singleton Instancia()
         {
-            lock (typeof(BancoDeDados))
+            lock (typeof(Singleton))
                 if (_instancia == null)
                 {
-                    _instancia = new BancoDeDados
+                    _instancia = new Singleton
                     {
                         ListaDePecas = new BindingList<Peca>()
                     };

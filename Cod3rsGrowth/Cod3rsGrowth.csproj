@@ -288,9 +288,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Migracoes\20230420_AdicionaTabelaPecas.cs" />
+    <Compile Include="Repositorio\SQLServer.cs" />
     <Compile Include="Repositorio\IRepositorio.cs" />
-    <Compile Include="Repositorio\RepositorioListaSingleton.cs" />
-    <Compile Include="Servicos\BancoDeDados.cs" />
+    <Compile Include="Repositorio\ListaEmMemoria.cs" />
+    <Compile Include="Servicos\Singleton.cs" />
     <Compile Include="Servicos\AvisoAoUsuario.cs" />
     <Compile Include="Servicos\Validacao.cs" />
     <Compile Include="Telas\ControleDePecas.cs">
