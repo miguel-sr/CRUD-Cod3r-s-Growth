@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Migracoes;
 using Cod3rsGrowth.Repositorio;
+using Cod3rsGrowth.Servicos;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,22 +17,36 @@ namespace Cod3rsGrowth
         [STAThread]
         static void Main()
         {
-            var builder = CriaHostBuilder();
-            var servicesProvider = builder.Build().Services;
-            var repositorio = servicesProvider.GetService<IRepositorio>();
+            using (var provedorServico = CriaServicos())
+            using (var escopo = provedorServico.CreateScope())
+            {
+                AtualizarBancoDeDados(escopo.ServiceProvider);
+            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ControleDePecas(repositorio));
+            Application.Run(new ControleDePecas());
         }
 
-        private static IHostBuilder CriaHostBuilder()
+        static readonly string stringDeConexao = 
+            System.Configuration.ConfigurationManager.ConnectionStrings["Cod3rsGrowth"].ConnectionString;
+
+        private static ServiceProvider CriaServicos()
         {
-            return Host.CreateDefaultBuilder()
-                .ConfigureServices((context, services) =>
-                {
-                    services.AddScoped<IRepositorio, RepositirioComBancoSql>();
-                });
+            return new ServiceCollection()
+                .AddFluentMigratorCore()
+                .ConfigureRunner(rb => rb
+                    .AddSqlServer2016()
+                    .WithGlobalConnectionString(stringDeConexao)
+                    .ScanIn(typeof(AdicionaTabelaPecas).Assembly).For.Migrations())
+                .AddLogging(lb => lb.AddFluentMigratorConsole())
+                .BuildServiceProvider(false);
+        }
+
+        private static void AtualizarBancoDeDados(IServiceProvider serviceProvider)
+        {
+            var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+            runner.MigrateUp();
         }
     }
 }
