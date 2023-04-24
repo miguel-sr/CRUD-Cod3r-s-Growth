@@ -1,7 +1,4 @@
-﻿using Cod3rsGrowth.Migracoes;
-using Cod3rsGrowth.Repositorio;
-using Cod3rsGrowth.Servicos;
-using FluentMigrator.Runner;
+﻿using Cod3rsGrowth.Repositorio;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
