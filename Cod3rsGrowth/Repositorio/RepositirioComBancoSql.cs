@@ -2,15 +2,13 @@
 using Microsoft.Data.SqlClient;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
+using System.Configuration;
 
 namespace Cod3rsGrowth.Repositorio
 {
-    public class SQLServer : IRepositorio
+    public class RepositirioComBancoSql : IRepositorio
     {
-        private readonly string _stringDeConexao = System.Configuration.ConfigurationManager.ConnectionStrings["Cod3rsGrowth"].ConnectionString;
-        readonly BindingList<Peca> lista = new BindingList<Peca>();
+        private readonly string _stringDeConexao = ConfigurationManager.ConnectionStrings["Cod3rsGrowth"].ConnectionString;
         public Peca ObterPorId(int id)
         {
             SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
@@ -44,14 +42,16 @@ namespace Cod3rsGrowth.Repositorio
 
         public BindingList<Peca> ObterTodas()
         {
+            BindingList<Peca> lista = new BindingList<Peca>();
+
             SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
             conexaoSql.Open();
 
             SqlCommand comandoExecutado = new SqlCommand("SELECT * FROM Pecas;", conexaoSql);
 
-            SqlDataReader dr = comandoExecutado.ExecuteReader();
-
             lista.Clear();
+
+            SqlDataReader dr = comandoExecutado.ExecuteReader();
 
             while (dr.Read())
             {
@@ -83,8 +83,6 @@ namespace Cod3rsGrowth.Repositorio
 
             comandoExecutado.ExecuteNonQuery();
 
-            ObterTodas();
-            
             conexaoSql.Close();
         }
 
@@ -97,8 +95,6 @@ namespace Cod3rsGrowth.Repositorio
 
             comandoExecutado.ExecuteNonQuery();
 
-            ObterTodas();
-
             conexaoSql.Close();
         }
 
@@ -110,8 +106,6 @@ namespace Cod3rsGrowth.Repositorio
             SqlCommand comandoExecutado = new SqlCommand($"DELETE FROM Pecas WHERE Id='{id}';", conexaoSql);
 
             comandoExecutado.ExecuteNonQuery();
-
-            ObterTodas();
 
             conexaoSql.Close();
         }
