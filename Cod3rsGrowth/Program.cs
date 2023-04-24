@@ -46,7 +46,6 @@ namespace Cod3rsGrowth
         private static void AtualizarBancoDeDados(IServiceProvider serviceProvider)
         {
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-
             runner.MigrateUp();
         }
     }

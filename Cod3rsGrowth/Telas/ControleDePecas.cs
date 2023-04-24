@@ -8,7 +8,7 @@ namespace Cod3rsGrowth
 {
     public partial class ControleDePecas : Form
     {
-        readonly RepositorioListaSingleton repositorio = new RepositorioListaSingleton();
+        readonly RepositirioComBancoSql repositorio = new RepositirioComBancoSql();
         public ControleDePecas()
         {
             InitializeComponent();
@@ -27,6 +27,7 @@ namespace Cod3rsGrowth
                 if (cadastroDePeca.DialogResult == DialogResult.OK)
                 {
                     repositorio.Criar(novaPeca);
+                    AtualizarLista();
                 }
             }
             catch (Exception erro)
@@ -52,6 +53,7 @@ namespace Cod3rsGrowth
                 cadastroDePeca.ShowDialog();
 
                 repositorio.Atualizar(pecaParaAtualizar.Id, cadastroDePeca.peca);
+                AtualizarLista();
             }
             catch (Exception erro)
             {
@@ -74,9 +76,10 @@ namespace Cod3rsGrowth
                 if (resultado == DialogResult.OK)
                 {
                     var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
-                    var pecaParaAtualizar = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
+                    var pecaParaRemover = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
 
-                    repositorio.Remover(pecaParaAtualizar.Id);
+                    repositorio.Remover(pecaParaRemover.Id);
+                    AtualizarLista();
                 }
             }
             catch (Exception erro)

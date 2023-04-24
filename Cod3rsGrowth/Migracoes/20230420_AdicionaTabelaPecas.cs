@@ -1,19 +1,15 @@
 ﻿using FluentMigrator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FluentMigrator.SqlServer;
 
 namespace Cod3rsGrowth.Migracoes
 {
-    [Migration(20230420111700)]
+    [Migration(20230424101800)]
     public class AdicionaTabelaPecas : Migration
     {
         public override void Up()
         {
             Create.Table("Pecas")
-                .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity(1, 1)
                 .WithColumn("Categoria").AsString()
                 .WithColumn("Nome").AsString()
                 .WithColumn("Descricao").AsString()
