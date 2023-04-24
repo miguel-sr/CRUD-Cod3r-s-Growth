@@ -10,10 +10,36 @@ namespace Cod3rsGrowth.Repositorio
     public class SQLServer : IRepositorio
     {
         private readonly string _stringDeConexao = System.Configuration.ConfigurationManager.ConnectionStrings["Cod3rsGrowth"].ConnectionString;
-        BindingList<Peca> lista = new BindingList<Peca>();
+        readonly BindingList<Peca> lista = new BindingList<Peca>();
         public Peca ObterPorId(int id)
         {
-            throw new System.NotImplementedException();
+            SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
+            conexaoSql.Open();
+
+            SqlCommand comandoExecutado = new SqlCommand($"SELECT Id, Categoria, Nome, Descricao, Estoque, DataDeFabricacao FROM Pecas WHERE Id='{id}';", conexaoSql);
+
+            SqlDataReader dr = comandoExecutado.ExecuteReader();
+
+            var peca = null as Peca;
+
+            while (dr.Read())
+            {
+                peca = new Peca
+                {
+                    Id = Convert.ToInt32(dr[0]),
+                    Categoria = dr[1].ToString(),
+                    Nome = dr[2].ToString(),
+                    Descricao = dr[3].ToString(),
+                    Estoque = Convert.ToInt32(dr[4]),
+                    DataDeFabricacao = Convert.ToDateTime(dr[5])
+                };
+
+            }
+
+            conexaoSql.Close();
+
+            return peca;
+
         }
 
         public BindingList<Peca> ObterTodas()
@@ -52,10 +78,8 @@ namespace Cod3rsGrowth.Repositorio
             SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
             conexaoSql.Open();
 
-            // TODO: Correção da geração dos Id's, quando o programa é fechado os registros permanecem porém o contador é reiniciado
-
             SqlCommand comandoExecutado = 
-                new SqlCommand($"INSERT INTO Pecas (Id, Categoria, Nome, Descricao, Estoque, DataDeFabricacao) VALUES ('{novaPeca.Id}', '{novaPeca.Categoria}', '{novaPeca.Nome}', '{novaPeca.Descricao}', '{novaPeca.Estoque}', '{novaPeca.DataDeFabricacao}');", conexaoSql);
+                new SqlCommand($"INSERT INTO Pecas (Categoria, Nome, Descricao, Estoque, DataDeFabricacao) VALUES ('{novaPeca.Categoria}', '{novaPeca.Nome}', '{novaPeca.Descricao}', '{novaPeca.Estoque}', '{novaPeca.DataDeFabricacao}');", conexaoSql);
 
             comandoExecutado.ExecuteNonQuery();
 
@@ -66,7 +90,16 @@ namespace Cod3rsGrowth.Repositorio
 
         public void Atualizar(int id, Peca pecaAtualizada)
         {
-            throw new System.NotImplementedException();
+            SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
+            conexaoSql.Open();
+
+            SqlCommand comandoExecutado = new SqlCommand($"UPDATE Pecas SET Categoria='{pecaAtualizada.Categoria}', Nome='{pecaAtualizada.Nome}', Descricao='{pecaAtualizada.Descricao}', Estoque='{pecaAtualizada.Estoque}', DataDeFabricacao='{pecaAtualizada.DataDeFabricacao}' WHERE Id='{id}';", conexaoSql);
+
+            comandoExecutado.ExecuteNonQuery();
+
+            ObterTodas();
+
+            conexaoSql.Close();
         }
 
         public void Remover(int id)
@@ -74,7 +107,7 @@ namespace Cod3rsGrowth.Repositorio
             SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
             conexaoSql.Open();
 
-            SqlCommand comandoExecutado = new SqlCommand("DELETE FROM Pecas;", conexaoSql);
+            SqlCommand comandoExecutado = new SqlCommand($"DELETE FROM Pecas WHERE Id='{id}';", conexaoSql);
 
             comandoExecutado.ExecuteNonQuery();
 

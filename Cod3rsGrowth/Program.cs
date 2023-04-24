@@ -38,7 +38,7 @@ namespace Cod3rsGrowth
                 .ConfigureRunner(rb => rb
                     .AddSqlServer2016()
                     .WithGlobalConnectionString(stringDeConexao)
-                    .ScanIn(typeof(AdicionaTabelaPecas2).Assembly).For.Migrations())
+                    .ScanIn(typeof(AdicionaTabelaPecas).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
         }
