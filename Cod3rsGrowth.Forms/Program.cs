@@ -1,4 +1,7 @@
-﻿using Cod3rsGrowth.Repositorio;
+﻿using Cod3rsGrowth.Infra.Configuracoes;
+using Cod3rsGrowth.Infra.Repositorio;
+using Cod3rsGrowth.Repositorio;
+using LinqToDB.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -14,6 +17,8 @@ namespace Cod3rsGrowth
         [STAThread]
         static void Main()
         {
+            DataConnection.DefaultSettings = new ConexaoLinq2Db();
+
             var builder = CriaHostBuilder();
             var servicesProvider = builder.Build().Services;
             var repositorio = servicesProvider.GetService<IRepositorio>();
@@ -28,7 +33,7 @@ namespace Cod3rsGrowth
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddScoped<IRepositorio, RepositirioComBancoSql>();
+                    services.AddScoped<IRepositorio, RepositorioComLinq2Db>();
                 });
         }
     }

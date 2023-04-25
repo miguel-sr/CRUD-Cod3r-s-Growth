@@ -5,7 +5,7 @@ using System.Configuration;
 
 namespace Cod3rsGrowth.Repositorio
 {
-    public class RepositirioComBancoSql : IRepositorio
+    public class RepositorioComBancoSql : IRepositorio
     {
         private readonly string _stringDeConexao = ConfigurationManager.ConnectionStrings["Cod3rsGrowth"].ConnectionString;
         public Peca ObterPorId(int id)
