@@ -1,6 +1,5 @@
 ﻿using Cod3rsGrowth.Modelos;
 using Microsoft.Data.SqlClient;
-using System;
 using System.ComponentModel;
 using System.Configuration;
 
