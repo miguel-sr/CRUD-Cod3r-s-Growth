@@ -2,21 +2,28 @@
 using Cod3rsGrowth.Repositorio;
 using DataModels;
 using LinqToDB;
+using LinqToDB.Configuration;
 using LinqToDB.Data;
 using System.ComponentModel;
-using System.Configuration;
 
-namespace Cod3rsGrowth.Infra.Repositorio
+namespace Cod3rsGrowth.Infra.Repositorio.Linq2Db
 {
     public class RepositorioComLinq2Db : IRepositorio
     {
-        public Modelos.Peca ObterPorId(int id)
+        public RepositorioComLinq2Db()
+        {
+            DataConnection.DefaultSettings = new ConexaoLinq2Db();
+        }
+
+        public Peca ObterPorId(int id)
         {
             using var db = new Cod3rsGrowthDB();
 
             var pecaCorrespondente = db.Pecas.FirstOrDefault(peca => peca.Id == id);
 
-            return new Modelos.Peca
+            db.Close();
+
+            return new Peca
             {
                 Id = pecaCorrespondente.Id,
                 Categoria = pecaCorrespondente.Categoria,
@@ -27,15 +34,15 @@ namespace Cod3rsGrowth.Infra.Repositorio
             };
         }
 
-        public BindingList<Modelos.Peca> ObterTodas()
+        public BindingList<Peca> ObterTodas()
         {
             using var db = new Cod3rsGrowthDB();
 
-            BindingList<Modelos.Peca> lista = new BindingList<Modelos.Peca>();
+            BindingList<Peca> lista = new BindingList<Peca>();
 
             foreach (var peca in db.Pecas)
             {
-                var pecaParaAdicionar = new Modelos.Peca
+                var pecaParaAdicionar = new Peca
                 {
                     Id = peca.Id,
                     Categoria = peca.Categoria,
@@ -53,11 +60,11 @@ namespace Cod3rsGrowth.Infra.Repositorio
             return lista;
         }
 
-        public void Criar(Modelos.Peca peca)
+        public void Criar(Peca peca)
         {
             using var db = new Cod3rsGrowthDB();
 
-            var novaPeca = new DataModels.Peca
+            var novaPeca = new PecaLinq2Db
             {
                 Id = peca.Id,
                 Categoria = peca.Categoria,
@@ -73,7 +80,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         }
 
-        public void Atualizar(int id, Modelos.Peca novaPeca)
+        public void Atualizar(int id, Peca novaPeca)
         {
             using var db = new Cod3rsGrowthDB();
 
@@ -95,6 +102,39 @@ namespace Cod3rsGrowth.Infra.Repositorio
             db.Pecas.Delete(x => x.Id == id);
 
             db.Close();
+        }
+    }
+
+    public class ConnectionStringSettings : IConnectionStringSettings
+    {
+        public string ConnectionString { get; set; }
+        public string Name { get; set; }
+        public string ProviderName { get; set; }
+        public bool IsGlobal => false;
+    }
+
+    public class ConexaoLinq2Db : ILinqToDBSettings
+    {
+        public IEnumerable<IDataProviderSettings> DataProviders
+            => Enumerable.Empty<IDataProviderSettings>();
+
+        public string DefaultConfiguration => "SqlServer";
+        public string DefaultDataProvider => "SqlServer";
+
+        public IEnumerable<IConnectionStringSettings> ConnectionStrings
+        {
+            get
+            {
+                // note that you can return multiple ConnectionStringSettings instances here
+                yield return
+                    new ConnectionStringSettings
+                    {
+                        Name = "Northwind",
+                        ProviderName = ProviderName.SqlServer,
+                        ConnectionString =
+                            @"Server=INVENT003;Database=Cod3rsGrowth;User Id=sa;Password=sap@123;"
+                    };
+            }
         }
     }
 }

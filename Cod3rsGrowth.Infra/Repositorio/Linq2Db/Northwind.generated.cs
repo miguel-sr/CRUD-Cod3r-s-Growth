@@ -23,7 +23,7 @@ namespace DataModels
 	/// </summary>
 	public partial class Cod3rsGrowthDB : LinqToDB.Data.DataConnection
 	{
-		public ITable<Peca>        Pecas       { get { return this.GetTable<Peca>(); } }
+		public ITable<PecaLinq2Db>        Pecas       { get { return this.GetTable<PecaLinq2Db>(); } }
 		public ITable<VersionInfo> VersionInfo { get { return this.GetTable<VersionInfo>(); } }
 
 		public Cod3rsGrowthDB()
@@ -58,7 +58,7 @@ namespace DataModels
 	}
 
 	[Table(Schema="dbo", Name="Pecas")]
-	public partial class Peca
+	public partial class PecaLinq2Db
 	{
 		[PrimaryKey, Identity] public int      Id               { get; set; } // int
 		[Column,     NotNull ] public string   Categoria        { get; set; } // nvarchar(255)
@@ -78,7 +78,7 @@ namespace DataModels
 
 	public static partial class TableExtensions
 	{
-		public static Peca Find(this ITable<Peca> table, int Id)
+		public static PecaLinq2Db Find(this ITable<PecaLinq2Db> table, int Id)
 		{
 			return table.FirstOrDefault(t =>
 				t.Id == Id);

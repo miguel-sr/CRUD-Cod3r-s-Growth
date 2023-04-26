@@ -28,14 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Configuracoes\Northwind.generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentMigrator" Version="3.3.2" />
     <PackageReference Include="FluentMigrator.Runner.SqlServer" Version="3.3.2" />
     <PackageReference Include="linq2db" Version="5.1.1" />
@@ -52,7 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Configuracoes\Northwind.generated.cs">
+    <Compile Update="Repositorio\Linq2Db\Northwind.generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Northwind.tt</DependentUpon>
@@ -60,7 +52,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Configuracoes\Northwind.tt">
+    <None Update="Repositorio\Linq2Db\Northwind.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Northwind.generated.cs</LastGenOutput>
     </None>
