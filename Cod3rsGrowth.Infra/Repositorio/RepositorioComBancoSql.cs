@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 using System.ComponentModel;
 using System.Configuration;
 
-namespace Cod3rsGrowth.Repositorio
+namespace Cod3rsGrowth.Infra.Repositorio
 {
     public class RepositorioComBancoSql : IRepositorio
     {

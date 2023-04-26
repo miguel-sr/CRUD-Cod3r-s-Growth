@@ -44,18 +44,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Repositorio\Linq2Db\Northwind.generated.cs">
+    <Compile Update="Repositorio\Linq2Db\Cod3rsGrowthBD.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Northwind.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Repositorio\Linq2Db\Northwind.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Northwind.generated.cs</LastGenOutput>
-    </None>
   </ItemGroup>
 
 </Project>

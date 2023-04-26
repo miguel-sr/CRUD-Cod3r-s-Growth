@@ -1,6 +1,4 @@
 ﻿using Cod3rsGrowth.Modelos;
-using Cod3rsGrowth.Repositorio;
-using DataModels;
 using LinqToDB;
 using LinqToDB.Configuration;
 using LinqToDB.Data;

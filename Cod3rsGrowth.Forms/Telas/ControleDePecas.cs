@@ -1,8 +1,6 @@
 ﻿using Cod3rsGrowth.Modelos;
-using Cod3rsGrowth.Repositorio;
+using Cod3rsGrowth.Infra.Repositorio;
 using Cod3rsGrowth.Servicos;
-using System;
-using System.Windows.Forms;
 
 namespace Cod3rsGrowth
 {
