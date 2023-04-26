@@ -1,17 +1,20 @@
-﻿namespace Cod3rsGrowth.Modelos
+﻿using LinqToDB.Mapping;
+
+namespace Cod3rsGrowth.Modelos
 {
+    [Table(Schema = "dbo", Name = "Pecas")]
     public class Peca
     {
-        public int Id { get; set; }
+        [PrimaryKey, Identity] public int Id { get; set; }
 
-        public string Categoria { get; set; }
+        [Column, NotNull] public string Categoria { get; set; }
 
-        public string Nome { get; set; }
+        [Column, NotNull] public string Nome { get; set; }
 
-        public string Descricao { get; set; }
+        [Column, NotNull] public string Descricao { get; set; }
 
-        public int Estoque { get; set; }
+        [Column, NotNull] public int Estoque { get; set; }
 
-        public DateTime DataDeFabricacao { get; set; }
+        [Column, NotNull] public DateTime DataDeFabricacao { get; set; }
     }
 }

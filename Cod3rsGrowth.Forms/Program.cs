@@ -1,5 +1,4 @@
 ﻿using Cod3rsGrowth.Infra.Repositorio;
-using Cod3rsGrowth.Infra.Repositorio.Linq2Db;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
