@@ -1,8 +1,6 @@
-﻿using Cod3rsGrowth.Repositorio;
+﻿using Cod3rsGrowth.Infra.Repositorio;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Windows.Forms;
 
 namespace Cod3rsGrowth
 {
@@ -28,7 +26,7 @@ namespace Cod3rsGrowth
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddScoped<IRepositorio, RepositirioComBancoSql>();
+                    services.AddScoped<IRepositorio, RepositorioComLinq2Db>();
                 });
         }
     }
