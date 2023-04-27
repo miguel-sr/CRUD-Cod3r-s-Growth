@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Modelos;
 using System.ComponentModel;
 
-namespace Cod3rsGrowth.Repositorio
+namespace Cod3rsGrowth.Infra.Repositorio
 {
     public interface IRepositorio
     {

@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 
-namespace Cod3rsGrowth.Repositorio
+namespace Cod3rsGrowth.Infra.Repositorio
 {
     public class ListaEmMemoria : IRepositorio
     {

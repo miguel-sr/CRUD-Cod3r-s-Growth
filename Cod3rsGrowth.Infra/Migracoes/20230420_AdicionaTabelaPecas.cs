@@ -1,7 +1,7 @@
 ﻿using FluentMigrator;
 using FluentMigrator.SqlServer;
 
-namespace Cod3rsGrowth.Migracoes
+namespace Cod3rsGrowth.Infra.Migracoes
 {
     [Migration(20230424101800)]
     public class AdicionaTabelaPecas : Migration
