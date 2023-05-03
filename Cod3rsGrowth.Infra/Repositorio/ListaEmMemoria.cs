@@ -18,9 +18,10 @@ namespace Cod3rsGrowth.Infra.Repositorio
             return Singleton.Instancia().ListaDePecas;
         }
 
-        public void Criar(Peca novaPeca)
+        public int Criar(Peca novaPeca)
         {
             Singleton.Instancia().ListaDePecas.Add(novaPeca);
+            return novaPeca.Id;
         }
 
         public void Atualizar(int id, Peca pecaAtualizada)
