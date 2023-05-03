@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Configuration;
 using LinqToDB.DataProvider.SqlServer;
 using LinqToDB.Data;
+using LinqToDB.Tools;
+using System.Linq;
 
 namespace Cod3rsGrowth.Infra.Repositorio
 {
@@ -44,13 +46,15 @@ namespace Cod3rsGrowth.Infra.Repositorio
             return lista;
         }
 
-        public void Criar(Peca peca)
+        public int Criar(Peca peca)
         {
             using var db = ObterConexao();
 
-            db.Insert(peca);
+            var id = db.InsertWithInt32Identity(peca);
 
             db.Close();
+
+            return id;
         }
 
         public void Atualizar(int id, Peca peca)

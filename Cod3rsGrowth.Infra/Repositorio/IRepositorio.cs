@@ -9,7 +9,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         Peca ObterPorId(int id);
 
-        void Criar(Peca novaPeca);
+        int Criar(Peca novaPeca);
 
         void Atualizar(int id, Peca pecaAtualizada);
 

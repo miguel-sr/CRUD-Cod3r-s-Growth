@@ -41,12 +41,12 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public BindingList<Peca> ObterTodas()
         {
-            BindingList<Peca> lista = new BindingList<Peca>();
+            BindingList<Peca> lista = new();
 
-            SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
+            SqlConnection conexaoSql = new(_stringDeConexao);
             conexaoSql.Open();
 
-            SqlCommand comandoExecutado = new SqlCommand("SELECT * FROM Pecas;", conexaoSql);
+            SqlCommand comandoExecutado = new("SELECT * FROM Pecas;", conexaoSql);
 
             lista.Clear();
 
@@ -72,25 +72,34 @@ namespace Cod3rsGrowth.Infra.Repositorio
             return lista;
         }
 
-        public void Criar(Peca novaPeca)
+        public int Criar(Peca novaPeca)
         {
-            SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
+            SqlConnection conexaoSql = new(_stringDeConexao);
             conexaoSql.Open();
 
             SqlCommand comandoExecutado = 
-                new SqlCommand($"INSERT INTO Pecas (Categoria, Nome, Descricao, Estoque, DataDeFabricacao) VALUES ('{novaPeca.Categoria}', '{novaPeca.Nome}', '{novaPeca.Descricao}', '{novaPeca.Estoque}', '{novaPeca.DataDeFabricacao}');", conexaoSql);
+                new($"INSERT INTO Pecas (Categoria, Nome, Descricao, Estoque, DataDeFabricacao) VALUES ('{novaPeca.Categoria}', '{novaPeca.Nome}', '{novaPeca.Descricao}', '{novaPeca.Estoque}', '{novaPeca.DataDeFabricacao}');", conexaoSql);
 
-            comandoExecutado.ExecuteNonQuery();
+            SqlDataReader dr = comandoExecutado.ExecuteReader();
+
+            int id = 0;
+
+            while (dr.Read())
+            {
+                id = Convert.ToInt32(dr[0]);
+            }
 
             conexaoSql.Close();
+
+            return id;
         }
 
         public void Atualizar(int id, Peca pecaAtualizada)
         {
-            SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
+            SqlConnection conexaoSql = new(_stringDeConexao);
             conexaoSql.Open();
 
-            SqlCommand comandoExecutado = new SqlCommand($"UPDATE Pecas SET Categoria='{pecaAtualizada.Categoria}', Nome='{pecaAtualizada.Nome}', Descricao='{pecaAtualizada.Descricao}', Estoque='{pecaAtualizada.Estoque}', DataDeFabricacao='{pecaAtualizada.DataDeFabricacao}' WHERE Id='{id}';", conexaoSql);
+            SqlCommand comandoExecutado = new($"UPDATE Pecas SET Categoria='{pecaAtualizada.Categoria}', Nome='{pecaAtualizada.Nome}', Descricao='{pecaAtualizada.Descricao}', Estoque='{pecaAtualizada.Estoque}', DataDeFabricacao='{pecaAtualizada.DataDeFabricacao}' WHERE Id='{id}';", conexaoSql);
 
             comandoExecutado.ExecuteNonQuery();
 
@@ -99,10 +108,10 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public void Remover(int id)
         {
-            SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
+            SqlConnection conexaoSql = new(_stringDeConexao);
             conexaoSql.Open();
 
-            SqlCommand comandoExecutado = new SqlCommand($"DELETE FROM Pecas WHERE Id='{id}';", conexaoSql);
+            SqlCommand comandoExecutado = new($"DELETE FROM Pecas WHERE Id='{id}';", conexaoSql);
 
             comandoExecutado.ExecuteNonQuery();
 
