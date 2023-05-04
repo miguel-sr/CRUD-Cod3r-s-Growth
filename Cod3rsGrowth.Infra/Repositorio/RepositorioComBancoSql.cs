@@ -10,10 +10,10 @@ namespace Cod3rsGrowth.Infra.Repositorio
         private readonly string _stringDeConexao = ConfigurationManager.ConnectionStrings["Cod3rsGrowth"].ConnectionString;
         public Peca ObterPorId(int id)
         {
-            SqlConnection conexaoSql = new SqlConnection(_stringDeConexao);
+            SqlConnection conexaoSql = new(_stringDeConexao);
             conexaoSql.Open();
 
-            SqlCommand comandoExecutado = new SqlCommand($"SELECT Id, Categoria, Nome, Descricao, Estoque, DataDeFabricacao FROM Pecas WHERE Id='{id}';", conexaoSql);
+            SqlCommand comandoExecutado = new($"SELECT Id, Categoria, Nome, Descricao, Estoque, DataDeFabricacao FROM Pecas WHERE Id='{id}';", conexaoSql);
 
             SqlDataReader respostaDoComando = comandoExecutado.ExecuteReader();
 
@@ -27,10 +27,9 @@ namespace Cod3rsGrowth.Infra.Repositorio
                     Categoria = respostaDoComando[1].ToString(),
                     Nome = respostaDoComando[2].ToString(),
                     Descricao = respostaDoComando[3].ToString(),
-                    Estoque = Convert.ToInt32(respostaDoComando[4]),
+                    Estoque = respostaDoComando[4].ToString(),
                     DataDeFabricacao = Convert.ToDateTime(respostaDoComando[5])
                 };
-
             }
 
             conexaoSql.Close();
@@ -59,7 +58,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
                     Categoria = respostaDoComando[1].ToString(),
                     Nome = respostaDoComando[2].ToString(),
                     Descricao = respostaDoComando[3].ToString(),
-                    Estoque = Convert.ToInt32(respostaDoComando[4]),
+                    Estoque = respostaDoComando[4].ToString(),
                     DataDeFabricacao = Convert.ToDateTime(respostaDoComando[5])
                 };
 
@@ -71,25 +70,25 @@ namespace Cod3rsGrowth.Infra.Repositorio
             return lista;
         }
 
-        public void Criar(Peca novaPeca)
+        public void Criar(Peca peca)
         {
             SqlConnection conexaoSql = new(_stringDeConexao);
             conexaoSql.Open();
 
             SqlCommand comandoExecutado = 
-                new($"INSERT INTO Pecas (Categoria, Nome, Descricao, Estoque, DataDeFabricacao) VALUES ('{novaPeca.Categoria}', '{novaPeca.Nome}', '{novaPeca.Descricao}', '{novaPeca.Estoque}', '{novaPeca.DataDeFabricacao}');", conexaoSql);
+                new($"INSERT INTO Pecas (Categoria, Nome, Descricao, Estoque, DataDeFabricacao) VALUES ('{peca.Categoria}', '{peca.Nome}', '{peca.Descricao}', '{peca.Estoque}', '{peca.DataDeFabricacao}');", conexaoSql);
 
             comandoExecutado.ExecuteNonQuery();
 
             conexaoSql.Close();
         }
 
-        public void Atualizar(int id, Peca pecaAtualizada)
+        public void Atualizar(int id, Peca peca)
         {
             SqlConnection conexaoSql = new(_stringDeConexao);
             conexaoSql.Open();
 
-            SqlCommand comandoExecutado = new($"UPDATE Pecas SET Categoria='{pecaAtualizada.Categoria}', Nome='{pecaAtualizada.Nome}', Descricao='{pecaAtualizada.Descricao}', Estoque='{pecaAtualizada.Estoque}', DataDeFabricacao='{pecaAtualizada.DataDeFabricacao}' WHERE Id='{id}';", conexaoSql);
+            SqlCommand comandoExecutado = new($"UPDATE Pecas SET Categoria='{peca.Categoria}', Nome='{peca.Nome}', Descricao='{peca.Descricao}', Estoque='{peca.Estoque}', DataDeFabricacao='{peca.DataDeFabricacao}' WHERE Id='{id}';", conexaoSql);
 
             comandoExecutado.ExecuteNonQuery();
 

@@ -22,8 +22,6 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
             var peca = db.GetTable<Peca>().First(peca => peca.Id == id);
 
-            db.Close();
-
             return peca;
         }
 
@@ -38,8 +36,6 @@ namespace Cod3rsGrowth.Infra.Repositorio
                 lista.Add(peca);
             }
 
-            db.Close();
-
             return lista;
         }
 
@@ -48,8 +44,6 @@ namespace Cod3rsGrowth.Infra.Repositorio
             using var db = ObterConexao();
 
             peca.Id = db.InsertWithInt32Identity(peca);
-
-            db.Close();
         }
 
         public void Atualizar(int id, Peca peca)
@@ -57,8 +51,6 @@ namespace Cod3rsGrowth.Infra.Repositorio
             using var db = ObterConexao();
 
             db.Update(peca);
-
-            db.Close();
         }
 
         public void Remover(int id)
@@ -66,7 +58,6 @@ namespace Cod3rsGrowth.Infra.Repositorio
             using var db = ObterConexao();
 
             db.GetTable<Peca>().Where(x => x.Id == id).Delete();
-            db.Close();
         }
     }
 }

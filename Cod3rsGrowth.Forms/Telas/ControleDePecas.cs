@@ -20,7 +20,7 @@ namespace Cod3rsGrowth
         {
             try
             {
-                CadastroDePeca cadastroDePeca = new CadastroDePeca(null);
+                CadastroDePeca cadastroDePeca = new(null);
                 cadastroDePeca.ShowDialog();
 
                 var novaPeca = cadastroDePeca.peca;

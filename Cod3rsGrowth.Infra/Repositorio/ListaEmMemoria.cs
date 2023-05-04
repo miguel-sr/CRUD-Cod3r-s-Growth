@@ -18,16 +18,16 @@ namespace Cod3rsGrowth.Infra.Repositorio
             return Singleton.Instancia().ListaDePecas;
         }
 
-        public void Criar(Peca novaPeca)
+        public void Criar(Peca peca)
         {
-            Singleton.Instancia().ListaDePecas.Add(novaPeca);
+            Singleton.Instancia().ListaDePecas.Add(peca);
         }
 
-        public void Atualizar(int id, Peca pecaAtualizada)
+        public void Atualizar(int id, Peca peca)
         {
-            var peca = ObterPorId(id);
-            var index = Singleton.Instancia().ListaDePecas.IndexOf(peca);
-            Singleton.Instancia().ListaDePecas[index] = pecaAtualizada;
+            var pecaASerAtualizada = ObterPorId(id);
+            var index = Singleton.Instancia().ListaDePecas.IndexOf(pecaASerAtualizada);
+            Singleton.Instancia().ListaDePecas[index] = peca;
         }
 
         public void Remover(int id)

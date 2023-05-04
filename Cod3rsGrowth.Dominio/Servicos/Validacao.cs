@@ -1,82 +1,42 @@
-﻿namespace Cod3rsGrowth.Servicos
+﻿using Cod3rsGrowth.Modelos;
+using System.Text.RegularExpressions;
+
+namespace Cod3rsGrowth.Servicos
 {
     public class Validacao
     {
-        public class CampoDeTexto
+        public static string ValidarPeca(Peca peca)
         {
-            public CampoDeTexto(string nome, string texto, bool campoObrigatorio, bool campoNumerico) 
-            {
-                Nome = nome;
-                Texto = texto;
-                Obrigatorio = campoObrigatorio;
-                Numerico = campoNumerico;
-            }
-
-            public string Nome { get; set; }
-            
-            public string Texto { get; set; }
-            
-            public bool Obrigatorio { get; set; } 
-            
-            public bool Numerico { get; set; }
-        }
-
-        public class CampoDeData
-        {
-            public CampoDeData(string nome, DateTime dataInserida, DateTime? dataMinima, DateTime? dataMaxima)
-            {
-                Nome = nome;
-                DataInserida = dataInserida;
-                DataMinima = dataMinima;
-                DataMaxima = dataMaxima;
-            }
-
-            public string Nome { get; set; }
-
-            public DateTime DataInserida { get; set; }
-
-            public DateTime? DataMinima { get; set; }
-
-            public DateTime? DataMaxima { get; set; }
-        }
-
-        public static string ValidarCampos(List<CampoDeTexto>? camposDeTexto, List<CampoDeData>? camposDeData) 
-        {
+            int quantidadeMinimaEstoque = default;
             List<string> erros = new();
 
-            camposDeTexto?.ForEach(campo =>
+            if (string.IsNullOrWhiteSpace(peca.Nome)) erros.Add("O campo nome é obrigatório.");
+               
+            if (!Regex.Match(peca.Nome, @"^\w|\s([p{L}])$").Success) erros.Add("O campo nome não aceita caracteres especiais.");
+               
+            if (string.IsNullOrWhiteSpace(peca.Estoque)) erros.Add("O campo estoque é obrigatório.");
+
+            try
             {
-                if (campo.Obrigatorio)
-                {
-                    if (string.IsNullOrWhiteSpace(campo.Texto))
-                    {
-                        erros.Add($"O campo {campo.Nome} é obrigatório. \n");
-                        return;
-                    }
-                }
+                var quantidadeEstoque = Convert.ToInt32(peca.Estoque);
 
-                if (campo.Numerico)
+                if (quantidadeEstoque <= quantidadeMinimaEstoque)
                 {
-                    try
-                    {
-                        Convert.ToInt32(campo.Texto);
-                    }
-                    catch
-                    {
-                        erros.Add($"O campo {campo.Nome} aceita apenas números. \n");
-                    }
+                    erros.Add($"A quantidade mínima de peças para adicionar deve ser maior que {quantidadeMinimaEstoque}");
                 }
-            });
-
-            camposDeData?.ForEach(campo =>
+            }
+            catch 
             {
-                if (campo.DataInserida > campo.DataMaxima || campo.DataInserida < campo.DataMinima)
-                {
-                    erros.Add($"A data do campo {campo.Nome} é inválida. \n");
-                }
-            });
+                erros.Add("O campo estoque aceita apenas números.");
+            }
 
-            return string.Join("", erros);
+            if (peca.DataDeFabricacao > DateTime.Now) erros.Add($"A data máxima aceita é {DateTime.Now.Date.ToShortDateString()}.");
+
+            var dataMinimaAceita = DateTime.Parse("1754-01-01T12:00:20.031Z");
+
+            if (peca.DataDeFabricacao < dataMinimaAceita) erros.Add($"A data mínima aceita é {dataMinimaAceita.Date.ToShortDateString()}.");
+
+            return string.Join(Environment.NewLine, erros);
         }
     }
 }

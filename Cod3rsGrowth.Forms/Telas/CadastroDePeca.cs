@@ -35,30 +35,18 @@ namespace Cod3rsGrowth
         {
             try
             {
-                List<CampoDeTexto> camposDeTexto = new()
-                {
-                    new CampoDeTexto("nome", CampoNomeDoFormularioCadastroDePecas.Text, true, false),
-                    new CampoDeTexto("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
-                };
-
-                List<CampoDeData> camposDeData = new()
-                {
-                    new CampoDeData("data de fabricação", CampoDataDoFormularioCadastroDePecas.Value, null, DateTime.Now)
-                };
-
-                string erros = ValidarCampos(camposDeTexto, camposDeData);
-
-                if (erros != null)
-                {
-                    AvisoAoUsuario.ModalAviso(erros);
-                    return;
-                }
-
                 peca.Categoria = CampoCategoriaDoFormularioCadastroDePecas.Text;
                 peca.Nome = CampoNomeDoFormularioCadastroDePecas.Text;
                 peca.Descricao = CampoDescricaoDoFormularioCadastroDePecas.Text;
-                peca.Estoque = Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text);
+                peca.Estoque = CampoEstoqueDoFormularioCadastroDePecas.Text;
                 peca.DataDeFabricacao = CampoDataDoFormularioCadastroDePecas.Value.Date;
+
+                string erros = ValidarPeca(peca);
+
+                if (!string.IsNullOrEmpty(erros))
+                {
+                    throw new Exception(erros);
+                }
 
                 DialogResult = DialogResult.OK;
                 Close();

@@ -16,37 +16,41 @@ namespace Cod3rsGrowth.Web.Controller
         }
 
         [HttpGet]
-        public List<Peca> ObterTodas()
+        public IActionResult ObterTodas()
         {
-            return _repositorio.ObterTodas().ToList();
+            return Ok(_repositorio.ObterTodas().ToList());
         }
 
         [HttpGet("{id}")]
-        public Peca ObterPorId(int id)
+        public IActionResult ObterPorId(int id)
         {
-            return _repositorio.ObterPorId(id);
+            return Ok(_repositorio.ObterPorId(id));
         }
 
         [HttpPost]
-        public IActionResult Criar([FromBody] Peca novaPeca)
+        public IActionResult Criar([FromBody] Peca peca)
         {
-            if (novaPeca == null) return BadRequest();
+            if (peca == null) return BadRequest();
 
-            VerificarPecaRecebida(novaPeca);
+            VerificarPecaRecebida(peca);
 
-            _repositorio.Criar(novaPeca);
+            peca.DataDeFabricacao = peca.DataDeFabricacao.Date;
 
-            return Created($"pecas/{novaPeca.Id}", novaPeca);
+            _repositorio.Criar(peca);
+
+            return Created($"pecas/{peca.Id}", peca);
         }
 
         [HttpPatch]
-        public IActionResult Atualizar([FromBody] Peca pecaParaAtualizar)
+        public IActionResult Atualizar([FromBody] Peca peca)
         {
-            if (pecaParaAtualizar == null || pecaParaAtualizar.Id == null) return BadRequest();
+            if (peca == null || peca.Id == null) return BadRequest();
 
-            VerificarPecaRecebida(pecaParaAtualizar);
+            VerificarPecaRecebida(peca);
 
-            _repositorio.Atualizar(pecaParaAtualizar.Id ?? 0, pecaParaAtualizar);
+            peca.DataDeFabricacao = peca.DataDeFabricacao.Date;
+
+            _repositorio.Atualizar(peca.Id ?? 0, peca);
 
             return Ok();
         }
@@ -58,20 +62,9 @@ namespace Cod3rsGrowth.Web.Controller
             return Ok();
         }
 
-        private static void VerificarPecaRecebida(Peca pecaParaValidar)
+        private static void VerificarPecaRecebida(Peca peca)
         {
-            List<CampoDeTexto> camposDeTexto = new()
-            {
-                new CampoDeTexto("nome", pecaParaValidar.Nome, true, false),
-                new CampoDeTexto("estoque", pecaParaValidar.Estoque.ToString(), true, true)
-            };
-
-            List<CampoDeData> camposDeData = new()
-            {
-                new CampoDeData("data de fabricação", pecaParaValidar.DataDeFabricacao, null, DateTime.Now)
-            };
-
-            string erros = ValidarCampos(camposDeTexto, camposDeData);
+            string erros = ValidarPeca(peca);
 
             if (!string.IsNullOrEmpty(erros))
             {

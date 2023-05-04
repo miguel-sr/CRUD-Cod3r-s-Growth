@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Cod3rsGrowth.Servicos
 {
-    public class Singleton
+    public sealed class Singleton
     {
         private Singleton() { }
 

@@ -7,13 +7,13 @@ namespace Cod3rsGrowth.Modelos
     {
         [PrimaryKey, Identity] public int? Id { get; set; }
 
-        [Column, NotNull] public string Categoria { get; set; }
+        [Column] public string? Categoria { get; set; }
 
         [Column, NotNull] public string Nome { get; set; }
 
         [Column, NotNull] public string Descricao { get; set; }
 
-        [Column, NotNull] public int Estoque { get; set; }
+        [Column, NotNull] public string Estoque { get; set; }
 
         [Column, NotNull] public DateTime DataDeFabricacao { get; set; }
     }
