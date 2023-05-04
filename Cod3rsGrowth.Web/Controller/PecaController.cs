@@ -32,44 +32,21 @@ namespace Cod3rsGrowth.Web.Controller
         {
             if (novaPeca == null) return BadRequest();
 
-            List<Campo> CamposParaValidar = new()
-            {
-                new Campo("nome", novaPeca.Nome, true, false),
-                new Campo("estoque", novaPeca.Estoque.ToString(), true, true)
-            };
+            VerificarPecaRecebida(novaPeca);
 
-            string erros = ValidarCampoDeTexto(CamposParaValidar);
+            _repositorio.Criar(novaPeca);
 
-            if (erros != null)
-            {
-                throw new Exception($"Campos inválidos. {erros}");
-            }
-
-            var id = _repositorio.Criar(novaPeca);
-            novaPeca.Id = id;
-
-            return Created($"pecas/{id}", novaPeca);
+            return Created($"pecas/{novaPeca.Id}", novaPeca);
         }
 
         [HttpPatch]
         public IActionResult Atualizar([FromBody] Peca pecaParaAtualizar)
         {
-            if (pecaParaAtualizar == null) return BadRequest();
+            if (pecaParaAtualizar == null || pecaParaAtualizar.Id == null) return BadRequest();
 
-            List<Campo> CamposParaValidar = new()
-            {
-                new Campo("nome", pecaParaAtualizar.Nome, true, false),
-                new Campo("estoque", pecaParaAtualizar.Estoque.ToString(), true, true)
-            };
+            VerificarPecaRecebida(pecaParaAtualizar);
 
-            string erros = ValidarCampoDeTexto(CamposParaValidar);
-
-            if (erros != null)
-            {
-                throw new Exception($"Campos inválidos. {erros}");
-            }
-
-            _repositorio.Atualizar(pecaParaAtualizar.Id, pecaParaAtualizar);
+            _repositorio.Atualizar(pecaParaAtualizar.Id ?? 0, pecaParaAtualizar);
 
             return Ok();
         }
@@ -79,6 +56,27 @@ namespace Cod3rsGrowth.Web.Controller
         {
             _repositorio.Remover(id);
             return Ok();
+        }
+
+        private static void VerificarPecaRecebida(Peca pecaParaValidar)
+        {
+            List<CampoDeTexto> camposDeTexto = new()
+            {
+                new CampoDeTexto("nome", pecaParaValidar.Nome, true, false),
+                new CampoDeTexto("estoque", pecaParaValidar.Estoque.ToString(), true, true)
+            };
+
+            List<CampoDeData> camposDeData = new()
+            {
+                new CampoDeData("data de fabricação", pecaParaValidar.DataDeFabricacao, null, DateTime.Now)
+            };
+
+            string erros = ValidarCampos(camposDeTexto, camposDeData);
+
+            if (!string.IsNullOrEmpty(erros))
+            {
+                throw new Exception(erros);
+            }
         }
     }
 }

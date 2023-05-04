@@ -1,12 +1,9 @@
 ﻿using Cod3rsGrowth.Modelos;
 using LinqToDB;
-using Microsoft.Data.SqlClient;
 using System.ComponentModel;
 using System.Configuration;
 using LinqToDB.DataProvider.SqlServer;
 using LinqToDB.Data;
-using LinqToDB.Tools;
-using System.Linq;
 
 namespace Cod3rsGrowth.Infra.Repositorio
 {
@@ -23,7 +20,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
         {
             using var db = ObterConexao();
 
-            var peca = db.GetTable<Peca>().FirstOrDefault(peca => peca.Id == id);
+            var peca = db.GetTable<Peca>().First(peca => peca.Id == id);
 
             db.Close();
 
@@ -46,15 +43,13 @@ namespace Cod3rsGrowth.Infra.Repositorio
             return lista;
         }
 
-        public int Criar(Peca peca)
+        public void Criar(Peca peca)
         {
             using var db = ObterConexao();
 
-            var id = db.InsertWithInt32Identity(peca);
+            peca.Id = db.InsertWithInt32Identity(peca);
 
             db.Close();
-
-            return id;
         }
 
         public void Atualizar(int id, Peca peca)

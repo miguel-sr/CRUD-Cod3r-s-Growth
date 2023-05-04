@@ -35,8 +35,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
             conexaoSql.Close();
 
-            return peca;
-
+            return peca ?? throw new Exception($"Peça não encontrada com id [{id}]");
         }
 
         public BindingList<Peca> ObterTodas()
@@ -72,7 +71,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
             return lista;
         }
 
-        public int Criar(Peca novaPeca)
+        public void Criar(Peca novaPeca)
         {
             SqlConnection conexaoSql = new(_stringDeConexao);
             conexaoSql.Open();
@@ -80,18 +79,9 @@ namespace Cod3rsGrowth.Infra.Repositorio
             SqlCommand comandoExecutado = 
                 new($"INSERT INTO Pecas (Categoria, Nome, Descricao, Estoque, DataDeFabricacao) VALUES ('{novaPeca.Categoria}', '{novaPeca.Nome}', '{novaPeca.Descricao}', '{novaPeca.Estoque}', '{novaPeca.DataDeFabricacao}');", conexaoSql);
 
-            SqlDataReader respostaDoComando = comandoExecutado.ExecuteReader();
-
-            int id = 0;
-
-            while (respostaDoComando.Read())
-            {
-                id = Convert.ToInt32(respostaDoComando[0]);
-            }
+            comandoExecutado.ExecuteNonQuery();
 
             conexaoSql.Close();
-
-            return id;
         }
 
         public void Atualizar(int id, Peca pecaAtualizada)

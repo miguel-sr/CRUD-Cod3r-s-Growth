@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Cod3rsGrowth.Servicos
+﻿namespace Cod3rsGrowth.Servicos
 {
     public class Validacao
     {
-        public class Campo
+        public class CampoDeTexto
         {
-            public Campo(string nome, string texto, bool campoObrigatorio, bool campoNumerico) 
+            public CampoDeTexto(string nome, string texto, bool campoObrigatorio, bool campoNumerico) 
             {
                 Nome = nome;
                 Texto = texto;
@@ -22,14 +19,32 @@ namespace Cod3rsGrowth.Servicos
             public bool Obrigatorio { get; set; } 
             
             public bool Numerico { get; set; }
-            
         }
 
-        public static string ValidarCampoDeTexto(List<Campo> camposParaValidar) 
+        public class CampoDeData
+        {
+            public CampoDeData(string nome, DateTime dataInserida, DateTime? dataMinima, DateTime? dataMaxima)
+            {
+                Nome = nome;
+                DataInserida = dataInserida;
+                DataMinima = dataMinima;
+                DataMaxima = dataMaxima;
+            }
+
+            public string Nome { get; set; }
+
+            public DateTime DataInserida { get; set; }
+
+            public DateTime? DataMinima { get; set; }
+
+            public DateTime? DataMaxima { get; set; }
+        }
+
+        public static string ValidarCampos(List<CampoDeTexto>? camposDeTexto, List<CampoDeData>? camposDeData) 
         {
             string erros = null;
 
-            camposParaValidar.ForEach(campo =>
+            camposDeTexto?.ForEach(campo =>
             {
                 if (campo.Obrigatorio)
                 {
@@ -50,6 +65,14 @@ namespace Cod3rsGrowth.Servicos
                     {
                         erros = string.Join(Environment.NewLine, $"O campo {campo.Nome} aceita apenas números.", erros);
                     }
+                }
+            });
+
+            camposDeData?.ForEach(campo =>
+            {
+                if (campo.DataInserida > campo.DataMaxima || campo.DataInserida < campo.DataMinima)
+                {
+                    erros = string.Join(Environment.NewLine, $"A data do campo {campo.Nome} é inválida.", erros);
                 }
             });
 

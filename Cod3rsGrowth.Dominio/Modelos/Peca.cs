@@ -5,7 +5,7 @@ namespace Cod3rsGrowth.Modelos
     [Table(Schema = "dbo", Name = "Pecas")]
     public class Peca
     {
-        [PrimaryKey, Identity] public int Id { get; set; }
+        [PrimaryKey, Identity] public int? Id { get; set; }
 
         [Column, NotNull] public string Categoria { get; set; }
 
