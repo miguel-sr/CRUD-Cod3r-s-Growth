@@ -35,13 +35,18 @@ namespace Cod3rsGrowth
         {
             try
             {
-                List<CampoDeTexto> CamposParaValidar = new()
+                List<CampoDeTexto> camposDeTexto = new()
                 {
                     new CampoDeTexto("nome", CampoNomeDoFormularioCadastroDePecas.Text, true, false),
                     new CampoDeTexto("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
                 };
 
-                string erros = ValidarCampoDeTexto(CamposParaValidar);
+                List<CampoDeData> camposDeData = new()
+                {
+                    new CampoDeData("data de fabricação", CampoDataDoFormularioCadastroDePecas.Value, null, DateTime.Now)
+                };
+
+                string erros = ValidarCampos(camposDeTexto, camposDeData);
 
                 if (erros != null)
                 {

@@ -42,7 +42,7 @@
 
         public static string ValidarCampos(List<CampoDeTexto>? camposDeTexto, List<CampoDeData>? camposDeData) 
         {
-            string erros = null;
+            List<string> erros = new();
 
             camposDeTexto?.ForEach(campo =>
             {
@@ -50,7 +50,7 @@
                 {
                     if (string.IsNullOrWhiteSpace(campo.Texto))
                     {
-                        erros = string.Join(Environment.NewLine, $"O campo {campo.Nome} é obrigatório.", erros);
+                        erros.Add($"O campo {campo.Nome} é obrigatório. \n");
                         return;
                     }
                 }
@@ -63,7 +63,7 @@
                     }
                     catch
                     {
-                        erros = string.Join(Environment.NewLine, $"O campo {campo.Nome} aceita apenas números.", erros);
+                        erros.Add($"O campo {campo.Nome} aceita apenas números. \n");
                     }
                 }
             });
@@ -72,11 +72,11 @@
             {
                 if (campo.DataInserida > campo.DataMaxima || campo.DataInserida < campo.DataMinima)
                 {
-                    erros = string.Join(Environment.NewLine, $"A data do campo {campo.Nome} é inválida.", erros);
+                    erros.Add($"A data do campo {campo.Nome} é inválida. \n");
                 }
             });
 
-            return erros;
+            return string.Join("", erros);
         }
     }
 }
