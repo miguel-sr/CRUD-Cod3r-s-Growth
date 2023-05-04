@@ -1,9 +1,7 @@
 ﻿using Cod3rsGrowth.Infra.Repositorio;
 using Cod3rsGrowth.Modelos;
-using Cod3rsGrowth.Servicos;
 using Microsoft.AspNetCore.Mvc;
 using static Cod3rsGrowth.Servicos.Validacao;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Cod3rsGrowth.Web.Controller
 {
@@ -11,12 +9,16 @@ namespace Cod3rsGrowth.Web.Controller
     [Route("pecas")]
     public class PecaController : ControllerBase
     {
-        readonly RepositorioComLinq2Db _repositorio = new();
+        private readonly IRepositorio _repositorio;
+        public PecaController(IRepositorio repositorio)
+        {
+            _repositorio = repositorio;
+        }
 
         [HttpGet]
-        public Peca[] ObterTodas()
+        public List<Peca> ObterTodas()
         {
-            return _repositorio.ObterTodas().ToArray();
+            return _repositorio.ObterTodas().ToList();
         }
 
         [HttpGet("{id}")]
@@ -44,6 +46,7 @@ namespace Cod3rsGrowth.Web.Controller
             }
 
             var id = _repositorio.Criar(novaPeca);
+            novaPeca.Id = id;
 
             return Created($"pecas/{id}", novaPeca);
         }

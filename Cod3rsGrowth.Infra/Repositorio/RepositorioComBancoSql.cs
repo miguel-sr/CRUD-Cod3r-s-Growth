@@ -15,20 +15,20 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
             SqlCommand comandoExecutado = new SqlCommand($"SELECT Id, Categoria, Nome, Descricao, Estoque, DataDeFabricacao FROM Pecas WHERE Id='{id}';", conexaoSql);
 
-            SqlDataReader dr = comandoExecutado.ExecuteReader();
+            SqlDataReader respostaDoComando = comandoExecutado.ExecuteReader();
 
             var peca = null as Peca;
 
-            while (dr.Read())
+            while (respostaDoComando.Read())
             {
                 peca = new Peca
                 {
-                    Id = Convert.ToInt32(dr[0]),
-                    Categoria = dr[1].ToString(),
-                    Nome = dr[2].ToString(),
-                    Descricao = dr[3].ToString(),
-                    Estoque = Convert.ToInt32(dr[4]),
-                    DataDeFabricacao = Convert.ToDateTime(dr[5])
+                    Id = Convert.ToInt32(respostaDoComando[0]),
+                    Categoria = respostaDoComando[1].ToString(),
+                    Nome = respostaDoComando[2].ToString(),
+                    Descricao = respostaDoComando[3].ToString(),
+                    Estoque = Convert.ToInt32(respostaDoComando[4]),
+                    DataDeFabricacao = Convert.ToDateTime(respostaDoComando[5])
                 };
 
             }
@@ -50,18 +50,18 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
             lista.Clear();
 
-            SqlDataReader dr = comandoExecutado.ExecuteReader();
+            SqlDataReader respostaDoComando = comandoExecutado.ExecuteReader();
 
-            while (dr.Read())
+            while (respostaDoComando.Read())
             {
                 var peca = new Peca
                 {
-                    Id = Convert.ToInt32(dr[0]),
-                    Categoria = dr[1].ToString(),
-                    Nome = dr[2].ToString(),
-                    Descricao = dr[3].ToString(),
-                    Estoque = Convert.ToInt32(dr[4]),
-                    DataDeFabricacao = Convert.ToDateTime(dr[5])
+                    Id = Convert.ToInt32(respostaDoComando[0]),
+                    Categoria = respostaDoComando[1].ToString(),
+                    Nome = respostaDoComando[2].ToString(),
+                    Descricao = respostaDoComando[3].ToString(),
+                    Estoque = Convert.ToInt32(respostaDoComando[4]),
+                    DataDeFabricacao = Convert.ToDateTime(respostaDoComando[5])
                 };
 
                 lista.Add(peca);
@@ -80,13 +80,13 @@ namespace Cod3rsGrowth.Infra.Repositorio
             SqlCommand comandoExecutado = 
                 new($"INSERT INTO Pecas (Categoria, Nome, Descricao, Estoque, DataDeFabricacao) VALUES ('{novaPeca.Categoria}', '{novaPeca.Nome}', '{novaPeca.Descricao}', '{novaPeca.Estoque}', '{novaPeca.DataDeFabricacao}');", conexaoSql);
 
-            SqlDataReader dr = comandoExecutado.ExecuteReader();
+            SqlDataReader respostaDoComando = comandoExecutado.ExecuteReader();
 
             int id = 0;
 
-            while (dr.Read())
+            while (respostaDoComando.Read())
             {
-                id = Convert.ToInt32(dr[0]);
+                id = Convert.ToInt32(respostaDoComando[0]);
             }
 
             conexaoSql.Close();
