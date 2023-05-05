@@ -1,0 +1,53 @@
+<mvc:View
+  controllerName="sap.ui.cod3rsgrowth.controller.TabelaDePecas"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+>
+  <Table
+    headerText="{i18n>tituloTabela}"
+    class="sapUiResponsiveMargin"
+    width="auto"
+  >
+    <headerToolbar>
+      <Toolbar>
+        <FlexBox justifyContent="SpaceBetween" width="100%">
+          <Button
+            icon="sap-icon://add-product"
+            text="{i18n>botaoAdicionarPecaTexto}"
+            type="Emphasized"
+          />
+          <SearchField width="100%">
+            <layoutData>
+              <FlexItemData alignSelf="End" />
+            </layoutData>
+          </SearchField>
+        </FlexBox>
+      </Toolbar>
+    </headerToolbar>
+    <columns>
+      <Column hAlign="Center" minScreenWidth="Small" width="5em">
+        <Text text="{i18n>colunaId}" />
+      </Column>
+
+      <Column hAlign="Center">
+        <Text text="{i18n>colunaCategoria}" />
+      </Column>
+      
+      <Column hAlign="Center">
+        <Text text="{i18n>colunaNome}" />
+      </Column>
+      
+      <Column hAlign="Center">
+        <Text text="{i18n>colunaDescricao}" />
+      </Column>
+
+      <Column hAlign="Center">
+        <Text text="{i18n>colunaEstoque}" />
+      </Column>
+      
+      <Column hAlign="Center">
+        <Text text="{i18n>colunaDataDeFabricacao}" />
+      </Column>
+    </columns>
+  </Table>
+</mvc:View>

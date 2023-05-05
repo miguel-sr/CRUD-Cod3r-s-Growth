@@ -1,9 +1,13 @@
-﻿sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
+sap.ui.define(
+  ["sap/ui/core/mvc/Controller"],
+  /**
+   * @param {typeof import('sap/ui/core/mvc/Controller').default} Controller
+   */
+  function (Controller) {
     "use strict";
 
-    return Controller.extend("sap.ui.demo.Cod3rsGrowth.controller.App", {
-        onShowHello: function () {
-            alert("Hello World");
-        },
+    return Controller.extend("sap.ui.cod3rsgrowth.controller.App", {
+      onInit: function () {},
     });
-});
+  }
+);
