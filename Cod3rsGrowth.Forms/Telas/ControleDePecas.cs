@@ -20,7 +20,7 @@ namespace Cod3rsGrowth
         {
             try
             {
-                CadastroDePeca cadastroDePeca = new CadastroDePeca(null);
+                CadastroDePeca cadastroDePeca = new(null);
                 cadastroDePeca.ShowDialog();
 
                 var novaPeca = cadastroDePeca.peca;
@@ -50,10 +50,10 @@ namespace Cod3rsGrowth
                 var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
                 var pecaParaAtualizar = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
 
-                CadastroDePeca cadastroDePeca = new CadastroDePeca(pecaParaAtualizar);
+                CadastroDePeca cadastroDePeca = new(pecaParaAtualizar);
                 cadastroDePeca.ShowDialog();
 
-                _repositorio.Atualizar(pecaParaAtualizar.Id, cadastroDePeca.peca);
+                _repositorio.Atualizar(pecaParaAtualizar.Id ?? 0, cadastroDePeca.peca);
                 AtualizarLista();
             }
             catch (Exception erro)
@@ -79,7 +79,7 @@ namespace Cod3rsGrowth
                     var indexDaLinhaSelecionada = GridDePecas.CurrentCell.RowIndex;
                     var pecaParaRemover = GridDePecas.Rows[indexDaLinhaSelecionada].DataBoundItem as Peca;
 
-                    _repositorio.Remover(pecaParaRemover.Id);
+                    _repositorio.Remover(pecaParaRemover.Id ?? 0);
                     AtualizarLista();
                 }
             }

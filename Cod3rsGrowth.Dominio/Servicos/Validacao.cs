@@ -1,59 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Cod3rsGrowth.Modelos;
+using System.Text.RegularExpressions;
 
 namespace Cod3rsGrowth.Servicos
 {
     public class Validacao
     {
-        public class Campo
+        public static string ValidarPeca(Peca peca)
         {
-            public Campo(string nome, string texto, bool campoObrigatorio, bool campoNumerico) 
+            int quantidadeMinimaEstoque = default;
+            List<string> erros = new();
+
+            if (string.IsNullOrWhiteSpace(peca.Nome)) erros.Add("O campo nome é obrigatório.");
+               
+            if (!Regex.Match(peca.Nome, @"^\w|\s([p{L}])$").Success) erros.Add("O campo nome não aceita caracteres especiais.");
+               
+            if (string.IsNullOrWhiteSpace(peca.Estoque)) erros.Add("O campo estoque é obrigatório.");
+
+            try
             {
-                Nome = nome;
-                Texto = texto;
-                Obrigatorio = campoObrigatorio;
-                Numerico = campoNumerico;
+                var quantidadeEstoque = Convert.ToInt32(peca.Estoque);
+
+                if (quantidadeEstoque <= quantidadeMinimaEstoque)
+                {
+                    erros.Add($"A quantidade mínima de peças para adicionar deve ser maior que {quantidadeMinimaEstoque}.");
+                }
+            }
+            catch 
+            {
+                erros.Add("O campo estoque aceita apenas números.");
             }
 
-            public string Nome { get; set; }
-            
-            public string Texto { get; set; }
-            
-            public bool Obrigatorio { get; set; } 
-            
-            public bool Numerico { get; set; }
-            
-        }
+            if (peca.DataDeFabricacao > DateTime.Now) erros.Add($"A data máxima aceita é {DateTime.Now.Date.ToShortDateString()}.");
 
-        public static string ValidarCampoDeTexto(List<Campo> camposParaValidar) 
-        {
-            string erros = null;
+            var dataMinimaAceita = DateTime.Parse("1754-01-01T12:00:20.031Z");
 
-            camposParaValidar.ForEach(campo =>
-            {
-                if (campo.Obrigatorio)
-                {
-                    if (string.IsNullOrWhiteSpace(campo.Texto))
-                    {
-                        erros = string.Join(Environment.NewLine, $"O campo {campo.Nome} é obrigatório.", erros);
-                        return;
-                    }
-                }
+            if (peca.DataDeFabricacao < dataMinimaAceita) erros.Add($"A data mínima aceita é {dataMinimaAceita.Date.ToShortDateString()}.");
 
-                if (campo.Numerico)
-                {
-                    try
-                    {
-                        Convert.ToInt32(campo.Texto);
-                    }
-                    catch
-                    {
-                        erros = string.Join(Environment.NewLine, $"O campo {campo.Nome} aceita apenas números.", erros);
-                    }
-                }
-            });
-
-            return erros;
+            return string.Join(Environment.NewLine, erros);
         }
     }
 }
