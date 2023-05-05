@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Modelos;
 using Microsoft.AspNetCore.Mvc;
 using static Cod3rsGrowth.Servicos.Validacao;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Cod3rsGrowth.Web.Controller
 {
@@ -18,57 +19,88 @@ namespace Cod3rsGrowth.Web.Controller
         [HttpGet]
         public IActionResult ObterTodas()
         {
-            return Ok(_repositorio.ObterTodas().ToList());
+            try
+            {
+                return Ok(_repositorio.ObterTodas().ToList());
+            }
+            catch (Exception erro)
+            {
+                return BadRequest($"Erro ao obter peças. {erro}");
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult ObterPorId(int id)
         {
-            return Ok(_repositorio.ObterPorId(id));
+            try
+            {
+                return Ok(_repositorio.ObterPorId(id));
+            } catch (Exception erro)
+            {
+                return BadRequest($"Erro ao obter peça com id {id}. {erro}");
+            }
         }
 
         [HttpPost]
         public IActionResult Criar([FromBody] Peca peca)
         {
-            if (peca == null) return BadRequest();
+            try
+            {
+                if (peca == null) return BadRequest();
 
-            VerificarPecaRecebida(peca);
+                string erros = ValidarPeca(peca);
 
-            peca.DataDeFabricacao = peca.DataDeFabricacao.Date;
+                if (!string.IsNullOrEmpty(erros))
+                {
+                    throw new Exception(erros);
+                }
 
-            _repositorio.Criar(peca);
+                peca.DataDeFabricacao = peca.DataDeFabricacao.Date;
 
-            return Created($"pecas/{peca.Id}", peca);
+                _repositorio.Criar(peca);
+
+                return Created($"pecas/{peca.Id}", peca);
+            } catch (Exception erro)
+            {
+                return BadRequest($"Erro ao criar peça. {erro}");
+            }
         }
 
         [HttpPatch]
         public IActionResult Atualizar([FromBody] Peca peca)
         {
-            if (peca == null || peca.Id == null) return BadRequest();
+            try
+            {
+                if (peca == null || peca.Id == null) return BadRequest();
 
-            VerificarPecaRecebida(peca);
+                string erros = ValidarPeca(peca);
 
-            peca.DataDeFabricacao = peca.DataDeFabricacao.Date;
+                if (!string.IsNullOrEmpty(erros))
+                {
+                    throw new Exception(erros);
+                }
 
-            _repositorio.Atualizar(peca.Id ?? 0, peca);
+                peca.DataDeFabricacao = peca.DataDeFabricacao.Date;
 
-            return Ok();
+                _repositorio.Atualizar(peca.Id ?? 0, peca);
+
+                return Ok();
+            } catch (Exception erro)
+            {
+                return BadRequest($"Erro ao atualizar peça. {erro}");
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult Remover(int id)
         {
-            _repositorio.Remover(id);
-            return Ok();
-        }
-
-        private static void VerificarPecaRecebida(Peca peca)
-        {
-            string erros = ValidarPeca(peca);
-
-            if (!string.IsNullOrEmpty(erros))
+            try
             {
-                throw new Exception(erros);
+                _repositorio.Remover(id);
+                return Ok();
+            } catch (Exception erro)
+            {
+                return BadRequest($"Erro ao remover peça. {erro}");
             }
         }
     }
