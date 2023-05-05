@@ -22,7 +22,7 @@ namespace Cod3rsGrowth.Servicos
 
                 if (quantidadeEstoque <= quantidadeMinimaEstoque)
                 {
-                    erros.Add($"A quantidade mínima de peças para adicionar deve ser maior que {quantidadeMinimaEstoque}");
+                    erros.Add($"A quantidade mínima de peças para adicionar deve ser maior que {quantidadeMinimaEstoque}.");
                 }
             }
             catch 

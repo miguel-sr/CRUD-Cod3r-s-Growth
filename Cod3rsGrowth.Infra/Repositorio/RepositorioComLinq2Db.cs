@@ -50,14 +50,18 @@ namespace Cod3rsGrowth.Infra.Repositorio
         {
             using var db = ObterConexao();
 
-            db.Update(peca);
+            var registroAtualizado = db.Update(peca) != 0;
+
+            if (!registroAtualizado) throw new Exception($"Peça com ID {id} não encontrada.");
         }
 
         public void Remover(int id)
         {
             using var db = ObterConexao();
 
-            db.GetTable<Peca>().Where(x => x.Id == id).Delete();
+            var registroDeletado = db.GetTable<Peca>().Where(x => x.Id == id).Delete() != 0;
+
+            if (!registroDeletado) throw new Exception($"Peça com ID {id} não encontrada.");
         }
     }
 }

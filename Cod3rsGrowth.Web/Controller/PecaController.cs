@@ -25,7 +25,7 @@ namespace Cod3rsGrowth.Web.Controller
             }
             catch (Exception erro)
             {
-                return BadRequest($"Erro ao obter peças. {erro}");
+                return NotFound($"Erro ao obter peças. {erro}");
             }
         }
 
@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Web.Controller
                 return Ok(_repositorio.ObterPorId(id));
             } catch (Exception erro)
             {
-                return BadRequest($"Erro ao obter peça com id {id}. {erro}");
+                return NotFound($"Erro ao obter peça com ID {id}. {erro}");
             }
         }
 
@@ -52,7 +52,7 @@ namespace Cod3rsGrowth.Web.Controller
 
                 if (!string.IsNullOrEmpty(erros))
                 {
-                    throw new Exception(erros);
+                    return BadRequest(erros);
                 }
 
                 peca.DataDeFabricacao = peca.DataDeFabricacao.Date;
@@ -77,17 +77,17 @@ namespace Cod3rsGrowth.Web.Controller
 
                 if (!string.IsNullOrEmpty(erros))
                 {
-                    throw new Exception(erros);
+                    return BadRequest(erros);
                 }
 
                 peca.DataDeFabricacao = peca.DataDeFabricacao.Date;
 
                 _repositorio.Atualizar(peca.Id ?? 0, peca);
 
-                return Ok();
+                return NoContent();
             } catch (Exception erro)
             {
-                return BadRequest($"Erro ao atualizar peça. {erro}");
+                return NotFound(erro.Message);
             }
         }
 
@@ -97,10 +97,10 @@ namespace Cod3rsGrowth.Web.Controller
             try
             {
                 _repositorio.Remover(id);
-                return Ok();
+                return NoContent();
             } catch (Exception erro)
             {
-                return BadRequest($"Erro ao remover peça. {erro}");
+                return NotFound(erro.Message);
             }
         }
     }
