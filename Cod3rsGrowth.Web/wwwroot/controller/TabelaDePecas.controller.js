@@ -31,7 +31,19 @@ sap.ui.define(
         }
       },
 
-      aoClicarMostrarDetalhes: async function (oEvent) {},
+      aoClicarMostrarDetalhes: async function (oEvent) {
+        var uriDaPeca = oEvent.getSource().getBindingContext().getPath();
+
+        var id = this.getView()
+          .getModel()
+          .getProperty(uriDaPeca + "/id");
+
+        var oRouter = this.getOwnerComponent().getRouter();
+
+        oRouter.navTo("detalhes", {
+          id,
+        });
+      },
 
       aoClicarFiltrarPecas: function (oEvent) {
         var filtro = [];
