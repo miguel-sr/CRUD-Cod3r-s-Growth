@@ -21,6 +21,7 @@
       />
     </headerContent>
     <ObjectHeader
+      id="HeaderPeca"
       responsive="true"
       fullScreenOptimized="true"
       intro="{/descricao}"
