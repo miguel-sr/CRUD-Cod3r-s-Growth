@@ -6,12 +6,12 @@
   <Panel accessibleRole="Region">
     <headerToolbar>
       <Toolbar>
+        <ToolbarSpacer />
         <Button
           icon="sap-icon://add-product"
           text="{i18n>botaoAdicionarPecaTexto}"
           type="Emphasized"
         />
-      <ToolbarSpacer />
       <SearchField width="30%" search=".aoClicarFiltrarPecas" />
       </Toolbar>
     </headerToolbar>
