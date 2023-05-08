@@ -3,51 +3,79 @@
   xmlns="sap.m"
   xmlns:mvc="sap.ui.core.mvc"
 >
-  <Table
-    headerText="{i18n>tituloTabela}"
-    class="sapUiResponsiveMargin"
-    width="auto"
-  >
+  <Panel accessibleRole="Region">
     <headerToolbar>
       <Toolbar>
-        <FlexBox justifyContent="SpaceBetween" width="100%">
-          <Button
-            icon="sap-icon://add-product"
-            text="{i18n>botaoAdicionarPecaTexto}"
-            type="Emphasized"
-          />
-          <SearchField width="100%">
-            <layoutData>
-              <FlexItemData alignSelf="End" />
-            </layoutData>
-          </SearchField>
-        </FlexBox>
+        <Button
+          icon="sap-icon://add-product"
+          text="{i18n>botaoAdicionarPecaTexto}"
+          type="Emphasized"
+        />
+      <ToolbarSpacer />
+      <SearchField width="30%" search=".aoClicarFiltrarPecas" />
       </Toolbar>
     </headerToolbar>
-    <columns>
-      <Column hAlign="Center" minScreenWidth="Small" width="5em">
-        <Text text="{i18n>colunaId}" />
-      </Column>
+    <Table
+      id="listaDePecas"
+      class="sapUiResponsiveMargin"
+      alternateRowColors="true"
+      width="auto"
+      items="{
+        path: '/pecas',
+        sorter : {
+          path : 'categoria',
+          group : true
+        }
+      }"
+    >
+      <columns>
+        <Column hAlign="Center" width="5em">
+          <Text text="{i18n>colunaId}" />
+        </Column>
 
-      <Column hAlign="Center">
-        <Text text="{i18n>colunaCategoria}" />
-      </Column>
-      
-      <Column hAlign="Center">
-        <Text text="{i18n>colunaNome}" />
-      </Column>
-      
-      <Column hAlign="Center">
-        <Text text="{i18n>colunaDescricao}" />
-      </Column>
+        <Column hAlign="Center" width="10em">
+          <Text text="{i18n>colunaCategoria}" />
+        </Column>
+        
+        <Column hAlign="Center" width="15em">
+          <Text text="{i18n>colunaNome}" />
+        </Column>
+        
+        <Column hAlign="Center">
+          <Text text="{i18n>colunaDescricao}" />
+        </Column>
 
-      <Column hAlign="Center">
-        <Text text="{i18n>colunaEstoque}" />
-      </Column>
-      
-      <Column hAlign="Center">
-        <Text text="{i18n>colunaDataDeFabricacao}" />
-      </Column>
-    </columns>
-  </Table>
+        <Column hAlign="Center" width="5em">
+          <Text text="{i18n>colunaEstoque}" />
+        </Column>
+        
+        <Column hAlign="Center" width="10em">
+          <Text text="{i18n>colunaDataDeFabricacao}" />
+        </Column>
+      </columns>
+      <items>
+        <ColumnListItem type="Navigation" press=".aoClicarMostrarDetalhes">
+          <cells>
+            <ObjectIdentifier title="{id}" />
+            <Text text="{categoria}" />
+            <Text text="{nome}" />
+            <Text text="{descricao}" />
+            <ObjectNumber number="{estoque}" />
+            <Text
+              text="{
+                path: 'dataDeFabricacao',
+                type: 'sap.ui.model.type.Date',
+                formatOptions: {
+                  style: 'short',
+                  source: {
+                    pattern: 'yyyy-MM-ddTHH:mm:ss'
+                  }
+                }
+              }"
+            />
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+  </Panel>
 </mvc:View>

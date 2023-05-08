@@ -28,7 +28,8 @@
       "minUI5Version": "1.113.0",
       "libs": {
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.ui.webc.main": {}
       }
     },
     "contentDensities": {
@@ -70,6 +71,7 @@
       ],
       "targets": {
         "home": {
+          "type": "View",
           "id": "home",
           "name": "Home"
         }
