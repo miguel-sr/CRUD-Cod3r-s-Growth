@@ -33,10 +33,6 @@
           <Text text="{i18n>colunaId}" />
         </Column>
 
-        <Column hAlign="Center" width="10em">
-          <Text text="{i18n>colunaCategoria}" />
-        </Column>
-        
         <Column hAlign="Center" width="15em">
           <Text text="{i18n>colunaNome}" />
         </Column>
@@ -57,7 +53,6 @@
         <ColumnListItem type="Navigation" press=".aoClicarMostrarDetalhes">
           <cells>
             <ObjectIdentifier title="{id}" />
-            <Text text="{categoria}" />
             <Text text="{nome}" />
             <Text text="{descricao}" />
             <ObjectNumber number="{estoque}" />
