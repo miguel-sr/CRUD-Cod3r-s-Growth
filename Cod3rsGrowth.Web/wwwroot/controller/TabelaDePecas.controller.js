@@ -18,6 +18,10 @@ sap.ui.define(
 
     return Controller.extend("sap.ui.cod3rsgrowth.controller.TabelaDePecas", {
       onInit: async function () {
+        var oResourceBundle = this.getView()
+          .getModel("i18n")
+          .getResourceBundle();
+
         try {
           var oModel = new JSONModel();
 
@@ -27,7 +31,7 @@ sap.ui.define(
 
           this.getView().setModel(oModel);
         } catch (error) {
-          MessageToast.show("Erro ao obter itens da tabela.");
+          MessageToast.show(oResourceBundle.getText("obterItensTabela"));
         }
       },
 
