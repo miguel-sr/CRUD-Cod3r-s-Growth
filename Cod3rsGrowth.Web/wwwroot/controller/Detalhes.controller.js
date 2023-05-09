@@ -31,14 +31,20 @@ sap.ui.define(
 
           this.byId("HeaderPeca").setVisible(false);
 
+          var oResourceBundle = this.getView()
+            .getModel("i18n")
+            .getResourceBundle();
+
           fetch(`http://localhost:5285/pecas/${id}`).then((resposta) => {
             if (resposta.status == 404) {
-              MessageToast.show(`Peça não encontrada com ID ${id}.`);
+              MessageToast.show(
+                oResourceBundle.getText("pecaNaoEncontrada", [id])
+              );
               return;
             }
 
             if (resposta.status == 400) {
-              MessageToast.show("ID inválido.");
+              MessageToast.show(oResourceBundle.getText("idPecaInvalido"));
               return;
             }
 
@@ -47,7 +53,7 @@ sap.ui.define(
             this.getView().setModel(oModel);
           });
         } catch (erro) {
-          MessageToast.show(`Erro ao obter peça. ${erro}`);
+          MessageToast.show(oResourceBundle.getText("erroAoObterPeca", [erro]));
         }
       },
 
