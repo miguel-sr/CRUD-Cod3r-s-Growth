@@ -23,37 +23,33 @@ sap.ui.define(
           .attachPatternMatched(this._carregarPeca, this);
       },
 
-      _carregarPeca: function () {
+      _carregarPeca: async function () {
         try {
           var id = window.location.href.split("/")[5];
 
           var oModel = new JSONModel();
 
-          this.byId("HeaderPeca").setVisible(false);
-
           var oResourceBundle = this.getView()
             .getModel("i18n")
             .getResourceBundle();
 
-          fetch(`http://localhost:5285/pecas/${id}`).then((resposta) => {
-            if (resposta.status == 404) {
-              MessageToast.show(
-                oResourceBundle.getText("pecaNaoEncontrada", [id])
-              );
-              return;
-            }
+          var resposta = await fetch(`http://localhost:5285/pecas/${id}`);
 
-            if (resposta.status == 400) {
-              MessageToast.show(oResourceBundle.getText("idPecaInvalido"));
-              return;
-            }
+          if (resposta.status == 404) {
+            this.byId("HeaderPeca").setVisible(false);
+            throw oResourceBundle.getText("pecaNaoEncontrada", [id]);
+          }
 
-            this.byId("HeaderPeca").setVisible(true);
-            resposta.json().then((peca) => oModel.setData(peca));
-            this.getView().setModel(oModel);
-          });
+          if (resposta.status == 400) {
+            this.byId("HeaderPeca").setVisible(false);
+            throw oResourceBundle.getText("idPecaInvalido");
+          }
+
+          var peca = await resposta.json();
+          oModel.setData(peca);
+          this.getView().setModel(oModel);
         } catch (erro) {
-          MessageToast.show(oResourceBundle.getText("erroAoObterPeca", [erro]));
+          MessageToast.show(erro);
         }
       },
 
