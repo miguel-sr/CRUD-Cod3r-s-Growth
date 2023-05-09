@@ -15,6 +15,7 @@ sap.ui.define(
     "use strict";
 
     var oResourceBundle;
+    const httpStatus_OK = 200;
 
     return Controller.extend("sap.ui.cod3rsgrowth.controller.Detalhes", {
       onInit: function () {
@@ -29,28 +30,26 @@ sap.ui.define(
           .attachPatternMatched(this._carregarPeca, this);
       },
 
-      _carregarPeca: async function () {
+      _carregarPeca: async function (oEvent) {
         try {
-          this.byId("HeaderPeca").setVisible(false);
+          var id = oEvent.getParameter("arguments").id;
 
-          var id = window.location.href.split("/")[5];
+          this.byId("HeaderPeca").setVisible(false);
 
           var oModel = new JSONModel();
 
           var resposta = await fetch(`http://localhost:5285/pecas/${id}`);
 
-          if (resposta.status == 404)
-            throw oResourceBundle.getText("pecaNaoEncontrada", [id]);
-
-          if (resposta.status == 400)
-            throw oResourceBundle.getText("idPecaInvalido");
+          if (resposta.status !== httpStatus_OK) {
+            throw resposta.statusText;
+          }
 
           this.byId("HeaderPeca").setVisible(true);
           var peca = await resposta.json();
           oModel.setData(peca);
           this.getView().setModel(oModel);
         } catch (erro) {
-          MessageToast.show(erro);
+          MessageToast.show(oResourceBundle.getText("obterPeca", [id, erro]));
         }
       },
 
@@ -58,7 +57,7 @@ sap.ui.define(
         var historico = History.getInstance();
         var paginaAnterior = historico.getPreviousHash();
 
-        if (paginaAnterior !== undefined) {
+        if (paginaAnterior) {
           window.history.go(-1);
           return;
         }

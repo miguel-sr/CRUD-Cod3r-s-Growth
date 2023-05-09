@@ -17,6 +17,7 @@ sap.ui.define(
     "use strict";
 
     var oResourceBundle;
+    const httpStatus_OK = 200;
 
     return Controller.extend("sap.ui.cod3rsgrowth.controller.TabelaDePecas", {
       onInit: function () {
@@ -33,7 +34,7 @@ sap.ui.define(
 
           var resposta = await fetch("http://localhost:5285/pecas");
 
-          if (resposta.status !== 200) {
+          if (resposta.status !== httpStatus_OK) {
             throw resposta.statusText;
           }
 
