@@ -16,22 +16,36 @@ sap.ui.define(
   function (Controller, JSONModel, Filter, FilterOperator, MessageToast) {
     "use strict";
 
+    var oResourceBundle;
+
     return Controller.extend("sap.ui.cod3rsgrowth.controller.TabelaDePecas", {
-      onInit: async function () {
-        var oResourceBundle = this.getView()
+      onInit: function () {
+        oResourceBundle = this.getOwnerComponent()
           .getModel("i18n")
           .getResourceBundle();
 
+        this._carregarPecas();
+      },
+
+      _carregarPecas: async function () {
         try {
           var oModel = new JSONModel();
 
-          var pecas = await (await fetch("http://localhost:5285/pecas")).json();
+          var resposta = await fetch("http://localhost:5285/pecas");
+
+          if (resposta.status !== 200) {
+            throw resposta.statusText;
+          }
+
+          var pecas = await resposta.json();
 
           oModel.setData({ pecas });
 
           this.getView().setModel(oModel);
         } catch (error) {
-          MessageToast.show(oResourceBundle.getText("obterItensTabela"));
+          MessageToast.show(
+            oResourceBundle.getText("obterItensTabela", [error])
+          );
         }
       },
 

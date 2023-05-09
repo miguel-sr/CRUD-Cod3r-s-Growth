@@ -14,9 +14,15 @@ sap.ui.define(
   function (Controller, History, JSONModel, MessageToast) {
     "use strict";
 
+    var oResourceBundle;
+
     return Controller.extend("sap.ui.cod3rsgrowth.controller.Detalhes", {
-      onInit: async function () {
+      onInit: function () {
         var oRouter = this.getOwnerComponent().getRouter();
+
+        oResourceBundle = this.getOwnerComponent()
+          .getModel("i18n")
+          .getResourceBundle();
 
         oRouter
           .getRoute("detalhes")
@@ -25,26 +31,21 @@ sap.ui.define(
 
       _carregarPeca: async function () {
         try {
+          this.byId("HeaderPeca").setVisible(false);
+
           var id = window.location.href.split("/")[5];
 
           var oModel = new JSONModel();
 
-          var oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
           var resposta = await fetch(`http://localhost:5285/pecas/${id}`);
 
-          if (resposta.status == 404) {
-            this.byId("HeaderPeca").setVisible(false);
+          if (resposta.status == 404)
             throw oResourceBundle.getText("pecaNaoEncontrada", [id]);
-          }
 
-          if (resposta.status == 400) {
-            this.byId("HeaderPeca").setVisible(false);
+          if (resposta.status == 400)
             throw oResourceBundle.getText("idPecaInvalido");
-          }
 
+          this.byId("HeaderPeca").setVisible(true);
           var peca = await resposta.json();
           oModel.setData(peca);
           this.getView().setModel(oModel);
