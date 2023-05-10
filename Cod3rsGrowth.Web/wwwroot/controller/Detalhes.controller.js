@@ -61,7 +61,7 @@ sap.ui.define(
         }
       },
 
-      aoClicarRetornaPraHome: function (oEvent) {
+      aoClicarRetornaPraHome: function () {
         const rotaPaginaPrincipal = "home";
 
         let historico = History.getInstance();
