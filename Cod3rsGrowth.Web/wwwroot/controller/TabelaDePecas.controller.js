@@ -16,8 +16,7 @@ sap.ui.define(
   function (Controller, JSONModel, Filter, FilterOperator, MessageToast) {
     "use strict";
 
-    var oResourceBundle;
-    const httpStatus_OK = 200;
+    let oResourceBundle;
 
     return Controller.extend("sap.ui.cod3rsgrowth.controller.TabelaDePecas", {
       onInit: function () {
@@ -29,51 +28,65 @@ sap.ui.define(
       },
 
       _carregarPecas: async function () {
+        const httpStatusOk = 200;
+        const mensagemErro = "obterItensTabela";
+
         try {
-          var oModel = new JSONModel();
+          let oModel = new JSONModel();
 
-          var resposta = await fetch("http://localhost:5285/pecas");
+          let resposta = await fetch("http://localhost:5285/pecas");
 
-          if (resposta.status !== httpStatus_OK) {
+          if (resposta.status !== httpStatusOk) {
             throw resposta.statusText;
           }
 
-          var pecas = await resposta.json();
+          let pecas = await resposta.json();
 
           oModel.setData({ pecas });
 
           this.getView().setModel(oModel);
         } catch (error) {
-          MessageToast.show(
-            oResourceBundle.getText("obterItensTabela", [error])
-          );
+          MessageToast.show(oResourceBundle.getText(mensagemErro, [error]));
         }
       },
 
       aoClicarMostrarDetalhes: async function (oEvent) {
-        var uriDaPeca = oEvent.getSource().getBindingContext().getPath();
+        const rotaPaginaDetalhes = "detalhes";
+        const id = this._obterIdPeca(oEvent);
 
-        var id = this.getView()
-          .getModel()
-          .getProperty(uriDaPeca + "/id");
+        let oRouter = this.getOwnerComponent().getRouter();
 
-        var oRouter = this.getOwnerComponent().getRouter();
-
-        oRouter.navTo("detalhes", {
-          id,
+        oRouter.navTo(rotaPaginaDetalhes, {
+          id: id,
         });
       },
 
+      _obterIdPeca: function (oEvent) {
+        const parametroIdUri = "/id";
+        let uriDaPeca = oEvent.getSource().getBindingContext().getPath();
+
+        return this.getView()
+          .getModel()
+          .getProperty(uriDaPeca + parametroIdUri);
+      },
+
       aoClicarFiltrarPecas: function (oEvent) {
-        var filtro = [];
-        var query = oEvent.getParameter("query");
+        const parametroEvento = "query";
+        const campoUsadoParaFiltro = "nome";
+        const idComponenteTabela = "listaDePecas";
+        const listaDePecas = "items";
+
+        let filtro = [];
+        let query = oEvent.getParameter(parametroEvento);
 
         if (query) {
-          filtro.push(new Filter("nome", FilterOperator.Contains, query));
+          filtro.push(
+            new Filter(campoUsadoParaFiltro, FilterOperator.Contains, query)
+          );
         }
 
-        var tabelaDePecas = this.byId("listaDePecas");
-        var binding = tabelaDePecas.getBinding("items");
+        let tabelaDePecas = this.byId(idComponenteTabela);
+        let binding = tabelaDePecas.getBinding(listaDePecas);
         binding.filter(filtro);
       },
     });
