@@ -6,7 +6,7 @@
   <Panel accessibleRole="Region">
     <headerToolbar>
       <Toolbar>
-        <ToolbarSpacer />
+      <ToolbarSpacer />
         <Button
           icon="sap-icon://add-product"
           text="{i18n>botaoAdicionarPecaTexto}"
@@ -33,11 +33,11 @@
           <Text text="{i18n>colunaId}" />
         </Column>
 
-        <Column hAlign="Center" width="15em">
+        <Column width="15em">
           <Text text="{i18n>colunaNome}" />
         </Column>
         
-        <Column hAlign="Center">
+        <Column>
           <Text text="{i18n>colunaDescricao}" />
         </Column>
 

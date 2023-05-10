@@ -67,6 +67,11 @@
           "pattern": "",
           "name": "home",
           "target": "home"
+        },
+        {
+          "pattern": "peca/{id}",
+          "name": "detalhes",
+          "target": "detalhes"
         }
       ],
       "targets": {
@@ -74,6 +79,11 @@
           "type": "View",
           "id": "home",
           "name": "Home"
+        },
+        "detalhes": {
+          "type": "View",
+          "id": "detalhes",
+          "name": "Detalhes"
         }
       }
     }
