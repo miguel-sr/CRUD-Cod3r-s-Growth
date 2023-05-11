@@ -15,16 +15,17 @@ sap.ui.define(
     "use strict";
 
     let oResourceBundle;
+    let oRouter;
 
     return Controller.extend("sap.ui.cod3rsgrowth.controller.Detalhes", {
       onInit: function () {
-        const rotaPaginaDetalhes = "detalhes";
-
-        let oRouter = this.getOwnerComponent().getRouter();
-
         oResourceBundle = this.getOwnerComponent()
           .getModel("i18n")
           .getResourceBundle();
+
+        const rotaPaginaDetalhes = "detalhes";
+
+        oRouter = this.getOwnerComponent().getRouter();
 
         oRouter
           .getRoute(rotaPaginaDetalhes)
@@ -34,7 +35,6 @@ sap.ui.define(
       _carregarPeca: async function (oEvent) {
         const httpStatusOk = 200;
         const idComponentePeca = "HeaderPeca";
-        const mensagemErro = "obterPeca";
         const parametroEvento = "arguments";
 
         try {
@@ -57,6 +57,7 @@ sap.ui.define(
 
           this.getView().setModel(oModel);
         } catch (erro) {
+          const mensagemErro = "obterPeca";
           MessageToast.show(oResourceBundle.getText(mensagemErro, [id, erro]));
         }
       },
@@ -72,7 +73,6 @@ sap.ui.define(
           return;
         }
 
-        let oRouter = this.getOwnerComponent().getRouter();
         oRouter.navTo(rotaPaginaPrincipal, {}, {}, true);
       },
     });
