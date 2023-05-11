@@ -55,7 +55,7 @@ sap.ui.define(
             ).toISOString(),
           });
 
-          const response = await fetch("http://localhost:5285/psecas", {
+          const response = await fetch("http://localhost:5285/pecas", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
