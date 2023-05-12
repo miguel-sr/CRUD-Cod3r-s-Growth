@@ -17,6 +17,7 @@ sap.ui.define(
     "use strict";
 
     let oResourceBundle;
+    let oRouter;
 
     return Controller.extend("sap.ui.cod3rsgrowth.controller.TabelaDePecas", {
       onInit: function () {
@@ -24,12 +25,17 @@ sap.ui.define(
           .getModel("i18n")
           .getResourceBundle();
 
-        this._carregarPecas();
+        const rotaPaginaPrincipal = "home";
+
+        oRouter = this.getOwnerComponent().getRouter();
+
+        oRouter
+          .getRoute(rotaPaginaPrincipal)
+          .attachPatternMatched(this._carregarPecas, this);
       },
 
       _carregarPecas: async function () {
         const httpStatusOk = 200;
-        const mensagemErro = "obterItensTabela";
 
         try {
           let oModel = new JSONModel();
@@ -46,6 +52,7 @@ sap.ui.define(
 
           this.getView().setModel(oModel);
         } catch (error) {
+          const mensagemErro = "obterItensTabela";
           MessageToast.show(oResourceBundle.getText(mensagemErro, [error]));
         }
       },
@@ -53,8 +60,6 @@ sap.ui.define(
       aoClicarMostrarDetalhes: async function (oEvent) {
         const rotaPaginaDetalhes = "detalhes";
         const id = this._obterIdPeca(oEvent);
-
-        let oRouter = this.getOwnerComponent().getRouter();
 
         oRouter.navTo(rotaPaginaDetalhes, {
           id: id,
@@ -88,6 +93,12 @@ sap.ui.define(
         let tabelaDePecas = this.byId(idComponenteTabela);
         let binding = tabelaDePecas.getBinding(listaDePecas);
         binding.filter(filtro);
+      },
+
+      aoClicarNavegarParaCadastro: function () {
+        const rotaPaginaCadastro = "cadastro";
+
+        oRouter.navTo(rotaPaginaCadastro);
       },
     });
   }

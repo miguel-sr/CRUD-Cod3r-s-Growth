@@ -9,6 +9,7 @@
       <ToolbarSpacer />
         <Button
           icon="sap-icon://add-product"
+          press=".aoClicarNavegarParaCadastro"
           text="{i18n>botaoAdicionarPecaTexto}"
           type="Emphasized"
         />
