@@ -31,21 +31,22 @@ sap.ui.define(
         const idComponentePeca = "HeaderPeca";
         const parametroEvento = "arguments";
 
-        try {
-          let id = oEvent.getParameter(parametroEvento).id;
+        let id = oEvent.getParameter(parametroEvento).id;
 
+        try {
           this.byId(idComponentePeca).setVisible(false);
 
           let oModel = new JSONModel();
 
-          let resposta = await fetch(`http://localhost:5285/pecas/${id}`);
+          let peca = await fetch(`http://localhost:5285/pecas/${id}`).then(
+            (response) => {
+              if (response.status !== httpStatusOk) throw response.statusText;
 
-          if (resposta.status !== httpStatusOk) {
-            throw resposta.statusText;
-          }
+              return response.json();
+            }
+          );
 
           this.byId(idComponentePeca).setVisible(true);
-          let peca = await resposta.json();
 
           oModel.setData(peca);
 

@@ -56,8 +56,10 @@
               <f:FormElement label="Nome">
                 <f:fields>
                   <Input
+                    id="nome"
                     value="{peca>/nome}"
                     required="true"
+                    change=".validarCampo"
                     placeholder="{i18n>campoNomePlaceholder}"
                   />
                 </f:fields>
@@ -75,7 +77,11 @@
               <f:FormElement label="Estoque">
                 <f:fields>
                   <Input
+                    id="estoque"
+                    type="Number"
+                    maxLength="1"
                     value="{peca>/estoque}"
+                    change=".validarCampo"
                     required="true"
                     placeholder="{i18n>campoEstoquePlaceholder}"
                   />
@@ -85,7 +91,9 @@
               <f:FormElement label="Fabricado em">
                 <f:fields>
                   <DatePicker
+                    id="dataDeFabricacao"
                     value="{peca>/dataDeFabricacao}"
+                    change=".validarCampoData"
                     required="true"
                     displayFormat="dd/MM/yyyy"
                     valueFormat="dd/MM/yyyy"

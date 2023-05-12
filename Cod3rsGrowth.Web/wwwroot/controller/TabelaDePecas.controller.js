@@ -33,13 +33,13 @@ sap.ui.define(
         try {
           let oModel = new JSONModel();
 
-          let resposta = await fetch("http://localhost:5285/pecas");
+          let pecas = await fetch(`http://localhost:5285/pecas`).then(
+            (response) => {
+              if (response.status !== httpStatusOk) throw response.statusText;
 
-          if (resposta.status !== httpStatusOk) {
-            throw resposta.statusText;
-          }
-
-          let pecas = await resposta.json();
+              return response.json();
+            }
+          );
 
           oModel.setData({ pecas });
 
