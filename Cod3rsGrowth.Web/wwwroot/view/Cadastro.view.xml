@@ -47,7 +47,7 @@
               <f:FormElement label="Categoria">
                 <f:fields>
                   <Input
-                    id="categoria"
+                    value="{peca>/categoria}"
                     placeholder="{i18n>campoCategoriaPlaceholder}"
                   />
                 </f:fields>
@@ -56,7 +56,7 @@
               <f:FormElement label="Nome">
                 <f:fields>
                   <Input
-                    id="nome"
+                    value="{peca>/nome}"
                     required="true"
                     placeholder="{i18n>campoNomePlaceholder}"
                   />
@@ -66,7 +66,7 @@
               <f:FormElement label="Descrição">
                 <f:fields>
                   <Input
-                    id="descricao"
+                    value="{peca>/descricao}"
                     placeholder="{i18n>campoDescricaoPlaceholder}"
                   />
                 </f:fields>
@@ -75,7 +75,7 @@
               <f:FormElement label="Estoque">
                 <f:fields>
                   <Input
-                    id="estoque"
+                    value="{peca>/estoque}"
                     required="true"
                     placeholder="{i18n>campoEstoquePlaceholder}"
                   />
@@ -85,7 +85,7 @@
               <f:FormElement label="Fabricado em">
                 <f:fields>
                   <DatePicker
-                    id="dataDeFabricacao"
+                    value="{peca>/dataDeFabricacao}"
                     required="true"
                     displayFormat="dd/MM/yyyy"
                     valueFormat="dd/MM/yyyy"

@@ -3,13 +3,9 @@ sap.ui.define(
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/routing/History",
     "sap/m/MessageToast",
+    "sap/ui/model/json/JSONModel",
   ],
-  /**
-   * @param {typeof import('sap/ui/core/mvc/Controller').default} Controller
-   * @param {typeof import('sap/ui/core/routing/History').default} History
-   * @param {typeof import('sap/m/MessageToast').default} MessageToast
-   */
-  function (Controller, History, MessageToast) {
+  function (Controller, History, MessageToast, JSONModel) {
     "use strict";
 
     let oResourceBundle;
@@ -22,6 +18,18 @@ sap.ui.define(
           .getResourceBundle();
 
         oRouter = this.getOwnerComponent().getRouter();
+
+        const stringVazia = "";
+
+        let oModel = new JSONModel({
+          categoria: stringVazia,
+          nome: stringVazia,
+          descricao: stringVazia,
+          estoque: stringVazia,
+          dataDeFabricacao: stringVazia,
+        });
+
+        this.getView().setModel(oModel, "peca");
       },
       aoClicarRetornaPraHome: function () {
         const rotaPaginaPrincipal = "home";
@@ -38,32 +46,20 @@ sap.ui.define(
       },
 
       aoClicarSalvarPeca: async function () {
-        const idCampoCategoria = "categoria";
-        const idCampoNome = "nome";
-        const idCampoDescricao = "descricao";
-        const idCampoEstoque = "estoque";
-        const idCampoData = "dataDeFabricacao";
-
         try {
-          let peca = JSON.stringify({
-            categoria: this.byId(idCampoCategoria).getValue(),
-            nome: this.byId(idCampoNome).getValue(),
-            descricao: this.byId(idCampoDescricao).getValue(),
-            estoque: this.byId(idCampoEstoque).getValue(),
-            dataDeFabricacao: new Date(
-              this.byId(idCampoData).getDateValue()
-            ).toISOString(),
-          });
+          let peca = this.getView().getModel("peca").getData();
+
+          peca.dataDeFabricacao = new Date(peca.dataDeFabricacao).toISOString();
 
           const response = await fetch("http://localhost:5285/pecas", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: peca,
+            body: JSON.stringify(peca),
           });
 
-          var pecaCriada = await response.json();
+          let pecaCriada = await response.json();
 
           const rotaPaginaDetalhes = "detalhes";
 

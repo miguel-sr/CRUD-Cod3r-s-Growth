@@ -6,13 +6,6 @@ sap.ui.define(
     "sap/ui/model/FilterOperator",
     "sap/m/MessageToast",
   ],
-  /**
-   * @param {typeof import('sap/ui/core/mvc/Controller').default} Controller
-   * @param {typeof import('sap/ui/model/json/JSONModel').default} JSONModel
-   * @param {typeof import('sap/ui/model/Filter').default} Filter
-   * @param {typeof import('sap/ui/model/FilterOperator').default} FilterOperator
-   * @param {typeof import('sap/m/MessageToast').default} MessageToast
-   */
   function (Controller, JSONModel, Filter, FilterOperator, MessageToast) {
     "use strict";
 

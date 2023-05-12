@@ -5,12 +5,6 @@ sap.ui.define(
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageToast",
   ],
-  /**
-   * @param {typeof import('sap/ui/core/mvc/Controller').default} Controller
-   * @param {typeof import('sap/ui/core/routing/History').default} History
-   * @param {typeof import('sap/ui/model/json/JSONModel').default} JSONModel
-   * @param {typeof import('sap/m/MessageToast').default} MessageToast
-   */
   function (Controller, History, JSONModel, MessageToast) {
     "use strict";
 
