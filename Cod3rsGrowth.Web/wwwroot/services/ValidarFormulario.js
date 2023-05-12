@@ -17,24 +17,28 @@ sap.ui.define(
 
         if (!valorDoCampo.trim()) {
           erros = erros.concat("Este campo é obrigatório. \n");
-        }
+        } else {
+          switch (campo.getType()) {
+            case InputType.Number:
+              if (!IsNumber.validate(valorDoCampo)) {
+                erros = erros.concat("Este campo aceita apenas números. \n,");
+              }
 
-        switch (campo.getType()) {
-          case InputType.Number:
-            if (!IsNumber.validate(valorDoCampo)) {
-              erros = erros.concat("Este campo aceita apenas números. \n,");
-            }
+              if (Number.parseInt(valorDoCampo) < 1) {
+                erros = erros.concat("Valor mínimo de 1 unidade. \n,");
+              }
+              break;
 
-            if (Number.parseInt(valorDoCampo) < 1) {
-              erros = erros.concat("Valor mínimo de 1 unidade. \n,");
-            }
-            break;
+            case InputType.Text:
+              let regex = /@^\w|\s([p{L}])$/;
 
-          case InputType.Text:
-            if (valorDoCampo.length < 4) {
-              erros = erros.concat("Mínimo de 4 caracteres. \n");
-            }
-            break;
+              if (!regex.test(valorDoCampo)) {
+                erros = erros.concat(
+                  "Este campo não aceita caracteres especiais. \n"
+                );
+              }
+              break;
+          }
         }
 
         if (erros) {

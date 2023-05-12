@@ -78,7 +78,7 @@ sap.ui.define(
       },
 
       aoClicarSalvarPeca: async function () {
-        const httpStatusOk = 200;
+        const httpStatusCreated = 201;
 
         try {
           let peca = this.getView().getModel("peca").getData();
@@ -96,8 +96,9 @@ sap.ui.define(
               "Content-Type": "application/json",
             },
             body: JSON.stringify(peca),
-          }).then((response) => {
-            if (response.status !== httpStatusOk) throw response.statusText;
+          }).then(async (response) => {
+            if (response.status !== httpStatusCreated)
+              throw response.statusText;
 
             return response.json();
           });
@@ -116,11 +117,13 @@ sap.ui.define(
         const validarFormulario = new ValidarFormulario();
 
         const idCampoNome = "nome";
+        const idCampoCategoria = "categoria";
         const idCampoEstoque = "estoque";
         const idCampoFabricacao = "dataDeFabricacao";
 
         var campos = [
           this.byId(idCampoNome),
+          this.byId(idCampoCategoria),
           this.byId(idCampoEstoque),
           this.byId(idCampoFabricacao),
         ];

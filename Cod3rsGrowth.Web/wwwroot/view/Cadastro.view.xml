@@ -47,6 +47,8 @@
               <f:FormElement label="Categoria">
                 <f:fields>
                   <Input
+                    id="categoria"
+                    change=".validarCampo"
                     value="{peca>/categoria}"
                     placeholder="{i18n>campoCategoriaPlaceholder}"
                   />
@@ -96,7 +98,7 @@
                     change=".validarCampoData"
                     required="true"
                     displayFormat="dd/MM/yyyy"
-                    valueFormat="dd/MM/yyyy"
+                    valueFormat="yyyy-MM-dd"
                     placeholder="{i18n>campoDataPlaceholder}"
                   />
                 </f:fields>
