@@ -76,15 +76,14 @@ sap.ui.define(
 
       _definirIntervaloValidoDeDatas: function () {
         const idCampoFabricacao = "dataDeFabricacao";
-        let dataMinima = new Date("1754-01-02T00:00:00.000Z");
+        let dataMinima = new Date("1754-01-01T12:00:00.000Z");
         let dataMaxima = new Date();
 
         let datePicker = this.byId(idCampoFabricacao);
 
-        dataMinima.setHours(0, 0, 0, 0);
-        dataMaxima.setHours(23, 59, 59, 59);
+        dataMaxima.setHours(12, 0, 0, 0);
 
-        datePicker.setMinDate(new Date(dataMinima));
+        datePicker.setMinDate(dataMinima);
         datePicker.setMaxDate(dataMaxima);
       },
 
@@ -108,7 +107,7 @@ sap.ui.define(
 
           let peca = this.getView().getModel("peca").getData();
 
-          if (this._validarTodosCampos()) {
+          if (this._aoSalvarChamarValidacoes()) {
             const mensagemErro = "formularioInvalido";
             throw oResourceBundle.getText(mensagemErro);
           }
@@ -139,7 +138,7 @@ sap.ui.define(
         }
       },
 
-      _validarTodosCampos: function () {
+      _aoSalvarChamarValidacoes: function () {
         const validarFormulario = new ValidarFormulario();
 
         var campos = [
@@ -158,12 +157,14 @@ sap.ui.define(
         validarFormulario.ValidarCampo(oEvent.getSource());
       },
 
-      validarCampoData: function () {
+      aoMudarValorCampoData: function () {
         const validarFormulario = new ValidarFormulario();
 
-        const idCampoFabricacao = "dataDeFabricacao";
-
         validarFormulario.ValidarData(this.byId(idCampoFabricacao));
+      },
+
+      aoClicarAbrirDatePicker: function (oEvent) {
+        this.byId(idCampoFabricacao).openBy(oEvent.getSource().getDomRef());
       },
     });
   }

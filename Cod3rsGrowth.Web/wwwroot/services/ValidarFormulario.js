@@ -56,6 +56,7 @@ sap.ui.define(
 
         let erros = "";
         let data = new Date(campo.getValue());
+        data.setHours(12, 0, 0, 0);
 
         if (data == null) {
           erros = erros.concat("Este campo é obrigatório. \n");

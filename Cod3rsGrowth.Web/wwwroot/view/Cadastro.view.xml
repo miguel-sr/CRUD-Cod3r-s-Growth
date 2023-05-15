@@ -93,14 +93,21 @@
 
               <f:FormElement label="{i18n>labelCampoData}">
                 <f:fields>
+                  <Button
+                    id="botaoDatePicker"
+                    text="{i18n>botaoCampoData}"
+                    icon="sap-icon://calendar"
+                    ariaHasPopup="Dialog"
+                    press=".aoClicarAbrirDatePicker"
+                  />
+
                   <DatePicker
                     id="dataDeFabricacao"
                     value="{peca>/dataDeFabricacao}"
-                    change=".validarCampoData"
                     required="true"
-                    displayFormat="dd/MM/yyyy"
-                    valueFormat="MM/dd/yyyy"
-                    placeholder="{i18n>campoDataPlaceholder}"
+                    visible="false"
+                    valueFormat="MM-dd-yyyy"
+                    change=".aoMudarValorCampoData"
                   />
                 </f:fields>
               </f:FormElement>
