@@ -55,17 +55,17 @@ sap.ui.define(
         campo.setValueState(ValueState.None);
 
         let erros = "";
-        let data = campo.getValue();
+        let data = new Date(campo.getValue());
 
-        if (!data) {
+        if (data == null) {
           erros = erros.concat("Este campo é obrigatório. \n");
         } else {
-          let dataMinima = campo.getMinDate().toLocaleDateString();
-          let dataMaxima = campo.getMaxDate().toLocaleDateString();
+          let dataMinima = campo.getMinDate();
+          let dataMaxima = campo.getMaxDate();
 
-          if (data > dataMaxima || data < dataMinima) {
+          if (!(data >= dataMinima && data <= dataMaxima)) {
             erros = erros.concat(
-              `A data deve estar entre as datas ${dataMinima} e ${dataMaxima}\n`
+              `A data deve estar entre as datas ${dataMinima.toLocaleDateString()} e ${dataMaxima.toLocaleDateString()}\n`
             );
           }
         }

@@ -76,12 +76,16 @@ sap.ui.define(
 
       _definirIntervaloValidoDeDatas: function () {
         const idCampoFabricacao = "dataDeFabricacao";
-        const dataMinima = "1754-01-01T12:00:20.031Z";
+        let dataMinima = new Date("1754-01-02T00:00:00.000Z");
+        let dataMaxima = new Date();
 
         let datePicker = this.byId(idCampoFabricacao);
 
+        dataMinima.setHours(0, 0, 0, 0);
+        dataMaxima.setHours(23, 59, 59, 59);
+
         datePicker.setMinDate(new Date(dataMinima));
-        datePicker.setMaxDate(new Date());
+        datePicker.setMaxDate(dataMaxima);
       },
 
       aoClicarRetornaPraHome: function () {
@@ -148,7 +152,7 @@ sap.ui.define(
         return validarFormulario.ValidarTodosCampos(campos);
       },
 
-      validarCampo: function (oEvent) {
+      aoMudarValorCampoInput: function (oEvent) {
         const validarFormulario = new ValidarFormulario();
 
         validarFormulario.ValidarCampo(oEvent.getSource());

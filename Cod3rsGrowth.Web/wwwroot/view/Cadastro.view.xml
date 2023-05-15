@@ -48,7 +48,7 @@
                 <f:fields>
                   <Input
                     id="categoria"
-                    change=".validarCampo"
+                    change=".aoMudarValorCampoInput"
                     value="{peca>/categoria}"
                     required="true"
                     placeholder="{i18n>campoCategoriaPlaceholder}"
@@ -62,7 +62,7 @@
                     id="nome"
                     value="{peca>/nome}"
                     required="true"
-                    change=".validarCampo"
+                    change=".aoMudarValorCampoInput"
                     placeholder="{i18n>campoNomePlaceholder}"
                   />
                 </f:fields>
@@ -84,7 +84,7 @@
                     type="Number"
                     maxLength="1"
                     value="{peca>/estoque}"
-                    change=".validarCampo"
+                    change=".aoMudarValorCampoInput"
                     required="true"
                     placeholder="{i18n>campoEstoquePlaceholder}"
                   />
@@ -99,7 +99,7 @@
                     change=".validarCampoData"
                     required="true"
                     displayFormat="dd/MM/yyyy"
-                    valueFormat="dd/MM/yyyy"
+                    valueFormat="MM/dd/yyyy"
                     placeholder="{i18n>campoDataPlaceholder}"
                   />
                 </f:fields>
