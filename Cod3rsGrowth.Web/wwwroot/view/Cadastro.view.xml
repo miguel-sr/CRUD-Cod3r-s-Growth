@@ -50,6 +50,7 @@
                     id="categoria"
                     change=".validarCampo"
                     value="{peca>/categoria}"
+                    required="true"
                     placeholder="{i18n>campoCategoriaPlaceholder}"
                   />
                 </f:fields>
@@ -98,7 +99,7 @@
                     change=".validarCampoData"
                     required="true"
                     displayFormat="dd/MM/yyyy"
-                    valueFormat="yyyy-MM-dd"
+                    valueFormat="dd/MM/yyyy"
                     placeholder="{i18n>campoDataPlaceholder}"
                   />
                 </f:fields>
