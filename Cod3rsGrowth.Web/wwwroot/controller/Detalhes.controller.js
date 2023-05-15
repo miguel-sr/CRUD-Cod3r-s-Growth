@@ -31,9 +31,9 @@ sap.ui.define(
         const idComponentePeca = "HeaderPeca";
         const parametroEvento = "arguments";
 
-        let id = oEvent.getParameter(parametroEvento).id;
-
         try {
+          let id = oEvent.getParameter(parametroEvento).id;
+
           this.byId(idComponentePeca).setVisible(false);
 
           let oModel = new JSONModel();
@@ -53,7 +53,7 @@ sap.ui.define(
           this.getView().setModel(oModel);
         } catch (erro) {
           const mensagemErro = "obterPeca";
-          MessageToast.show(oResourceBundle.getText(mensagemErro, [id, erro]));
+          MessageToast.show(oResourceBundle.getText(mensagemErro, [erro]));
         }
       },
 

@@ -9,7 +9,7 @@ sap.ui.define(
     "use strict";
 
     return Controller.extend("sap.ui.cod3rsgrowth.services.ValidarFormulario", {
-      Campo: function (campo) {
+      ValidarCampo: function (campo) {
         campo.setValueState(ValueState.None);
 
         let erros = "";
@@ -24,7 +24,9 @@ sap.ui.define(
                 erros = erros.concat("Este campo aceita apenas números. \n,");
               }
 
-              if (Number.parseInt(valorDoCampo) < 1) {
+              const quantidadeMinimaAceita = 1;
+
+              if (Number.parseInt(valorDoCampo) < quantidadeMinimaAceita) {
                 erros = erros.concat("Valor mínimo de 1 unidade. \n,");
               }
               break;
@@ -48,7 +50,8 @@ sap.ui.define(
 
         return erros;
       },
-      Data: function (campo) {
+
+      ValidarData: function (campo) {
         campo.setValueState(ValueState.None);
 
         let erros = "";
@@ -60,15 +63,9 @@ sap.ui.define(
           let dataMinima = campo.getMinDate();
           let dataMaxima = campo.getMaxDate();
 
-          if (data > dataMaxima) {
+          if (data > dataMaxima || data < dataMinima) {
             erros = erros.concat(
-              `A data não pode exceder a data ${dataMaxima.toLocaleDateString()}\n`
-            );
-          }
-
-          if (data < dataMinima) {
-            erros = erros.concat(
-              `A data não ser menor que a data ${dataMinima.toLocaleDateString()}\n`
+              `A data deve estar entre as datas ${dataMinima.toLocaleDateString()} e ${dataMaxima.toLocaleDateString()}\n`
             );
           }
         }
@@ -80,16 +77,17 @@ sap.ui.define(
 
         return erros;
       },
-      TodosCampos(campos) {
-        var formularioInvalido;
+
+      ValidarTodosCampos(campos) {
+        let formularioInvalido;
 
         campos.forEach((campo) => {
           try {
-            if (this.Campo(campo)) {
+            if (this.ValidarCampo(campo)) {
               formularioInvalido = true;
             }
           } catch (erro) {
-            if (this.Data(campo)) {
+            if (this.ValidarData(campo)) {
               formularioInvalido = true;
             }
           }

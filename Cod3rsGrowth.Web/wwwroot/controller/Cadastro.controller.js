@@ -20,6 +20,11 @@ sap.ui.define(
     let oResourceBundle;
     let oRouter;
 
+    const idCampoNome = "nome";
+    const idCampoCategoria = "categoria";
+    const idCampoEstoque = "estoque";
+    const idCampoFabricacao = "dataDeFabricacao";
+
     return Controller.extend("sap.ui.cod3rsgrowth.controller.Cadastro", {
       onInit: function () {
         oResourceBundle = this.getOwnerComponent()
@@ -30,14 +35,20 @@ sap.ui.define(
 
         const rotaPaginaCadastro = "cadastro";
 
-        this._configurarDatePicker();
-
         oRouter
           .getRoute(rotaPaginaCadastro)
           .attachPatternMatched(this._inicializarFormulario, this);
       },
+
       _inicializarFormulario: function () {
+        this._criarModeloParaFormulario();
+        this._definirIntervaloValidoDeDatas();
+        this._resetarValidacao();
+      },
+
+      _criarModeloParaFormulario: function () {
         const stringVazia = "";
+        const nomeDoModelo = "peca";
 
         let oModel = new JSONModel({
           categoria: stringVazia,
@@ -47,22 +58,32 @@ sap.ui.define(
           dataDeFabricacao: stringVazia,
         });
 
-        this.getView().setModel(oModel, "peca");
+        this.getView().setModel(oModel, nomeDoModelo);
+      },
 
-        let camposComValidacoes = ["nome", "estoque", "dataDeFabricacao"];
+      _resetarValidacao: function () {
+        let camposComValidacoes = [
+          idCampoNome,
+          idCampoCategoria,
+          idCampoEstoque,
+          idCampoFabricacao,
+        ];
 
         camposComValidacoes.forEach((campo) => {
           this.byId(campo).setValueState(ValueState.None);
         });
       },
-      _configurarDatePicker: function () {
-        const idCampoFabricacao = "dataDeFabricacao";
-        let datePicker = this.byId(idCampoFabricacao);
-        let dataMinima = new Date("1754-01-01T12:00:20.031Z");
 
-        datePicker.setMinDate(dataMinima);
+      _definirIntervaloValidoDeDatas: function () {
+        const idCampoFabricacao = "dataDeFabricacao";
+        const dataMinima = "1754-01-01T12:00:20.031Z";
+
+        let datePicker = this.byId(idCampoFabricacao);
+
+        datePicker.setMinDate(new Date(dataMinima));
         datePicker.setMaxDate(new Date());
       },
+
       aoClicarRetornaPraHome: function () {
         const rotaPaginaPrincipal = "home";
 
@@ -113,13 +134,9 @@ sap.ui.define(
           MessageToast.show(oResourceBundle.getText(mensagemErro, [erro]));
         }
       },
+
       _validarTodosCampos: function () {
         const validarFormulario = new ValidarFormulario();
-
-        const idCampoNome = "nome";
-        const idCampoCategoria = "categoria";
-        const idCampoEstoque = "estoque";
-        const idCampoFabricacao = "dataDeFabricacao";
 
         var campos = [
           this.byId(idCampoNome),
@@ -128,19 +145,21 @@ sap.ui.define(
           this.byId(idCampoFabricacao),
         ];
 
-        return validarFormulario.TodosCampos(campos);
+        return validarFormulario.ValidarTodosCampos(campos);
       },
+
       validarCampo: function (oEvent) {
         const validarFormulario = new ValidarFormulario();
 
-        validarFormulario.Campo(oEvent.getSource());
+        validarFormulario.ValidarCampo(oEvent.getSource());
       },
+
       validarCampoData: function () {
         const validarFormulario = new ValidarFormulario();
 
         const idCampoFabricacao = "dataDeFabricacao";
 
-        validarFormulario.Data(this.byId(idCampoFabricacao));
+        validarFormulario.ValidarData(this.byId(idCampoFabricacao));
       },
     });
   }
