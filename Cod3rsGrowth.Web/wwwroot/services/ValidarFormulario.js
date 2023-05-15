@@ -30,7 +30,7 @@ sap.ui.define(
               break;
 
             case InputType.Text:
-              let regex = /@^\w|\s([p{L}])$/;
+              let regex = /^[\w\s]+$/;
 
               if (!regex.test(valorDoCampo)) {
                 erros = erros.concat(

@@ -78,9 +78,9 @@ sap.ui.define(
       },
 
       aoClicarSalvarPeca: async function () {
-        const httpStatusCreated = 201;
-
         try {
+          const httpStatusCreated = 201;
+
           let peca = this.getView().getModel("peca").getData();
 
           if (this._validarTodosCampos()) {
@@ -96,7 +96,7 @@ sap.ui.define(
               "Content-Type": "application/json",
             },
             body: JSON.stringify(peca),
-          }).then(async (response) => {
+          }).then((response) => {
             if (response.status !== httpStatusCreated)
               throw response.statusText;
 
