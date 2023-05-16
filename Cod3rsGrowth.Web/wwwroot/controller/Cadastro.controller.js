@@ -50,7 +50,7 @@ sap.ui.define(
         const stringVazia = "";
         const nomeDoModelo = "peca";
 
-        let oModel = new JSONModel({
+        const oModel = new JSONModel({
           categoria: stringVazia,
           nome: stringVazia,
           descricao: stringVazia,
@@ -62,7 +62,7 @@ sap.ui.define(
       },
 
       _resetarValidacao: function () {
-        let camposComValidacoes = [
+        const camposComValidacoes = [
           idCampoNome,
           idCampoCategoria,
           idCampoEstoque,
@@ -76,10 +76,10 @@ sap.ui.define(
 
       _definirIntervaloValidoDeDatas: function () {
         const idCampoFabricacao = "dataDeFabricacao";
-        let dataMinima = new Date("1754-01-01T12:00:00.000Z");
-        let dataMaxima = new Date();
+        const dataMinima = new Date("1754-01-01T12:00:00.000Z");
+        const dataMaxima = new Date();
 
-        let datePicker = this.byId(idCampoFabricacao);
+        const datePicker = this.byId(idCampoFabricacao);
 
         dataMaxima.setHours(12, 0, 0, 0);
 
@@ -90,8 +90,8 @@ sap.ui.define(
       aoClicarRetornaPraHome: function () {
         const rotaPaginaPrincipal = "home";
 
-        let historico = History.getInstance();
-        let paginaAnterior = historico.getPreviousHash();
+        const historico = History.getInstance();
+        const paginaAnterior = historico.getPreviousHash();
 
         if (paginaAnterior) {
           window.history.go(-1);
@@ -105,16 +105,16 @@ sap.ui.define(
         try {
           const httpStatusCreated = 201;
 
-          let peca = this.getView().getModel("peca").getData();
+          const peca = this.getView().getModel("peca").getData();
 
-          if (this._aoSalvarChamarValidacoes()) {
+          if (this._aoSalvarExecutarTodasValidacoes()) {
             const mensagemErro = "formularioInvalido";
             throw oResourceBundle.getText(mensagemErro);
           }
 
           peca.dataDeFabricacao = new Date(peca.dataDeFabricacao).toISOString();
 
-          let pecaCriada = await fetch("http://localhost:5285/pecas", {
+          const pecaCriada = await fetch("http://localhost:5285/pecas", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -138,17 +138,18 @@ sap.ui.define(
         }
       },
 
-      _aoSalvarChamarValidacoes: function () {
+      _aoSalvarExecutarTodasValidacoes: function () {
         const validarFormulario = new ValidarFormulario();
 
-        var campos = [
-          this.byId(idCampoNome),
+        const camposInput = [
           this.byId(idCampoCategoria),
+          this.byId(idCampoNome),
           this.byId(idCampoEstoque),
-          this.byId(idCampoFabricacao),
         ];
 
-        return validarFormulario.ValidarTodosCampos(campos);
+        const campoData = this.byId(idCampoFabricacao);
+
+        return validarFormulario.ValidarTodosCampos(camposInput, campoData);
       },
 
       aoMudarValorCampoInput: function (oEvent) {
@@ -157,14 +158,10 @@ sap.ui.define(
         validarFormulario.ValidarCampo(oEvent.getSource());
       },
 
-      aoMudarValorCampoData: function () {
+      aoMudarValorCampoData: function (oEvent) {
         const validarFormulario = new ValidarFormulario();
 
-        validarFormulario.ValidarData(this.byId(idCampoFabricacao));
-      },
-
-      aoClicarAbrirDatePicker: function (oEvent) {
-        this.byId(idCampoFabricacao).openBy(oEvent.getSource().getDomRef());
+        validarFormulario.ValidarData(oEvent.getSource());
       },
     });
   }

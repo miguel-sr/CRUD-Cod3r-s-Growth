@@ -10,24 +10,22 @@ sap.ui.define(
 
     return Controller.extend("sap.ui.cod3rsgrowth.services.ValidarFormulario", {
       ValidarCampo: function (campo) {
-        campo.setValueState(ValueState.None);
-
         let erros = "";
-        let valorDoCampo = campo.getValue();
+        const valorDoCampo = campo.getValue().trim();
 
-        if (!valorDoCampo.trim()) {
-          erros = erros.concat("Este campo é obrigatório. \n");
+        if (!valorDoCampo) {
+          erros += "Este campo é obrigatório. \n";
         } else {
           switch (campo.getType()) {
             case InputType.Number:
               if (!IsNumber.validate(valorDoCampo)) {
-                erros = erros.concat("Este campo aceita apenas números. \n,");
+                erros += "Este campo aceita apenas números. \n";
               }
 
               const quantidadeMinimaAceita = 1;
 
               if (Number.parseInt(valorDoCampo) < quantidadeMinimaAceita) {
-                erros = erros.concat("Valor mínimo de 1 unidade. \n,");
+                erros += "Valor mínimo de 1 unidade. \n";
               }
               break;
 
@@ -35,66 +33,51 @@ sap.ui.define(
               let regex = /^[\w\s]+$/;
 
               if (!regex.test(valorDoCampo)) {
-                erros = erros.concat(
-                  "Este campo não aceita caracteres especiais. \n"
-                );
+                erros += "Este campo não aceita caracteres especiais. \n";
               }
               break;
           }
         }
 
-        if (erros) {
-          campo.setValueState(ValueState.Error);
-          campo.setValueStateText(erros);
-        }
+        campo.setValueState(erros ? ValueState.Error : ValueState.None);
+        campo.setValueStateText(erros);
 
         return erros;
       },
 
       ValidarData: function (campo) {
-        campo.setValueState(ValueState.None);
+        const data = campo.getValue();
+        const dataValida = campo.isValidValue();
 
         let erros = "";
-        let data = new Date(campo.getValue());
-        data.setHours(12, 0, 0, 0);
 
-        if (data == null) {
-          erros = erros.concat("Este campo é obrigatório. \n");
+        if (!data) {
+          erros += "Este campo é obrigatório. \n";
         } else {
-          let dataMinima = campo.getMinDate();
-          let dataMaxima = campo.getMaxDate();
+          const dataMinima = campo.getMinDate().toLocaleDateString();
+          const dataMaxima = campo.getMaxDate().toLocaleDateString();
 
-          if (!(data >= dataMinima && data <= dataMaxima)) {
-            erros = erros.concat(
-              `A data deve estar entre as datas ${dataMinima.toLocaleDateString()} e ${dataMaxima.toLocaleDateString()}\n`
-            );
+          if (!dataValida) {
+            erros += `A data deve estar entre as datas ${dataMinima} e ${dataMaxima}\n`;
           }
         }
 
-        if (erros) {
-          campo.setValueState(ValueState.Error);
-          campo.setValueStateText(erros);
-        }
+        campo.setValueState(erros ? ValueState.Error : ValueState.None);
+        campo.setValueStateText(erros);
 
         return erros;
       },
 
-      ValidarTodosCampos(campos) {
-        let formularioInvalido;
+      ValidarTodosCampos: function (camposInput, campoData) {
+        let erros = "";
 
-        campos.forEach((campo) => {
-          try {
-            if (this.ValidarCampo(campo)) {
-              formularioInvalido = true;
-            }
-          } catch (erro) {
-            if (this.ValidarData(campo)) {
-              formularioInvalido = true;
-            }
-          }
+        camposInput.forEach((campo) => {
+          erros += this.ValidarCampo(campo);
         });
 
-        return formularioInvalido;
+        erros += this.ValidarData(campoData);
+
+        return erros;
       },
     });
   }
