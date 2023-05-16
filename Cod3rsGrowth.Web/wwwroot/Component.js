@@ -1,9 +1,6 @@
 sap.ui.define(
   ["sap/ui/core/UIComponent", "sap/ui/model/resource/ResourceModel"],
-  /**
-   * @param {typeof import('sap/ui/core/UIComponent').default} UIComponent
-   * @param {typeof import('sap/ui/model/resource/ResourceModel').default} ResourceModel
-   */
+
   function (UIComponent, ResourceModel) {
     "use strict";
 

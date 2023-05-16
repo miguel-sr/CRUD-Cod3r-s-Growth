@@ -48,16 +48,17 @@ sap.ui.define(
       ValidarData: function (campo) {
         const data = campo.getValue();
         const dataValida = campo.isValidValue();
+        const stringVazia = "";
 
         let erros = "";
 
-        if (!data) {
+        if (data == stringVazia || data == null) {
           erros += "Este campo é obrigatório. \n";
         } else {
           const dataMinima = campo.getMinDate().toLocaleDateString();
           const dataMaxima = campo.getMaxDate().toLocaleDateString();
 
-          if (!dataValida) {
+          if (dataValida == stringVazia || dataValida == null) {
             erros += `A data deve estar entre as datas ${dataMinima} e ${dataMaxima}\n`;
           }
         }

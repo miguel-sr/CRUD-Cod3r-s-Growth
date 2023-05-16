@@ -93,12 +93,9 @@ sap.ui.define(
         const historico = History.getInstance();
         const paginaAnterior = historico.getPreviousHash();
 
-        if (paginaAnterior) {
-          window.history.go(-1);
-          return;
-        }
-
-        oRouter.navTo(rotaPaginaPrincipal, {}, {}, true);
+        paginaAnterior
+          ? window.history.go(-1)
+          : oRouter.navTo(rotaPaginaPrincipal);
       },
 
       aoClicarSalvarPeca: async function () {
@@ -106,8 +103,9 @@ sap.ui.define(
           const httpStatusCreated = 201;
 
           const peca = this.getView().getModel("peca").getData();
+          let ehPecaInvalida = this._validarCampos();
 
-          if (this._aoSalvarExecutarTodasValidacoes()) {
+          if (ehPecaInvalida) {
             const mensagemErro = "formularioInvalido";
             throw oResourceBundle.getText(mensagemErro);
           }
@@ -138,7 +136,7 @@ sap.ui.define(
         }
       },
 
-      _aoSalvarExecutarTodasValidacoes: function () {
+      _validarCampos: function () {
         const validarFormulario = new ValidarFormulario();
 
         const camposInput = [
@@ -160,8 +158,9 @@ sap.ui.define(
 
       aoMudarValorCampoData: function (oEvent) {
         const validarFormulario = new ValidarFormulario();
+        let campoData = oEvent.getSource();
 
-        validarFormulario.ValidarData(oEvent.getSource());
+        validarFormulario.ValidarData(campoData);
       },
     });
   }
