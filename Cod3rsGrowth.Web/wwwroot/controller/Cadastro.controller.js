@@ -75,14 +75,14 @@ sap.ui.define(
       },
 
       _resetarValidacao: function () {
-        const camposComValidacoes = [
+        const idsCamposComValidacoes = [
           idCampoNome,
           idCampoCategoria,
           idCampoEstoque,
           idCampoFabricacao,
         ];
 
-        camposComValidacoes.forEach((campo) =>
+        idsCamposComValidacoes.forEach((campo) =>
           this.byId(campo).setValueState(ValueState.None)
         );
       },
@@ -113,16 +113,17 @@ sap.ui.define(
 
       aoClicarSalvarPeca: async function () {
         try {
+          const pecaInvalida = this._validarCampos();
+
+          if (pecaInvalida) {
+            const mensagemErro = "formularioInvalido";
+            throw oResourceBundle.getText(mensagemErro);
+          }
+
           const httpStatusCreated = 201;
           const httpStatusNoContent = 204;
 
           const peca = this.getView().getModel("peca").getData();
-          let ehPecaInvalida = this._validarCampos();
-
-          if (ehPecaInvalida) {
-            const mensagemErro = "formularioInvalido";
-            throw oResourceBundle.getText(mensagemErro);
-          }
 
           peca.dataDeFabricacao = new Date(peca.dataDeFabricacao).toISOString();
 
@@ -159,7 +160,10 @@ sap.ui.define(
           body: JSON.stringify(peca),
         };
 
-        configuracaoFetch.method = peca.id ? "PATCH" : "POST";
+        const metodoCriar = "POST";
+        const metodoAtualizar = "PATCH";
+
+        configuracaoFetch.method = peca.id ? metodoAtualizar : metodoCriar;
 
         return configuracaoFetch;
       },
@@ -175,21 +179,21 @@ sap.ui.define(
 
         const campoData = this.byId(idCampoFabricacao);
 
-        return validarFormulario.ValidarTodosCampos(camposInput, campoData);
+        return validarFormulario.validarTodosCampos(camposInput, campoData);
       },
 
       aoMudarValorCampoInput: function (oEvent) {
         const validarFormulario = new ValidarFormulario();
         const campoInput = oEvent.getSource();
 
-        validarFormulario.ValidarCampo(campoInput);
+        validarFormulario.validarCampo(campoInput);
       },
 
       aoMudarValorCampoData: function (oEvent) {
         const validarFormulario = new ValidarFormulario();
         const campoData = oEvent.getSource();
 
-        validarFormulario.ValidarData(campoData);
+        validarFormulario.validarData(campoData);
       },
 
       _buscarPeloId: function (oEvent) {

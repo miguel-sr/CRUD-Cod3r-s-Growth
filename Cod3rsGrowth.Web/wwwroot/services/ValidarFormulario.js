@@ -9,7 +9,7 @@ sap.ui.define(
     "use strict";
 
     return Controller.extend("sap.ui.cod3rsgrowth.services.ValidarFormulario", {
-      ValidarCampo: function (campo) {
+      validarCampo: function (campo) {
         let erros = "";
         const valorDoCampo = campo.getValue().trim();
 
@@ -53,7 +53,7 @@ sap.ui.define(
         return erros;
       },
 
-      ValidarData: function (campo) {
+      validarData: function (campo) {
         const data = campo.getValue();
         const dataValida = campo.isValidValue();
         const stringVazia = "";
@@ -77,14 +77,14 @@ sap.ui.define(
         return erros;
       },
 
-      ValidarTodosCampos: function (camposInput, campoData) {
+      validarTodosCampos: function (camposInput, campoData) {
         let erros = "";
 
         camposInput.forEach((campo) => {
-          erros += this.ValidarCampo(campo);
+          erros += this.validarCampo(campo);
         });
 
-        erros += this.ValidarData(campoData);
+        erros += this.validarData(campoData);
 
         return erros;
       },
