@@ -33,7 +33,7 @@ sap.ui.define(
         try {
           let oModel = new JSONModel();
 
-          let pecas = await fetch(`http://localhost:5285/pecass`).then(
+          let pecas = await fetch(`http://localhost:5285/pecas`).then(
             (response) => {
               if (response.status !== httpStatusOk) throw response.statusText;
 
