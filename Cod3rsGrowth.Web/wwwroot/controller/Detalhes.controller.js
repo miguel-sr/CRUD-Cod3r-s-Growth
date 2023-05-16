@@ -3,9 +3,9 @@ sap.ui.define(
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/routing/History",
     "sap/ui/model/json/JSONModel",
-    "sap/m/MessageToast",
+    "sap/m/MessageBox",
   ],
-  function (Controller, History, JSONModel, MessageToast) {
+  function (Controller, History, JSONModel, MessageBox) {
     "use strict";
 
     let oResourceBundle;
@@ -53,22 +53,39 @@ sap.ui.define(
           this.getView().setModel(oModel);
         } catch (erro) {
           const mensagemErro = "obterPeca";
-          MessageToast.show(oResourceBundle.getText(mensagemErro, [erro]));
+          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]), {
+            onClose: function () {
+              const rotaPaginaPrincipal = "home";
+              oRouter.navTo(rotaPaginaPrincipal);
+            },
+          });
         }
       },
 
-      aoClicarRetornaPraHome: function () {
+      aoClicarNavegarParaHome: function () {
         const rotaPaginaPrincipal = "home";
 
-        let historico = History.getInstance();
-        let paginaAnterior = historico.getPreviousHash();
+        const historico = History.getInstance();
+        const paginaAnterior = historico.getPreviousHash();
 
         if (paginaAnterior) {
           window.history.go(-1);
           return;
         }
 
-        oRouter.navTo(rotaPaginaPrincipal, {}, {}, true);
+        paginaAnterior
+          ? window.history.go(-1)
+          : oRouter.navTo(rotaPaginaPrincipal);
+      },
+
+      aoClicarNavegarParaCadastro: function () {
+        const rotaPaginaCadastro = "cadastro";
+
+        const id = this.getView().getModel().getData().id;
+
+        oRouter.navTo(rotaPaginaCadastro, {
+          id: id,
+        });
       },
     });
   }

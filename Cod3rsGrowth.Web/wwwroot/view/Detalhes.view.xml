@@ -6,12 +6,13 @@
   <Page
     id="pagina"
     showNavButton="true"
-    navButtonPress=".aoClicarRetornaPraHome"
+    navButtonPress=".aoClicarNavegarParaHome"
   >
     <headerContent>
       <Button
         icon="sap-icon://edit"
         ariaHasPopup="Dialog"
+        press=".aoClicarNavegarParaCadastro"
         text="{i18n>botaoEditar}"
       />
       <Button

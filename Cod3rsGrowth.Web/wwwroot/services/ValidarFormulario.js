@@ -30,7 +30,7 @@ sap.ui.define(
               break;
 
             case InputType.Text:
-              let regex = /^[\w\s]+$/;
+              let regex = /^[\w\sÀ-ú]+$/;
 
               if (!regex.test(valorDoCampo)) {
                 erros += "Este campo não aceita caracteres especiais. \n";

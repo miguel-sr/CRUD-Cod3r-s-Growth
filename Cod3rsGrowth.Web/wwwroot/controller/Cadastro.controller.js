@@ -2,18 +2,20 @@ sap.ui.define(
   [
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/routing/History",
-    "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
     "sap/ui/cod3rsgrowth/services/ValidarFormulario",
     "sap/ui/core/ValueState",
+    "sap/ui/core/format/DateFormat",
+    "sap/m/MessageBox",
   ],
   function (
     Controller,
     History,
-    MessageToast,
     JSONModel,
     ValidarFormulario,
-    ValueState
+    ValueState,
+    DateFormat,
+    MessageBox
   ) {
     "use strict";
 
@@ -40,23 +42,34 @@ sap.ui.define(
           .attachPatternMatched(this._inicializarFormulario, this);
       },
 
-      _inicializarFormulario: function () {
-        this._criarModeloParaFormulario();
+      _inicializarFormulario: function (oEvent) {
+        const id = this._buscarPeloId(oEvent);
+        this._criarModeloParaFormulario(id);
         this._definirIntervaloValidoDeDatas();
         this._resetarValidacao();
       },
 
-      _criarModeloParaFormulario: function () {
-        const stringVazia = "";
+      _criarModeloParaFormulario: async function (id) {
         const nomeDoModelo = "peca";
 
-        const oModel = new JSONModel({
-          categoria: stringVazia,
-          nome: stringVazia,
-          descricao: stringVazia,
-          estoque: stringVazia,
-          dataDeFabricacao: stringVazia,
-        });
+        let oModel;
+
+        if (id) {
+          const modeloPreenchidoComPeca = await this._carregarPeca(id);
+          oModel = new JSONModel(modeloPreenchidoComPeca);
+        } else {
+          const stringVazia = "";
+
+          const modeloVazio = {
+            categoria: stringVazia,
+            nome: stringVazia,
+            descricao: stringVazia,
+            estoque: stringVazia,
+            dataDeFabricacao: stringVazia,
+          };
+
+          oModel = new JSONModel(modeloVazio);
+        }
 
         this.getView().setModel(oModel, nomeDoModelo);
       },
@@ -69,9 +82,9 @@ sap.ui.define(
           idCampoFabricacao,
         ];
 
-        camposComValidacoes.forEach((campo) => {
-          this.byId(campo).setValueState(ValueState.None);
-        });
+        camposComValidacoes.forEach((campo) =>
+          this.byId(campo).setValueState(ValueState.None)
+        );
       },
 
       _definirIntervaloValidoDeDatas: function () {
@@ -87,7 +100,7 @@ sap.ui.define(
         datePicker.setMaxDate(dataMaxima);
       },
 
-      aoClicarRetornaPraHome: function () {
+      aoClicarNavegarParaHome: function () {
         const rotaPaginaPrincipal = "home";
 
         const historico = History.getInstance();
@@ -101,6 +114,7 @@ sap.ui.define(
       aoClicarSalvarPeca: async function () {
         try {
           const httpStatusCreated = 201;
+          const httpStatusNoContent = 204;
 
           const peca = this.getView().getModel("peca").getData();
           let ehPecaInvalida = this._validarCampos();
@@ -112,28 +126,47 @@ sap.ui.define(
 
           peca.dataDeFabricacao = new Date(peca.dataDeFabricacao).toISOString();
 
-          const pecaCriada = await fetch("http://localhost:5285/pecas", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(peca),
-          }).then((response) => {
-            if (response.status !== httpStatusCreated)
-              throw response.statusText;
+          const idPeca = await fetch(
+            "http://localhost:5285/pecas",
+            this._retornaConfiguracaoFetch(peca)
+          ).then(async (response) => {
+            if (response.status == httpStatusCreated) {
+              const pecaCriada = await response.json();
+              return pecaCriada.id;
+            }
 
-            return response.json();
+            if (response.status == httpStatusNoContent) return peca.id;
+
+            throw response.statusText;
           });
 
           const rotaPaginaDetalhes = "detalhes";
 
           oRouter.navTo(rotaPaginaDetalhes, {
-            id: pecaCriada.id,
+            id: idPeca,
           });
         } catch (erro) {
           const mensagemErro = "criarPeca";
-          MessageToast.show(oResourceBundle.getText(mensagemErro, [erro]));
+          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]), {
+            onClose: function () {
+              const rotaPaginaPrincipal = "home";
+              oRouter.navTo(rotaPaginaPrincipal);
+            },
+          });
         }
+      },
+
+      _retornaConfiguracaoFetch: function (peca) {
+        let configuracaoFetch = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(peca),
+        };
+
+        configuracaoFetch.method = peca.id ? "PATCH" : "POST";
+
+        return configuracaoFetch;
       },
 
       _validarCampos: function () {
@@ -161,6 +194,41 @@ sap.ui.define(
         let campoData = oEvent.getSource();
 
         validarFormulario.ValidarData(campoData);
+      },
+
+      _buscarPeloId: function (oEvent) {
+        const parametroEvento = "arguments";
+        const id = oEvent.getParameter(parametroEvento).id;
+
+        return id;
+      },
+
+      _carregarPeca: async function (id) {
+        try {
+          const httpStatusOk = 200;
+
+          let peca = await fetch(`http://localhost:5285/pecas/${id}`).then(
+            (response) => {
+              if (response.status !== httpStatusOk) throw response.statusText;
+
+              return response.json();
+            }
+          );
+
+          peca.dataDeFabricacao = DateFormat.getDateInstance({
+            pattern: "yyyy-MM-dd",
+          }).format(new Date(peca.dataDeFabricacao));
+
+          return peca;
+        } catch (erro) {
+          const mensagemErro = "obterPeca";
+          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]), {
+            onClose: function () {
+              const rotaPaginaPrincipal = "home";
+              oRouter.navTo(rotaPaginaPrincipal);
+            },
+          });
+        }
       },
     });
   }
