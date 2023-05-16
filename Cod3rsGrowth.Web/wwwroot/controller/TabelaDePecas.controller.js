@@ -6,13 +6,6 @@ sap.ui.define(
     "sap/ui/model/FilterOperator",
     "sap/m/MessageToast",
   ],
-  /**
-   * @param {typeof import('sap/ui/core/mvc/Controller').default} Controller
-   * @param {typeof import('sap/ui/model/json/JSONModel').default} JSONModel
-   * @param {typeof import('sap/ui/model/Filter').default} Filter
-   * @param {typeof import('sap/ui/model/FilterOperator').default} FilterOperator
-   * @param {typeof import('sap/m/MessageToast').default} MessageToast
-   */
   function (Controller, JSONModel, Filter, FilterOperator, MessageToast) {
     "use strict";
 
@@ -40,13 +33,13 @@ sap.ui.define(
         try {
           let oModel = new JSONModel();
 
-          let resposta = await fetch("http://localhost:5285/pecas");
+          let pecas = await fetch(`http://localhost:5285/pecas`).then(
+            (response) => {
+              if (response.status !== httpStatusOk) throw response.statusText;
 
-          if (resposta.status !== httpStatusOk) {
-            throw resposta.statusText;
-          }
-
-          let pecas = await resposta.json();
+              return response.json();
+            }
+          );
 
           oModel.setData({ pecas });
 

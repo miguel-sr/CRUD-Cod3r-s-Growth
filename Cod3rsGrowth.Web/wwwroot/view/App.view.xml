@@ -1,9 +1,10 @@
-<mvc:View 
+<mvc:View
   controllerName="sap.ui.cod3rsgrowth.controller.App"
   xmlns="sap.m"
   xmlns:mvc="sap.ui.core.mvc"
-  displayBlock="true">
+  displayBlock="true"
+>
   <Shell>
-    <App id="app"/>
+    <App id="app" />
   </Shell>
 </mvc:View>

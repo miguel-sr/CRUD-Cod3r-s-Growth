@@ -44,51 +44,62 @@
           <f:FormContainer>
             <f:formElements>
 
-              <f:FormElement label="Categoria">
+              <f:FormElement label="{i18n>labelCampoCategoria}">
                 <f:fields>
                   <Input
                     id="categoria"
+                    change=".aoMudarValorCampoInput"
+                    value="{peca>/categoria}"
+                    required="true"
                     placeholder="{i18n>campoCategoriaPlaceholder}"
                   />
                 </f:fields>
               </f:FormElement>
 
-              <f:FormElement label="Nome">
+              <f:FormElement label="{i18n>labelCampoNome}">
                 <f:fields>
                   <Input
                     id="nome"
+                    value="{peca>/nome}"
                     required="true"
+                    change=".aoMudarValorCampoInput"
                     placeholder="{i18n>campoNomePlaceholder}"
                   />
                 </f:fields>
               </f:FormElement>
 
-              <f:FormElement label="Descrição">
+              <f:FormElement label="{i18n>labelCampoDescricao}">
                 <f:fields>
                   <Input
-                    id="descricao"
+                    value="{peca>/descricao}"
                     placeholder="{i18n>campoDescricaoPlaceholder}"
                   />
                 </f:fields>
               </f:FormElement>
 
-              <f:FormElement label="Estoque">
+              <f:FormElement label="{i18n>labelCampoEstoque}">
                 <f:fields>
                   <Input
                     id="estoque"
+                    type="Number"
+                    maxLength="1"
+                    value="{peca>/estoque}"
+                    change=".aoMudarValorCampoInput"
                     required="true"
                     placeholder="{i18n>campoEstoquePlaceholder}"
                   />
                 </f:fields>
               </f:FormElement>
 
-              <f:FormElement label="Fabricado em">
+              <f:FormElement label="{i18n>labelCampoData}">
                 <f:fields>
                   <DatePicker
                     id="dataDeFabricacao"
+                    value="{peca>/dataDeFabricacao}"
                     required="true"
                     displayFormat="dd/MM/yyyy"
-                    valueFormat="dd/MM/yyyy"
+                    valueFormat="MM-dd-yyyy"
+                    change=".aoMudarValorCampoData"
                     placeholder="{i18n>campoDataPlaceholder}"
                   />
                 </f:fields>

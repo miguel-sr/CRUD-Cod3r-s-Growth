@@ -5,12 +5,6 @@ sap.ui.define(
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageToast",
   ],
-  /**
-   * @param {typeof import('sap/ui/core/mvc/Controller').default} Controller
-   * @param {typeof import('sap/ui/core/routing/History').default} History
-   * @param {typeof import('sap/ui/model/json/JSONModel').default} JSONModel
-   * @param {typeof import('sap/m/MessageToast').default} MessageToast
-   */
   function (Controller, History, JSONModel, MessageToast) {
     "use strict";
 
@@ -44,21 +38,22 @@ sap.ui.define(
 
           let oModel = new JSONModel();
 
-          let resposta = await fetch(`http://localhost:5285/pecas/${id}`);
+          let peca = await fetch(`http://localhost:5285/pecas/${id}`).then(
+            (response) => {
+              if (response.status !== httpStatusOk) throw response.statusText;
 
-          if (resposta.status !== httpStatusOk) {
-            throw resposta.statusText;
-          }
+              return response.json();
+            }
+          );
 
           this.byId(idComponentePeca).setVisible(true);
-          let peca = await resposta.json();
 
           oModel.setData(peca);
 
           this.getView().setModel(oModel);
         } catch (erro) {
           const mensagemErro = "obterPeca";
-          MessageToast.show(oResourceBundle.getText(mensagemErro, [id, erro]));
+          MessageToast.show(oResourceBundle.getText(mensagemErro, [erro]));
         }
       },
 
