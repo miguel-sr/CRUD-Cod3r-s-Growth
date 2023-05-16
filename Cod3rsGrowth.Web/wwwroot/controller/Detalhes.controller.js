@@ -11,6 +11,8 @@ sap.ui.define(
     let oResourceBundle;
     let oRouter;
 
+    const rotaPaginaPrincipal = "home";
+
     return Controller.extend("sap.ui.cod3rsgrowth.controller.Detalhes", {
       onInit: function () {
         oResourceBundle = this.getOwnerComponent()
@@ -55,7 +57,6 @@ sap.ui.define(
           const mensagemErro = "obterPeca";
           MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]), {
             onClose: function () {
-              const rotaPaginaPrincipal = "home";
               oRouter.navTo(rotaPaginaPrincipal);
             },
           });
@@ -63,8 +64,6 @@ sap.ui.define(
       },
 
       aoClicarNavegarParaHome: function () {
-        const rotaPaginaPrincipal = "home";
-
         const historico = History.getInstance();
         const paginaAnterior = historico.getPreviousHash();
 
@@ -86,6 +85,39 @@ sap.ui.define(
         oRouter.navTo(rotaPaginaCadastro, {
           id: id,
         });
+      },
+
+      aoClicarAbrirConfirmacaoDeRemocao: function () {
+        const mensagemConfirmacao = "confirmacaoApagar";
+        const tituloConfirmacao = "tituloModalApagar";
+
+        MessageBox.confirm(oResourceBundle.getText(mensagemConfirmacao), {
+          icon: MessageBox.Icon.WARNING,
+          title: oResourceBundle.getText(tituloConfirmacao),
+          actions: [MessageBox.Action.YES, MessageBox.Action.CANCEL],
+          onClose: (oAction) => {
+            if (oAction == MessageBox.Action.YES) this._apagarPeca();
+          },
+        });
+      },
+
+      _apagarPeca: async function () {
+        try {
+          const httpStatusNoContent = 204;
+          const id = this.getView().getModel().getData().id;
+
+          const response = await fetch(`http://localhost:5285/pecas/${id}`, {
+            method: "DELETE",
+          });
+
+          if (response.status !== httpStatusNoContent)
+            throw response.statusText;
+
+          oRouter.navTo(rotaPaginaPrincipal);
+        } catch (erro) {
+          const mensagemErro = "deletarPeca";
+          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]));
+        }
       },
     });
   }
