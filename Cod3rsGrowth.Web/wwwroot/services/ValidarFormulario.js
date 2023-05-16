@@ -27,6 +27,14 @@ sap.ui.define(
               if (Number.parseInt(valorDoCampo) < quantidadeMinimaAceita) {
                 erros += "Valor mínimo de 1 unidade. \n";
               }
+
+              const tamanhoMaximoDoCampo = 5;
+
+              if (valorDoCampo.length > tamanhoMaximoDoCampo) {
+                erros += `O máximo de caracteres permitido é ${tamanhoMaximoDoCampo}. \n`;
+                const stringVazia = "";
+                campo.setValue(stringVazia);
+              }
               break;
 
             case InputType.Text:

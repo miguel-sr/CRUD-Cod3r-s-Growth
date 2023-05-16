@@ -147,12 +147,7 @@ sap.ui.define(
           });
         } catch (erro) {
           const mensagemErro = "criarPeca";
-          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]), {
-            onClose: function () {
-              const rotaPaginaPrincipal = "home";
-              oRouter.navTo(rotaPaginaPrincipal);
-            },
-          });
+          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]));
         }
       },
 
@@ -185,13 +180,14 @@ sap.ui.define(
 
       aoMudarValorCampoInput: function (oEvent) {
         const validarFormulario = new ValidarFormulario();
+        const campoInput = oEvent.getSource();
 
-        validarFormulario.ValidarCampo(oEvent.getSource());
+        validarFormulario.ValidarCampo(campoInput);
       },
 
       aoMudarValorCampoData: function (oEvent) {
         const validarFormulario = new ValidarFormulario();
-        let campoData = oEvent.getSource();
+        const campoData = oEvent.getSource();
 
         validarFormulario.ValidarData(campoData);
       },
