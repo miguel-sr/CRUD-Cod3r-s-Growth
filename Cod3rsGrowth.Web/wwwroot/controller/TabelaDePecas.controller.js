@@ -4,9 +4,9 @@ sap.ui.define(
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/m/MessageToast",
+    "sap/m/MessageBox",
   ],
-  function (Controller, JSONModel, Filter, FilterOperator, MessageToast) {
+  function (Controller, JSONModel, Filter, FilterOperator, MessageBox) {
     "use strict";
 
     let oResourceBundle;
@@ -33,7 +33,7 @@ sap.ui.define(
         try {
           let oModel = new JSONModel();
 
-          let pecas = await fetch(`http://localhost:5285/pecas`).then(
+          let pecas = await fetch(`http://localhost:5285/pecass`).then(
             (response) => {
               if (response.status !== httpStatusOk) throw response.statusText;
 
@@ -44,9 +44,9 @@ sap.ui.define(
           oModel.setData({ pecas });
 
           this.getView().setModel(oModel);
-        } catch (error) {
+        } catch (erro) {
           const mensagemErro = "obterItensTabela";
-          MessageToast.show(oResourceBundle.getText(mensagemErro, [error]));
+          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]));
         }
       },
 
