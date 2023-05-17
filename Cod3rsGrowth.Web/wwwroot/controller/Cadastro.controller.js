@@ -42,21 +42,22 @@ sap.ui.define(
           .attachPatternMatched(this._inicializarFormulario, this);
       },
 
-      _inicializarFormulario: function (oEvent) {
-        const id = this._buscarPeloId(oEvent);
-        this._criarModeloParaFormulario(id);
+      _inicializarFormulario: function () {
+        this._criarModeloParaFormulario();
         this._definirIntervaloValidoDeDatas();
         this._resetarValidacao();
       },
 
-      _criarModeloParaFormulario: async function (id) {
+      _criarModeloParaFormulario: async function () {
         const nomeDoModelo = "peca";
 
         let oModel;
 
+        const id = oRouter.oHashChanger.hash.split("/")[1];
+
         if (id) {
-          const modeloPreenchidoComPeca = await this._carregarPeca(id);
-          oModel = new JSONModel(modeloPreenchidoComPeca);
+          const modeloPeca = await this._carregarPeca();
+          oModel = new JSONModel(modeloPeca);
         } else {
           const stringVazia = "";
 
@@ -117,7 +118,7 @@ sap.ui.define(
 
           if (pecaInvalida) {
             const mensagemErro = "formularioInvalido";
-            throw oResourceBundle.getText(mensagemErro);
+            throw new Error(oResourceBundle.getText(mensagemErro));
           }
 
           const httpStatusCreated = 201;
@@ -148,7 +149,7 @@ sap.ui.define(
           });
         } catch (erro) {
           const mensagemErro = "criarPeca";
-          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]));
+          throw new Error(oResourceBundle.getText(mensagemErro, [erro]));
         }
       },
 
@@ -169,45 +170,46 @@ sap.ui.define(
       },
 
       _validarCampos: function () {
-        const validarFormulario = new ValidarFormulario();
+        this._processarEvento(() => {
+          const validarFormulario = new ValidarFormulario();
 
-        const camposInput = [
-          this.byId(idCampoCategoria),
-          this.byId(idCampoNome),
-          this.byId(idCampoEstoque),
-        ];
+          const camposInput = [
+            this.byId(idCampoCategoria),
+            this.byId(idCampoNome),
+            this.byId(idCampoEstoque),
+          ];
 
-        const campoData = this.byId(idCampoFabricacao);
+          const campoData = this.byId(idCampoFabricacao);
 
-        return validarFormulario.validarTodosCampos(camposInput, campoData);
+          return validarFormulario.validarTodosCampos(camposInput, campoData);
+        });
       },
 
       aoMudarValorCampoInput: function (oEvent) {
-        const validarFormulario = new ValidarFormulario();
-        const campoInput = oEvent.getSource();
+        this._processarEvento(() => {
+          const validarFormulario = new ValidarFormulario();
+          const campoInput = oEvent.getSource();
 
-        validarFormulario.validarCampo(campoInput);
+          validarFormulario.validarCampo(campoInput);
+        });
       },
 
       aoMudarValorCampoData: function (oEvent) {
-        const validarFormulario = new ValidarFormulario();
-        const campoData = oEvent.getSource();
+        this._processarEvento(() => {
+          const validarFormulario = new ValidarFormulario();
+          const campoData = oEvent.getSource();
 
-        validarFormulario.validarData(campoData);
+          validarFormulario.validarData(campoData);
+        });
       },
 
-      _buscarPeloId: function (oEvent) {
-        const parametroEvento = "arguments";
-        const id = oEvent.getParameter(parametroEvento).id;
-
-        return id;
-      },
-
-      _carregarPeca: async function (id) {
+      _carregarPeca: async function () {
         try {
           const httpStatusOk = 200;
 
-          let peca = await fetch(`http://localhost:5285/pecas/${id}`).then(
+          const id = oRouter.oHashChanger.hash.split("/")[1];
+
+          let peca = await fetch(`http://localhost:5285/psecas/${id}`).then(
             (response) => {
               if (response.status !== httpStatusOk) throw response.statusText;
 
@@ -222,12 +224,23 @@ sap.ui.define(
           return peca;
         } catch (erro) {
           const mensagemErro = "obterPeca";
-          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]), {
-            onClose: function () {
-              const rotaPaginaPrincipal = "home";
-              oRouter.navTo(rotaPaginaPrincipal);
-            },
-          });
+          throw new Error(oResourceBundle.getText(mensagemErro, [erro]));
+        }
+      },
+
+      _processarEvento: function (action) {
+        const tipoDaPromise = "catch";
+        const tipoBuscado = "function";
+        try {
+          let promise = action();
+
+          if (promise && typeof promise[tipoDaPromise] == tipoBuscado) {
+            promise.catch((error) => MessageBox.error(error.message));
+          }
+
+          return promise;
+        } catch (error) {
+          MessageBox.error(error.message);
         }
       },
     });
