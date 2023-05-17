@@ -23,18 +23,19 @@ sap.ui.define(
 
         oRouter = this.getOwnerComponent().getRouter();
 
-        oRouter
-          .getRoute(rotaPaginaDetalhes)
-          .attachPatternMatched(this._carregarPeca, this);
+        this._processarEvento(() => {
+          oRouter
+            .getRoute(rotaPaginaDetalhes)
+            .attachPatternMatched(this._carregarPeca, this);
+        });
       },
 
-      _carregarPeca: async function (oEvent) {
+      _carregarPeca: async function () {
         const httpStatusOk = 200;
         const idComponentePeca = "HeaderPeca";
-        const parametroEvento = "arguments";
 
         try {
-          let id = oEvent.getParameter(parametroEvento).id;
+          const id = oRouter.oHashChanger.hash.split("/")[1];
 
           this.byId(idComponentePeca).setVisible(false);
 
@@ -55,35 +56,30 @@ sap.ui.define(
           this.getView().setModel(oModel);
         } catch (erro) {
           const mensagemErro = "obterPeca";
-          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]), {
-            onClose: function () {
-              oRouter.navTo(rotaPaginaPrincipal);
-            },
-          });
+          throw oResourceBundle.getText(mensagemErro, [erro]);
         }
       },
 
       aoClicarNavegarParaHome: function () {
-        const historico = History.getInstance();
-        const paginaAnterior = historico.getPreviousHash();
+        this._processarEvento(() => {
+          const historico = History.getInstance();
+          const paginaAnterior = historico.getPreviousHash();
 
-        if (paginaAnterior) {
-          window.history.go(-1);
-          return;
-        }
-
-        paginaAnterior
-          ? window.history.go(-1)
-          : oRouter.navTo(rotaPaginaPrincipal);
+          paginaAnterior
+            ? window.history.go(-1)
+            : oRouter.navTo(rotaPaginaPrincipal);
+        });
       },
 
       aoClicarNavegarParaCadastro: function () {
-        const rotaPaginaCadastro = "cadastro";
+        this._processarEvento(() => {
+          const id = oRouter.oHashChanger.hash.split("/")[1];
 
-        const id = this.getView().getModel().getData().id;
+          const rotaPaginaCadastro = "cadastro";
 
-        oRouter.navTo(rotaPaginaCadastro, {
-          id: id,
+          oRouter.navTo(rotaPaginaCadastro, {
+            id: id,
+          });
         });
       },
 
@@ -96,7 +92,9 @@ sap.ui.define(
           title: oResourceBundle.getText(tituloConfirmacao),
           actions: [MessageBox.Action.YES, MessageBox.Action.CANCEL],
           onClose: (oAction) => {
-            if (oAction == MessageBox.Action.YES) this._apagarPeca();
+            if (oAction == MessageBox.Action.YES) {
+              this._processarEvento(this._apagarPeca);
+            }
           },
         });
       },
@@ -104,7 +102,7 @@ sap.ui.define(
       _apagarPeca: async function () {
         try {
           const httpStatusNoContent = 204;
-          const id = this.getView().getModel().getData().id;
+          const id = oRouter.oHashChanger.hash.split("/")[1];
 
           const response = await fetch(`http://localhost:5285/pecas/${id}`, {
             method: "DELETE",
@@ -116,7 +114,21 @@ sap.ui.define(
           oRouter.navTo(rotaPaginaPrincipal);
         } catch (erro) {
           const mensagemErro = "deletarPeca";
-          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]));
+          throw oResourceBundle.getText(mensagemErro, [erro]);
+        }
+      },
+
+      _processarEvento: function (action) {
+        const tipoDaPromise = "catch";
+        const tipoBuscado = "function";
+
+        try {
+          let promise = action();
+          if (promise && typeof promise[tipoDaPromise] == tipoBuscado) {
+            promise.catch((error) => MessageBox.error(error.message));
+          }
+        } catch (error) {
+          MessageBox.error(error.message);
         }
       },
     });
