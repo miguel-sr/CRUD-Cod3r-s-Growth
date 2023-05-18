@@ -13,7 +13,11 @@ namespace Cod3rsGrowth.Servicos
             if (string.IsNullOrWhiteSpace(peca.Nome)) erros.Add("O campo nome é obrigatório.");
                
             if (!Regex.Match(peca.Nome, @"^\w|\s([p{L}])$").Success) erros.Add("O campo nome não aceita caracteres especiais.");
-               
+
+            if (string.IsNullOrWhiteSpace(peca.Categoria)) erros.Add("O campo categoria é obrigatório.");
+
+            if (!Regex.Match(peca.Categoria, @"^\w|\s([p{L}])$").Success) erros.Add("O campo categoria não aceita caracteres especiais.");
+
             if (string.IsNullOrWhiteSpace(peca.Estoque)) erros.Add("O campo estoque é obrigatório.");
 
             try

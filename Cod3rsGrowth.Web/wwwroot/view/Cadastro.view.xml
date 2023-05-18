@@ -82,7 +82,6 @@
                   <Input
                     id="estoque"
                     type="Number"
-                    maxLength="1"
                     value="{peca>/estoque}"
                     change=".aoMudarValorCampoInput"
                     required="true"

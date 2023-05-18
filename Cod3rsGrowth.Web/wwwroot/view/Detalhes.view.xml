@@ -17,7 +17,7 @@
       />
       <Button
         icon="sap-icon://delete"
-        ariaHasPopup="Dialog"
+        press=".aoClicarAbrirConfirmacaoDeRemocao"
         text="{i18n>botaoRemover}"
       />
     </headerContent>
