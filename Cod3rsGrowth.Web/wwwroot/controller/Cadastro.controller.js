@@ -209,7 +209,7 @@ sap.ui.define(
 
           const id = oRouter.oHashChanger.hash.split("/")[1];
 
-          let peca = await fetch(`http://localhost:5285/psecas/${id}`).then(
+          let peca = await fetch(`http://localhost:5285/pecas/${id}`).then(
             (response) => {
               if (response.status !== httpStatusOk) throw response.statusText;
 
