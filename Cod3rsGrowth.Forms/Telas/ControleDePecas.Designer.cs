@@ -28,183 +28,188 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControleDePecas));
-            this.GridDePecas = new System.Windows.Forms.DataGridView();
-            this.AoClicarRemoverPecaSelecionada = new System.Windows.Forms.Button();
-            this.AoClicarTrocarParaMenuDeCriarPeca = new System.Windows.Forms.Button();
-            this.AoClicarAbrirMenuDeEdicaoDePeca = new System.Windows.Forms.Button();
-            this.ColunaId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColunaCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColunaNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColunaDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColunaEstoque = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColunaDataDeFabricacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pecaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.GridDePecas)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pecaBindingSource)).BeginInit();
-            this.SuspendLayout();
+            GridDePecas = new DataGridView();
+            ColunaId = new DataGridViewTextBoxColumn();
+            ColunaCategoria = new DataGridViewTextBoxColumn();
+            ColunaNome = new DataGridViewTextBoxColumn();
+            ColunaDescricao = new DataGridViewTextBoxColumn();
+            ColunaEstoque = new DataGridViewTextBoxColumn();
+            ColunaDataDeFabricacao = new DataGridViewTextBoxColumn();
+            pecaBindingSource = new BindingSource(components);
+            AoClicarRemoverPecaSelecionada = new Button();
+            AoClicarTrocarParaMenuDeCriarPeca = new Button();
+            AoClicarAbrirMenuDeEdicaoDePeca = new Button();
+            ((System.ComponentModel.ISupportInitialize)GridDePecas).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pecaBindingSource).BeginInit();
+            SuspendLayout();
             // 
             // GridDePecas
             // 
-            this.GridDePecas.AllowUserToAddRows = false;
-            this.GridDePecas.AllowUserToDeleteRows = false;
-            this.GridDePecas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.GridDePecas.AutoGenerateColumns = false;
-            this.GridDePecas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridDePecas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.GridDePecas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridDePecas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColunaId,
-            this.ColunaCategoria,
-            this.ColunaNome,
-            this.ColunaDescricao,
-            this.ColunaEstoque,
-            this.ColunaDataDeFabricacao});
-            this.GridDePecas.DataSource = this.pecaBindingSource;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.GridDePecas.DefaultCellStyle = dataGridViewCellStyle8;
-            this.GridDePecas.Location = new System.Drawing.Point(12, 12);
-            this.GridDePecas.Name = "GridDePecas";
-            this.GridDePecas.Size = new System.Drawing.Size(796, 347);
-            this.GridDePecas.TabIndex = 0;
-            // 
-            // AoClicarRemoverPecaSelecionada
-            // 
-            this.AoClicarRemoverPecaSelecionada.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AoClicarRemoverPecaSelecionada.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AoClicarRemoverPecaSelecionada.Location = new System.Drawing.Point(670, 376);
-            this.AoClicarRemoverPecaSelecionada.Name = "AoClicarRemoverPecaSelecionada";
-            this.AoClicarRemoverPecaSelecionada.Size = new System.Drawing.Size(138, 37);
-            this.AoClicarRemoverPecaSelecionada.TabIndex = 3;
-            this.AoClicarRemoverPecaSelecionada.Text = "Remover";
-            this.AoClicarRemoverPecaSelecionada.UseVisualStyleBackColor = true;
-            this.AoClicarRemoverPecaSelecionada.Click += new System.EventHandler(this.AoClicarEmRemover);
-            // 
-            // AoClicarTrocarParaMenuDeCriarPeca
-            // 
-            this.AoClicarTrocarParaMenuDeCriarPeca.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AoClicarTrocarParaMenuDeCriarPeca.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AoClicarTrocarParaMenuDeCriarPeca.Location = new System.Drawing.Point(382, 376);
-            this.AoClicarTrocarParaMenuDeCriarPeca.Name = "AoClicarTrocarParaMenuDeCriarPeca";
-            this.AoClicarTrocarParaMenuDeCriarPeca.Size = new System.Drawing.Size(138, 37);
-            this.AoClicarTrocarParaMenuDeCriarPeca.TabIndex = 4;
-            this.AoClicarTrocarParaMenuDeCriarPeca.Text = "Adicionar";
-            this.AoClicarTrocarParaMenuDeCriarPeca.UseVisualStyleBackColor = true;
-            this.AoClicarTrocarParaMenuDeCriarPeca.Click += new System.EventHandler(this.AoClicarEmAdicionar);
-            // 
-            // AoClicarAbrirMenuDeEdicaoDePeca
-            // 
-            this.AoClicarAbrirMenuDeEdicaoDePeca.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AoClicarAbrirMenuDeEdicaoDePeca.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AoClicarAbrirMenuDeEdicaoDePeca.Location = new System.Drawing.Point(526, 376);
-            this.AoClicarAbrirMenuDeEdicaoDePeca.Name = "AoClicarAbrirMenuDeEdicaoDePeca";
-            this.AoClicarAbrirMenuDeEdicaoDePeca.Size = new System.Drawing.Size(138, 37);
-            this.AoClicarAbrirMenuDeEdicaoDePeca.TabIndex = 5;
-            this.AoClicarAbrirMenuDeEdicaoDePeca.Text = "Editar";
-            this.AoClicarAbrirMenuDeEdicaoDePeca.UseVisualStyleBackColor = true;
-            this.AoClicarAbrirMenuDeEdicaoDePeca.Click += new System.EventHandler(this.AoClicarEmEditar);
+            GridDePecas.AllowUserToAddRows = false;
+            GridDePecas.AllowUserToDeleteRows = false;
+            GridDePecas.AllowUserToResizeColumns = false;
+            GridDePecas.AllowUserToResizeRows = false;
+            GridDePecas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            GridDePecas.AutoGenerateColumns = false;
+            GridDePecas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            GridDePecas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            GridDePecas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            GridDePecas.Columns.AddRange(new DataGridViewColumn[] { ColunaId, ColunaCategoria, ColunaNome, ColunaDescricao, ColunaEstoque, ColunaDataDeFabricacao });
+            GridDePecas.DataSource = pecaBindingSource;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            GridDePecas.DefaultCellStyle = dataGridViewCellStyle8;
+            GridDePecas.Location = new Point(14, 14);
+            GridDePecas.Margin = new Padding(4, 3, 4, 3);
+            GridDePecas.Name = "GridDePecas";
+            GridDePecas.ReadOnly = true;
+            GridDePecas.Size = new Size(929, 400);
+            GridDePecas.TabIndex = 0;
             // 
             // ColunaId
             // 
-            this.ColunaId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaId.DataPropertyName = "Id";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColunaId.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ColunaId.FillWeight = 30F;
-            this.ColunaId.HeaderText = "Código";
-            this.ColunaId.Name = "ColunaId";
+            ColunaId.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ColunaId.DataPropertyName = "Id";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ColunaId.DefaultCellStyle = dataGridViewCellStyle2;
+            ColunaId.FillWeight = 30F;
+            ColunaId.HeaderText = "Código";
+            ColunaId.Name = "ColunaId";
+            ColunaId.ReadOnly = true;
             // 
             // ColunaCategoria
             // 
-            this.ColunaCategoria.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaCategoria.DataPropertyName = "Categoria";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColunaCategoria.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ColunaCategoria.HeaderText = "Categoria";
-            this.ColunaCategoria.Name = "ColunaCategoria";
+            ColunaCategoria.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ColunaCategoria.DataPropertyName = "Categoria";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ColunaCategoria.DefaultCellStyle = dataGridViewCellStyle3;
+            ColunaCategoria.HeaderText = "Categoria";
+            ColunaCategoria.Name = "ColunaCategoria";
+            ColunaCategoria.ReadOnly = true;
             // 
             // ColunaNome
             // 
-            this.ColunaNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaNome.DataPropertyName = "Nome";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColunaNome.DefaultCellStyle = dataGridViewCellStyle4;
-            this.ColunaNome.HeaderText = "Nome";
-            this.ColunaNome.Name = "ColunaNome";
+            ColunaNome.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ColunaNome.DataPropertyName = "Nome";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ColunaNome.DefaultCellStyle = dataGridViewCellStyle4;
+            ColunaNome.HeaderText = "Nome";
+            ColunaNome.Name = "ColunaNome";
+            ColunaNome.ReadOnly = true;
             // 
             // ColunaDescricao
             // 
-            this.ColunaDescricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaDescricao.DataPropertyName = "Descricao";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColunaDescricao.DefaultCellStyle = dataGridViewCellStyle5;
-            this.ColunaDescricao.HeaderText = "Descrição";
-            this.ColunaDescricao.Name = "ColunaDescricao";
+            ColunaDescricao.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ColunaDescricao.DataPropertyName = "Descricao";
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ColunaDescricao.DefaultCellStyle = dataGridViewCellStyle5;
+            ColunaDescricao.HeaderText = "Descrição";
+            ColunaDescricao.Name = "ColunaDescricao";
+            ColunaDescricao.ReadOnly = true;
             // 
             // ColunaEstoque
             // 
-            this.ColunaEstoque.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaEstoque.DataPropertyName = "Estoque";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColunaEstoque.DefaultCellStyle = dataGridViewCellStyle6;
-            this.ColunaEstoque.FillWeight = 30F;
-            this.ColunaEstoque.HeaderText = "Estoque";
-            this.ColunaEstoque.Name = "ColunaEstoque";
+            ColunaEstoque.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ColunaEstoque.DataPropertyName = "Estoque";
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ColunaEstoque.DefaultCellStyle = dataGridViewCellStyle6;
+            ColunaEstoque.FillWeight = 30F;
+            ColunaEstoque.HeaderText = "Estoque";
+            ColunaEstoque.Name = "ColunaEstoque";
+            ColunaEstoque.ReadOnly = true;
             // 
             // ColunaDataDeFabricacao
             // 
-            this.ColunaDataDeFabricacao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColunaDataDeFabricacao.DataPropertyName = "DataDeFabricacao";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColunaDataDeFabricacao.DefaultCellStyle = dataGridViewCellStyle7;
-            this.ColunaDataDeFabricacao.HeaderText = "Data de Fabricação";
-            this.ColunaDataDeFabricacao.Name = "ColunaDataDeFabricacao";
+            ColunaDataDeFabricacao.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ColunaDataDeFabricacao.DataPropertyName = "DataDeFabricacao";
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ColunaDataDeFabricacao.DefaultCellStyle = dataGridViewCellStyle7;
+            ColunaDataDeFabricacao.HeaderText = "Data de Fabricação";
+            ColunaDataDeFabricacao.Name = "ColunaDataDeFabricacao";
+            ColunaDataDeFabricacao.ReadOnly = true;
             // 
             // pecaBindingSource
             // 
-            this.pecaBindingSource.DataSource = typeof(Cod3rsGrowth.Modelos.Peca);
+            pecaBindingSource.DataSource = typeof(Modelos.Peca);
+            // 
+            // AoClicarRemoverPecaSelecionada
+            // 
+            AoClicarRemoverPecaSelecionada.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            AoClicarRemoverPecaSelecionada.Cursor = Cursors.Hand;
+            AoClicarRemoverPecaSelecionada.Location = new Point(782, 434);
+            AoClicarRemoverPecaSelecionada.Margin = new Padding(4, 3, 4, 3);
+            AoClicarRemoverPecaSelecionada.Name = "AoClicarRemoverPecaSelecionada";
+            AoClicarRemoverPecaSelecionada.Size = new Size(161, 43);
+            AoClicarRemoverPecaSelecionada.TabIndex = 3;
+            AoClicarRemoverPecaSelecionada.Text = "Remover";
+            AoClicarRemoverPecaSelecionada.UseVisualStyleBackColor = true;
+            AoClicarRemoverPecaSelecionada.Click += AoClicarEmRemover;
+            // 
+            // AoClicarTrocarParaMenuDeCriarPeca
+            // 
+            AoClicarTrocarParaMenuDeCriarPeca.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            AoClicarTrocarParaMenuDeCriarPeca.Cursor = Cursors.Hand;
+            AoClicarTrocarParaMenuDeCriarPeca.Location = new Point(446, 434);
+            AoClicarTrocarParaMenuDeCriarPeca.Margin = new Padding(4, 3, 4, 3);
+            AoClicarTrocarParaMenuDeCriarPeca.Name = "AoClicarTrocarParaMenuDeCriarPeca";
+            AoClicarTrocarParaMenuDeCriarPeca.Size = new Size(161, 43);
+            AoClicarTrocarParaMenuDeCriarPeca.TabIndex = 4;
+            AoClicarTrocarParaMenuDeCriarPeca.Text = "Adicionar";
+            AoClicarTrocarParaMenuDeCriarPeca.UseVisualStyleBackColor = true;
+            AoClicarTrocarParaMenuDeCriarPeca.Click += AoClicarEmAdicionar;
+            // 
+            // AoClicarAbrirMenuDeEdicaoDePeca
+            // 
+            AoClicarAbrirMenuDeEdicaoDePeca.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            AoClicarAbrirMenuDeEdicaoDePeca.Cursor = Cursors.Hand;
+            AoClicarAbrirMenuDeEdicaoDePeca.Location = new Point(614, 434);
+            AoClicarAbrirMenuDeEdicaoDePeca.Margin = new Padding(4, 3, 4, 3);
+            AoClicarAbrirMenuDeEdicaoDePeca.Name = "AoClicarAbrirMenuDeEdicaoDePeca";
+            AoClicarAbrirMenuDeEdicaoDePeca.Size = new Size(161, 43);
+            AoClicarAbrirMenuDeEdicaoDePeca.TabIndex = 5;
+            AoClicarAbrirMenuDeEdicaoDePeca.Text = "Editar";
+            AoClicarAbrirMenuDeEdicaoDePeca.UseVisualStyleBackColor = true;
+            AoClicarAbrirMenuDeEdicaoDePeca.Click += AoClicarEmEditar;
             // 
             // ControleDePecas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(825, 435);
-            this.Controls.Add(this.AoClicarRemoverPecaSelecionada);
-            this.Controls.Add(this.AoClicarAbrirMenuDeEdicaoDePeca);
-            this.Controls.Add(this.GridDePecas);
-            this.Controls.Add(this.AoClicarTrocarParaMenuDeCriarPeca);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ControleDePecas";
-            this.Text = "Controle de Peças";
-            ((System.ComponentModel.ISupportInitialize)(this.GridDePecas)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pecaBindingSource)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
+            ClientSize = new Size(962, 502);
+            Controls.Add(AoClicarRemoverPecaSelecionada);
+            Controls.Add(AoClicarAbrirMenuDeEdicaoDePeca);
+            Controls.Add(GridDePecas);
+            Controls.Add(AoClicarTrocarParaMenuDeCriarPeca);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "ControleDePecas";
+            Text = "Controle de Peças";
+            ((System.ComponentModel.ISupportInitialize)GridDePecas).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pecaBindingSource).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion

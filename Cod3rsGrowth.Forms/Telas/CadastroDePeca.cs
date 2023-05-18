@@ -1,8 +1,5 @@
 ﻿using Cod3rsGrowth.Modelos;
 using Cod3rsGrowth.Servicos;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using static Cod3rsGrowth.Servicos.Validacao;
 
 namespace Cod3rsGrowth
@@ -38,25 +35,18 @@ namespace Cod3rsGrowth
         {
             try
             {
-                List<Campo> CamposParaValidar = new List<Campo>
-                {
-                    new Campo("nome", CampoNomeDoFormularioCadastroDePecas.Text, true, false),
-                    new Campo("estoque", CampoEstoqueDoFormularioCadastroDePecas.Text, true, true)
-                };
-
-                string erros = ValidarCampoDeTexto(CamposParaValidar);
-
-                if (erros != null)
-                {
-                    AvisoAoUsuario.ModalAviso(erros);
-                    return;
-                }
-
                 peca.Categoria = CampoCategoriaDoFormularioCadastroDePecas.Text;
                 peca.Nome = CampoNomeDoFormularioCadastroDePecas.Text;
                 peca.Descricao = CampoDescricaoDoFormularioCadastroDePecas.Text;
-                peca.Estoque = Convert.ToInt32(CampoEstoqueDoFormularioCadastroDePecas.Text);
+                peca.Estoque = CampoEstoqueDoFormularioCadastroDePecas.Text;
                 peca.DataDeFabricacao = CampoDataDoFormularioCadastroDePecas.Value.Date;
+
+                string erros = ValidarPeca(peca);
+
+                if (!string.IsNullOrEmpty(erros))
+                {
+                    throw new Exception(erros);
+                }
 
                 DialogResult = DialogResult.OK;
                 Close();

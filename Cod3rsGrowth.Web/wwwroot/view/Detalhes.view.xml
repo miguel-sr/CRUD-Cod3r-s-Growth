@@ -1,0 +1,52 @@
+<mvc:View
+  controllerName="sap.ui.cod3rsgrowth.controller.Detalhes"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+>
+  <Page
+    id="pagina"
+    showNavButton="true"
+    navButtonPress=".aoClicarNavegarParaHome"
+  >
+    <headerContent>
+      <Button
+        icon="sap-icon://edit"
+        ariaHasPopup="Dialog"
+        press=".aoClicarNavegarParaCadastro"
+        text="{i18n>botaoEditar}"
+      />
+      <Button
+        icon="sap-icon://delete"
+        press=".aoClicarAbrirConfirmacaoDeRemocao"
+        text="{i18n>botaoRemover}"
+      />
+    </headerContent>
+    <ObjectHeader
+      id="HeaderPeca"
+      responsive="true"
+      fullScreenOptimized="true"
+      intro="{/descricao}"
+      title="{/nome} - #{/id}"
+    >
+      <attributes>
+        <ObjectAttribute
+          title="{i18n>campoEstoque}"
+          text="{/estoque} {i18n>campoEstoqueUnidades}"
+        />
+        <ObjectAttribute
+          title="{i18n>campoDataFabricacao}"
+          text="{
+            path: '/dataDeFabricacao',
+            type: 'sap.ui.model.type.Date',
+            formatOptions: {
+              style: 'short',
+              source: {
+                pattern: 'yyyy-MM-ddTHH:mm:ss'
+              }
+            }
+          }"
+        />
+      </attributes>
+    </ObjectHeader>
+  </Page>
+</mvc:View>

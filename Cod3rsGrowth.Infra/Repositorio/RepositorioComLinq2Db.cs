@@ -1,6 +1,5 @@
 ﻿using Cod3rsGrowth.Modelos;
 using LinqToDB;
-using Microsoft.Data.SqlClient;
 using System.ComponentModel;
 using System.Configuration;
 using LinqToDB.DataProvider.SqlServer;
@@ -21,9 +20,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
         {
             using var db = ObterConexao();
 
-            var peca = db.GetTable<Peca>().FirstOrDefault(peca => peca.Id == id);
-
-            db.Close();
+            var peca = db.GetTable<Peca>().First(peca => peca.Id == id);
 
             return peca;
         }
@@ -39,8 +36,6 @@ namespace Cod3rsGrowth.Infra.Repositorio
                 lista.Add(peca);
             }
 
-            db.Close();
-
             return lista;
         }
 
@@ -48,26 +43,25 @@ namespace Cod3rsGrowth.Infra.Repositorio
         {
             using var db = ObterConexao();
 
-            db.Insert(peca);
-
-            db.Close();
+            peca.Id = db.InsertWithInt32Identity(peca);
         }
 
         public void Atualizar(int id, Peca peca)
         {
             using var db = ObterConexao();
 
-            db.Update(peca);
+            var registroAtualizado = db.Update(peca) != 0;
 
-            db.Close();
+            if (!registroAtualizado) throw new Exception($"Peça com ID {id} não encontrada.");
         }
 
         public void Remover(int id)
         {
             using var db = ObterConexao();
 
-            db.GetTable<Peca>().Where(x => x.Id == id).Delete();
-            db.Close();
+            var registroDeletado = db.GetTable<Peca>().Where(x => x.Id == id).Delete() != 0;
+
+            if (!registroDeletado) throw new Exception($"Peça com ID {id} não encontrada.");
         }
     }
 }

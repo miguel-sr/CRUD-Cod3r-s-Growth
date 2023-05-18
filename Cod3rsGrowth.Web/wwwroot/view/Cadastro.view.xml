@@ -1,0 +1,113 @@
+<mvc:View
+  controllerName="sap.ui.cod3rsgrowth.controller.Cadastro"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form"
+>
+  <Page showNavButton="true" navButtonPress=".aoClicarNavegarParaHome">
+    <headerContent>
+      <Button
+        icon="sap-icon://save"
+        ariaHasPopup="Dialog"
+        press=".aoClicarSalvarPeca"
+        text="{i18n>botaoSalvar}"
+      />
+      <Button
+        icon="sap-icon://decline"
+        ariaHasPopup="Dialog"
+        press=".aoClicarNavegarParaHome"
+        text="{i18n>botaoCancelar}"
+      />
+    </headerContent>
+    <VBox alignItems="Center">
+      <f:Form editable="true" id="forms">
+      <f:layoutData>
+        <FlexItemData minWidth="40%" />
+      </f:layoutData>
+        <f:title>
+          <core:Title icon="sap-icon://add-product" text="Peça" />
+        </f:title>
+        <f:layout>
+          <f:ResponsiveGridLayout
+            columnsL="1"
+            columnsXL="1"
+            emptySpanL="3"
+            emptySpanM="3"
+            emptySpanXL="3"
+            labelSpanL="1"
+            labelSpanM="1"
+            labelSpanXL="1"
+          />
+        </f:layout>
+        <f:formContainers>
+          <f:FormContainer>
+            <f:formElements>
+
+              <f:FormElement label="{i18n>labelCampoCategoria}">
+                <f:fields>
+                  <Input
+                    id="categoria"
+                    change=".aoMudarValorCampoInput"
+                    value="{peca>/categoria}"
+                    required="true"
+                    placeholder="{i18n>campoCategoriaPlaceholder}"
+                  />
+                </f:fields>
+              </f:FormElement>
+
+              <f:FormElement label="{i18n>labelCampoNome}">
+                <f:fields>
+                  <Input
+                    id="nome"
+                    value="{peca>/nome}"
+                    required="true"
+                    change=".aoMudarValorCampoInput"
+                    placeholder="{i18n>campoNomePlaceholder}"
+                  />
+                </f:fields>
+              </f:FormElement>
+
+              <f:FormElement label="{i18n>labelCampoDescricao}">
+                <f:fields>
+                  <Input
+                    value="{peca>/descricao}"
+                    placeholder="{i18n>campoDescricaoPlaceholder}"
+                  />
+                </f:fields>
+              </f:FormElement>
+
+              <f:FormElement label="{i18n>labelCampoEstoque}">
+                <f:fields>
+                  <Input
+                    id="estoque"
+                    type="Number"
+                    value="{peca>/estoque}"
+                    change=".aoMudarValorCampoInput"
+                    required="true"
+                    placeholder="{i18n>campoEstoquePlaceholder}"
+                  />
+                </f:fields>
+              </f:FormElement>
+
+              <f:FormElement label="{i18n>labelCampoData}">
+                <f:fields>
+                  <DatePicker
+                    id="dataDeFabricacao"
+                    value="{peca>/dataDeFabricacao}"
+                    required="true"
+                    displayFormat="dd/MM/yyyy"
+                    valueFormat="MM-dd-yyyy"
+                    change=".aoMudarValorCampoData"
+                    placeholder="{i18n>campoDataPlaceholder}"
+                  />
+                </f:fields>
+              </f:FormElement>
+              
+            </f:formElements>
+          </f:FormContainer>
+        </f:formContainers>
+      </f:Form>
+    </VBox>
+  </Page>
+</mvc:View>

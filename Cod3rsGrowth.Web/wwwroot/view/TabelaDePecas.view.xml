@@ -1,0 +1,77 @@
+<mvc:View
+  controllerName="sap.ui.cod3rsgrowth.controller.TabelaDePecas"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+>
+  <Panel accessibleRole="Region">
+    <headerToolbar>
+      <Toolbar>
+      <ToolbarSpacer />
+        <Button
+          icon="sap-icon://add-product"
+          press=".aoClicarNavegarParaCadastro"
+          text="{i18n>botaoAdicionarPecaTexto}"
+          type="Emphasized"
+        />
+      <SearchField width="30%" search=".aoClicarFiltrarPecas" />
+      </Toolbar>
+    </headerToolbar>
+    <Table
+      id="listaDePecas"
+      class="sapUiResponsiveMargin"
+      alternateRowColors="true"
+      width="auto"
+      items="{
+        path: '/pecas',
+        sorter : {
+          path : 'categoria',
+          group : true
+        }
+      }"
+    >
+      <columns>
+        <Column hAlign="Center" width="5em">
+          <Text text="{i18n>colunaId}" />
+        </Column>
+
+        <Column width="15em">
+          <Text text="{i18n>colunaNome}" />
+        </Column>
+        
+        <Column>
+          <Text text="{i18n>colunaDescricao}" />
+        </Column>
+
+        <Column hAlign="Center" width="5em">
+          <Text text="{i18n>colunaEstoque}" />
+        </Column>
+        
+        <Column hAlign="Center" width="10em">
+          <Text text="{i18n>colunaDataDeFabricacao}" />
+        </Column>
+      </columns>
+      <items>
+        <ColumnListItem type="Navigation" press=".aoClicarMostrarDetalhes">
+          <cells>
+            <ObjectIdentifier title="{id}" />
+            <Text text="{nome}" />
+            <Text text="{descricao}" />
+            <ObjectNumber number="{estoque}" />
+            <Text
+              text="{
+                path: 'dataDeFabricacao',
+                type: 'sap.ui.model.type.Date',
+                formatOptions: {
+                  style: 'short',
+                  source: {
+                    pattern: 'yyyy-MM-ddTHH:mm:ss'
+                  }
+                }
+              }"
+            />
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+  </Panel>
+</mvc:View>

@@ -4,14 +4,14 @@ namespace Cod3rsGrowth.Servicos
 {
     public class AvisoAoUsuario
     {
-        public static void ModalAviso(string text)
+        public static void ModalAviso(string texto)
         {
-            MessageBox.Show(text, "Aviso!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show(texto, "Aviso!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-        public static DialogResult ModalConfirmarAcao(string text)
+        public static DialogResult ModalConfirmarAcao(string texto)
         {
-            return MessageBox.Show(text, "Aviso!", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            return MessageBox.Show(texto, "Aviso!", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
         }
     }
 }
