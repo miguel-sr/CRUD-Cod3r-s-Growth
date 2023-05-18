@@ -5,8 +5,8 @@ sap.ui.define(
     "sap/ui/model/json/JSONModel",
     "sap/ui/cod3rsgrowth/services/ValidarFormulario",
     "sap/ui/core/ValueState",
-    "sap/ui/core/format/DateFormat",
     "sap/m/MessageBox",
+    "sap/ui/cod3rsgrowth/repositorios/Api",
   ],
   function (
     Controller,
@@ -14,8 +14,8 @@ sap.ui.define(
     JSONModel,
     ValidarFormulario,
     ValueState,
-    DateFormat,
-    MessageBox
+    MessageBox,
+    Api
   ) {
     "use strict";
 
@@ -34,6 +34,8 @@ sap.ui.define(
           .getResourceBundle();
 
         oRouter = this.getOwnerComponent().getRouter();
+
+        this._api = new Api();
 
         const rotaPaginaCadastro = "cadastro";
 
@@ -56,7 +58,7 @@ sap.ui.define(
         const id = oRouter.oHashChanger.hash.split("/")[1];
 
         if (id) {
-          const modeloPeca = await this._carregarPeca();
+          const modeloPeca = await this._api.carregarPecaComId(id);
           oModel = new JSONModel(modeloPeca);
         } else {
           const stringVazia = "";
@@ -121,26 +123,11 @@ sap.ui.define(
             throw new Error(oResourceBundle.getText(mensagemErro));
           }
 
-          const httpStatusCreated = 201;
-          const httpStatusNoContent = 204;
-
           const peca = this.getView().getModel("peca").getData();
 
           peca.dataDeFabricacao = new Date(peca.dataDeFabricacao).toISOString();
 
-          const idPeca = await fetch(
-            "http://localhost:5285/pecas",
-            this._retornaConfiguracaoFetch(peca)
-          ).then(async (response) => {
-            if (response.status == httpStatusCreated) {
-              const pecaCriada = await response.json();
-              return pecaCriada.id;
-            }
-
-            if (response.status == httpStatusNoContent) return peca.id;
-
-            throw response.statusText;
-          });
+          const idPeca = await this._api.salvarPeca(peca);
 
           const rotaPaginaDetalhes = "detalhes";
 
@@ -151,22 +138,6 @@ sap.ui.define(
           const mensagemErro = "criarPeca";
           throw new Error(oResourceBundle.getText(mensagemErro, [erro]));
         }
-      },
-
-      _retornaConfiguracaoFetch: function (peca) {
-        let configuracaoFetch = {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(peca),
-        };
-
-        const metodoCriar = "POST";
-        const metodoAtualizar = "PATCH";
-
-        configuracaoFetch.method = peca.id ? metodoAtualizar : metodoCriar;
-
-        return configuracaoFetch;
       },
 
       _validarCampos: function () {
@@ -201,31 +172,6 @@ sap.ui.define(
 
           validarFormulario.validarData(campoData);
         });
-      },
-
-      _carregarPeca: async function () {
-        try {
-          const httpStatusOk = 200;
-
-          const id = oRouter.oHashChanger.hash.split("/")[1];
-
-          let peca = await fetch(`http://localhost:5285/pecas/${id}`).then(
-            (response) => {
-              if (response.status !== httpStatusOk) throw response.statusText;
-
-              return response.json();
-            }
-          );
-
-          peca.dataDeFabricacao = DateFormat.getDateInstance({
-            pattern: "yyyy-MM-dd",
-          }).format(new Date(peca.dataDeFabricacao));
-
-          return peca;
-        } catch (erro) {
-          const mensagemErro = "obterPeca";
-          throw new Error(oResourceBundle.getText(mensagemErro, [erro]));
-        }
       },
 
       _processarEvento: function (action) {

@@ -4,8 +4,9 @@ sap.ui.define(
     "sap/ui/core/routing/History",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
+    "sap/ui/cod3rsgrowth/repositorios/Api",
   ],
-  function (Controller, History, JSONModel, MessageBox) {
+  function (Controller, History, JSONModel, MessageBox, Api) {
     "use strict";
 
     let oResourceBundle;
@@ -22,32 +23,27 @@ sap.ui.define(
 
         const rotaPaginaDetalhes = "detalhes";
 
+        this._api = new Api();
+
         oRouter = this.getOwnerComponent().getRouter();
 
         oRouter
           .getRoute(rotaPaginaDetalhes)
-          .attachPatternMatched(this._carregarPeca, this);
+          .attachPatternMatched(this._renderizarPecaNaTela, this);
       },
 
-      _carregarPeca: function (oEvent) {
+      _renderizarPecaNaTela: function (oEvent) {
         _idPeca = oEvent.getParameter("arguments").id;
 
         this._processarEvento(async () => {
           try {
-            const httpStatusOk = 200;
             const idComponentePeca = "HeaderPeca";
 
             this.byId(idComponentePeca).setVisible(false);
 
             let oModel = new JSONModel();
 
-            let peca = await fetch(
-              `http://localhost:5285/pecas/${_idPeca}`
-            ).then((response) => {
-              if (response.status !== httpStatusOk) throw response.statusText;
-
-              return response.json();
-            });
+            const peca = await this._api.carregarPecaComId(_idPeca);
 
             this.byId(idComponentePeca).setVisible(true);
 
@@ -100,17 +96,7 @@ sap.ui.define(
 
       _apagarPeca: async function () {
         try {
-          const httpStatusNoContent = 204;
-
-          const response = await fetch(
-            `http://localhost:5285/pecas/${_idPeca}`,
-            {
-              method: "DELETE",
-            }
-          );
-
-          if (response.status !== httpStatusNoContent)
-            throw response.statusText;
+          this._api.apagarPeca(_idPeca);
 
           oRouter.navTo(rotaPaginaPrincipal);
         } catch (erro) {

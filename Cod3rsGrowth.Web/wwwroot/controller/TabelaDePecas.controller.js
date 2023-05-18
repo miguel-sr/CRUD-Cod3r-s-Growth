@@ -5,8 +5,9 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/m/MessageBox",
+    "sap/ui/cod3rsgrowth/repositorios/Api",
   ],
-  function (Controller, JSONModel, Filter, FilterOperator, MessageBox) {
+  function (Controller, JSONModel, Filter, FilterOperator, MessageBox, Api) {
     "use strict";
 
     let oResourceBundle;
@@ -20,26 +21,20 @@ sap.ui.define(
 
         const rotaPaginaPrincipal = "home";
 
+        this._api = new Api();
+
         oRouter = this.getOwnerComponent().getRouter();
 
         oRouter
           .getRoute(rotaPaginaPrincipal)
-          .attachPatternMatched(this._carregarPecas, this);
+          .attachPatternMatched(this._renderizarPecasNaTela, this);
       },
 
-      _carregarPecas: async function () {
-        const httpStatusOk = 200;
-
+      _renderizarPecasNaTela: async function () {
         try {
-          let oModel = new JSONModel();
+          const oModel = new JSONModel();
 
-          let pecas = await fetch(`http://localhost:5285/pecas`).then(
-            (response) => {
-              if (response.status !== httpStatusOk) throw response.statusText;
-
-              return response.json();
-            }
-          );
+          const pecas = await this._api.carregarPecas();
 
           oModel.setData({ pecas });
 
