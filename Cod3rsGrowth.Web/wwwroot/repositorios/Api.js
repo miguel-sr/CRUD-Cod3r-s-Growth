@@ -4,6 +4,11 @@ sap.ui.define(
     "use strict";
 
     let oResourceBundle;
+    const urlApi = "http://localhost:5285/pecas";
+
+    const httpStatusOk = 200;
+    const httpStatusCreated = 201;
+    const httpStatusNoContent = 204;
 
     return Controller.extend("sap.ui.cod3rsgrowth.repositorios.Api", {
       onInit: function () {
@@ -14,15 +19,11 @@ sap.ui.define(
 
       carregarPecas: async function () {
         try {
-          const httpStatusOk = 200;
+          const pecas = await fetch(urlApi).then((response) => {
+            if (response.status !== httpStatusOk) throw response.statusText;
 
-          const pecas = await fetch("http://localhost:5285/pecas").then(
-            (response) => {
-              if (response.status !== httpStatusOk) throw response.statusText;
-
-              return response.json();
-            }
-          );
+            return response.json();
+          });
 
           return pecas;
         } catch (erro) {
@@ -33,15 +34,11 @@ sap.ui.define(
 
       carregarPecaComId: async function (id) {
         try {
-          const httpStatusOk = 200;
+          let peca = await fetch(`${urlApi}/${id}`).then((response) => {
+            if (response.status !== httpStatusOk) throw response.statusText;
 
-          let peca = await fetch(`http://localhost:5285/pecas/${id}`).then(
-            (response) => {
-              if (response.status !== httpStatusOk) throw response.statusText;
-
-              return response.json();
-            }
-          );
+            return response.json();
+          });
 
           peca.dataDeFabricacao = DateFormat.getDateInstance({
             pattern: "yyyy-MM-dd",
@@ -56,11 +53,8 @@ sap.ui.define(
 
       salvarPeca: async function (peca) {
         try {
-          const httpStatusCreated = 201;
-          const httpStatusNoContent = 204;
-
           const idPeca = await fetch(
-            "http://localhost:5285/pecas",
+            urlApi,
             this._retornaConfiguracaoFetch(peca)
           ).then(async (response) => {
             if (response.status == httpStatusCreated) {
@@ -82,9 +76,7 @@ sap.ui.define(
 
       apagarPeca: async function (id) {
         try {
-          const httpStatusNoContent = 204;
-
-          const response = await fetch(`http://localhost:5285/pecas/${id}`, {
+          const response = await fetch(`${urlApi}/${id}`, {
             method: "DELETE",
           });
 
