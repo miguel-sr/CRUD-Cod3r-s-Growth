@@ -18,6 +18,7 @@ sap.ui.define(
     "use strict";
 
     let oRouter;
+    let oResourceBundle;
 
     const idCampoNome = "nome";
     const idCampoCategoria = "categoria";
@@ -26,7 +27,9 @@ sap.ui.define(
 
     return BaseController.extend("sap.ui.cod3rsgrowth.controller.Cadastro", {
       onInit: function () {
-        oRouter = this.getOwnerComponent().getRouter();
+        oResourceBundle = this.carregarRecursoI18n();
+
+        oRouter = this.pegarRouter();
 
         oRouter
           .getRoute(this.rotasDaAplicacao.paginaCadastro)
@@ -92,12 +95,14 @@ sap.ui.define(
       },
 
       aoClicarNavegarParaPaginaAnterior: function () {
-        const historico = History.getInstance();
-        const paginaAnterior = historico.getPreviousHash();
+        this.processarEvento(() => {
+          const historico = History.getInstance();
+          const paginaAnterior = historico.getPreviousHash();
 
-        paginaAnterior
-          ? window.history.go(-1)
-          : oRouter.navTo(this.rotasDaAplicacao.paginaPrincipal);
+          paginaAnterior
+            ? window.history.go(-1)
+            : oRouter.navTo(this.rotasDaAplicacao.paginaPrincipal);
+        });
       },
 
       aoClicarSalvarPeca: async function () {
@@ -106,7 +111,7 @@ sap.ui.define(
 
           if (pecaInvalida) {
             const mensagemErro = "formularioInvalido";
-            throw new Error(this.carregarRecursoI18n().getText(mensagemErro));
+            throw new Error(oResourceBundle.getText(mensagemErro));
           }
 
           const peca = this.pegarDadosModeloPeca();
@@ -126,9 +131,7 @@ sap.ui.define(
           });
         } catch (erro) {
           const mensagemErro = "criarPeca";
-          throw new Error(
-            this.carregarRecursoI18n().getText(mensagemErro, [erro])
-          );
+          throw new Error(oResourceBundle.getText(mensagemErro, [erro]));
         }
       },
 

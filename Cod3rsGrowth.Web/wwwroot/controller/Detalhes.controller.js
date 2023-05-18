@@ -17,7 +17,7 @@ sap.ui.define(
       onInit: function () {
         oResourceBundle = this.carregarRecursoI18n();
 
-        oRouter = this.getOwnerComponent().getRouter();
+        oRouter = this.pegarRouter();
 
         oRouter
           .getRoute(this.rotasDaAplicacao.paginaDetalhes)

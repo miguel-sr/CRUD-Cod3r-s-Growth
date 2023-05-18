@@ -26,12 +26,10 @@ sap.ui.define(
         onInit: function () {
           oResourceBundle = this.carregarRecursoI18n();
 
-          const rotaPaginaPrincipal = "home";
-
-          oRouter = this.getOwnerComponent().getRouter();
+          oRouter = this.pegarRouter();
 
           oRouter
-            .getRoute(rotaPaginaPrincipal)
+            .getRoute(this.rotasDaAplicacao.paginaPrincipal)
             .attachPatternMatched(this._renderizarPecasNaTela, this);
         },
 

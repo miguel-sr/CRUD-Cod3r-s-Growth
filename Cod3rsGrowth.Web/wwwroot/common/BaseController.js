@@ -1,6 +1,10 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/m/MessageBox"],
-  function (Controller, MessageBox) {
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox",
+    "sap/ui/core/routing/History",
+  ],
+  function (Controller, MessageBox, History) {
     "use strict";
 
     return Controller.extend("sap.ui.cod3rsgrowth.common.BaseController", {
@@ -9,6 +13,11 @@ sap.ui.define(
         const peca = this.getView().getModel(nomeDoModelo).getData();
 
         return peca;
+      },
+
+      pegarRouter: function () {
+        const router = this.getOwnerComponent().getRouter();
+        return router;
       },
 
       carregarRecursoI18n: function () {
