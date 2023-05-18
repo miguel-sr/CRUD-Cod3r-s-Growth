@@ -6,7 +6,7 @@
   <Page
     id="pagina"
     showNavButton="true"
-    navButtonPress=".aoClicarNavegarParaHome"
+    navButtonPress=".aoClicarNavegarParaPaginaAnterior"
   >
     <headerContent>
       <Button

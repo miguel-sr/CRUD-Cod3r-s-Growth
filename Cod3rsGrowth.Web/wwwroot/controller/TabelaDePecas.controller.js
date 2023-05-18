@@ -1,93 +1,95 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "sap/ui/cod3rsgrowth/common/BaseController",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/m/MessageBox",
-    "sap/ui/cod3rsgrowth/repositorios/Api",
+    "sap/ui/cod3rsgrowth/repositorios/RepositorioPeca",
   ],
-  function (Controller, JSONModel, Filter, FilterOperator, MessageBox, Api) {
+  function (
+    BaseController,
+    JSONModel,
+    Filter,
+    FilterOperator,
+    MessageBox,
+    RepositorioPeca
+  ) {
     "use strict";
 
     let oResourceBundle;
     let oRouter;
 
-    return Controller.extend("sap.ui.cod3rsgrowth.controller.TabelaDePecas", {
-      onInit: function () {
-        oResourceBundle = this.getOwnerComponent()
-          .getModel("i18n")
-          .getResourceBundle();
+    return BaseController.extend(
+      "sap.ui.cod3rsgrowth.controller.TabelaDePecas",
+      {
+        onInit: function () {
+          oResourceBundle = this.carregarRecursoI18n();
 
-        const rotaPaginaPrincipal = "home";
+          const rotaPaginaPrincipal = "home";
 
-        this._api = new Api();
+          oRouter = this.getOwnerComponent().getRouter();
 
-        oRouter = this.getOwnerComponent().getRouter();
+          oRouter
+            .getRoute(rotaPaginaPrincipal)
+            .attachPatternMatched(this._renderizarPecasNaTela, this);
+        },
 
-        oRouter
-          .getRoute(rotaPaginaPrincipal)
-          .attachPatternMatched(this._renderizarPecasNaTela, this);
-      },
+        _renderizarPecasNaTela: async function () {
+          try {
+            const oModel = new JSONModel();
 
-      _renderizarPecasNaTela: async function () {
-        try {
-          const oModel = new JSONModel();
+            const pecas = await RepositorioPeca.obterTodos();
 
-          const pecas = await this._api.carregarPecas();
+            oModel.setData({ pecas });
 
-          oModel.setData({ pecas });
+            this.getView().setModel(oModel);
+          } catch (erro) {
+            const mensagemErro = "obterItensTabela";
+            MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]));
+          }
+        },
 
-          this.getView().setModel(oModel);
-        } catch (erro) {
-          const mensagemErro = "obterItensTabela";
-          MessageBox.error(oResourceBundle.getText(mensagemErro, [erro]));
-        }
-      },
+        aoClicarMostrarDetalhes: async function (oEvent) {
+          const id = this._obterIdPeca(oEvent);
 
-      aoClicarMostrarDetalhes: async function (oEvent) {
-        const rotaPaginaDetalhes = "detalhes";
-        const id = this._obterIdPeca(oEvent);
+          oRouter.navTo(this.rotasDaAplicacao.paginaDetalhes, {
+            id: id,
+          });
+        },
 
-        oRouter.navTo(rotaPaginaDetalhes, {
-          id: id,
-        });
-      },
+        _obterIdPeca: function (oEvent) {
+          const parametroIdUri = "/id";
+          let uriDaPeca = oEvent.getSource().getBindingContext().getPath();
 
-      _obterIdPeca: function (oEvent) {
-        const parametroIdUri = "/id";
-        let uriDaPeca = oEvent.getSource().getBindingContext().getPath();
+          return this.getView()
+            .getModel()
+            .getProperty(uriDaPeca + parametroIdUri);
+        },
 
-        return this.getView()
-          .getModel()
-          .getProperty(uriDaPeca + parametroIdUri);
-      },
+        aoClicarFiltrarPecas: function (oEvent) {
+          const campoUsadoParaFiltro = "nome";
+          const idComponenteTabela = "listaDePecas";
+          const listaDePecas = "items";
 
-      aoClicarFiltrarPecas: function (oEvent) {
-        const parametroEvento = "query";
-        const campoUsadoParaFiltro = "nome";
-        const idComponenteTabela = "listaDePecas";
-        const listaDePecas = "items";
+          let filtro = [];
+          let query = oEvent.getParameter("query");
 
-        let filtro = [];
-        let query = oEvent.getParameter(parametroEvento);
+          if (query) {
+            filtro.push(
+              new Filter(campoUsadoParaFiltro, FilterOperator.Contains, query)
+            );
+          }
 
-        if (query) {
-          filtro.push(
-            new Filter(campoUsadoParaFiltro, FilterOperator.Contains, query)
-          );
-        }
+          let tabelaDePecas = this.byId(idComponenteTabela);
+          let binding = tabelaDePecas.getBinding(listaDePecas);
+          binding.filter(filtro);
+        },
 
-        let tabelaDePecas = this.byId(idComponenteTabela);
-        let binding = tabelaDePecas.getBinding(listaDePecas);
-        binding.filter(filtro);
-      },
-
-      aoClicarNavegarParaCadastro: function () {
-        const rotaPaginaCadastro = "cadastro";
-
-        oRouter.navTo(rotaPaginaCadastro);
-      },
-    });
+        aoClicarNavegarParaCadastro: function () {
+          oRouter.navTo(this.rotasDaAplicacao.paginaCadastro);
+        },
+      }
+    );
   }
 );

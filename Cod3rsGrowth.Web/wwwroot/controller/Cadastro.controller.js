@@ -1,25 +1,22 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
     "sap/ui/core/routing/History",
     "sap/ui/model/json/JSONModel",
     "sap/ui/cod3rsgrowth/services/ValidarFormulario",
     "sap/ui/core/ValueState",
-    "sap/m/MessageBox",
-    "sap/ui/cod3rsgrowth/repositorios/Api",
+    "sap/ui/cod3rsgrowth/repositorios/RepositorioPeca",
+    "sap/ui/cod3rsgrowth/common/BaseController",
   ],
   function (
-    Controller,
     History,
     JSONModel,
     ValidarFormulario,
     ValueState,
-    MessageBox,
-    Api
+    RepositorioPeca,
+    BaseController
   ) {
     "use strict";
 
-    let oResourceBundle;
     let oRouter;
 
     const idCampoNome = "nome";
@@ -27,38 +24,30 @@ sap.ui.define(
     const idCampoEstoque = "estoque";
     const idCampoFabricacao = "dataDeFabricacao";
 
-    return Controller.extend("sap.ui.cod3rsgrowth.controller.Cadastro", {
+    return BaseController.extend("sap.ui.cod3rsgrowth.controller.Cadastro", {
       onInit: function () {
-        oResourceBundle = this.getOwnerComponent()
-          .getModel("i18n")
-          .getResourceBundle();
-
         oRouter = this.getOwnerComponent().getRouter();
 
-        this._api = new Api();
-
-        const rotaPaginaCadastro = "cadastro";
-
         oRouter
-          .getRoute(rotaPaginaCadastro)
+          .getRoute(this.rotasDaAplicacao.paginaCadastro)
           .attachPatternMatched(this._inicializarFormulario, this);
       },
 
-      _inicializarFormulario: function () {
-        this._criarModeloParaFormulario();
+      _inicializarFormulario: function (oEvent) {
+        this._criarModeloParaFormulario(oEvent);
         this._definirIntervaloValidoDeDatas();
         this._resetarValidacao();
       },
 
-      _criarModeloParaFormulario: async function () {
+      _criarModeloParaFormulario: async function (oEvent) {
         const nomeDoModelo = "peca";
 
         let oModel;
 
-        const id = oRouter.oHashChanger.hash.split("/")[1];
+        const idPeca = oEvent.getParameter("arguments").id;
 
-        if (id) {
-          const modeloPeca = await this._api.carregarPecaComId(id);
+        if (idPeca) {
+          const modeloPeca = await RepositorioPeca.obterPorId(idPeca);
           oModel = new JSONModel(modeloPeca);
         } else {
           const stringVazia = "";
@@ -91,7 +80,6 @@ sap.ui.define(
       },
 
       _definirIntervaloValidoDeDatas: function () {
-        const idCampoFabricacao = "dataDeFabricacao";
         const dataMinima = new Date("1754-01-01T12:00:00.000Z");
         const dataMaxima = new Date();
 
@@ -103,15 +91,13 @@ sap.ui.define(
         datePicker.setMaxDate(dataMaxima);
       },
 
-      aoClicarNavegarParaHome: function () {
-        const rotaPaginaPrincipal = "home";
-
+      aoClicarNavegarParaPaginaAnterior: function () {
         const historico = History.getInstance();
         const paginaAnterior = historico.getPreviousHash();
 
         paginaAnterior
           ? window.history.go(-1)
-          : oRouter.navTo(rotaPaginaPrincipal);
+          : oRouter.navTo(this.rotasDaAplicacao.paginaPrincipal);
       },
 
       aoClicarSalvarPeca: async function () {
@@ -120,28 +106,34 @@ sap.ui.define(
 
           if (pecaInvalida) {
             const mensagemErro = "formularioInvalido";
-            throw new Error(oResourceBundle.getText(mensagemErro));
+            throw new Error(this.carregarRecursoI18n().getText(mensagemErro));
           }
 
-          const peca = this.getView().getModel("peca").getData();
+          const peca = this.pegarDadosModeloPeca();
 
           peca.dataDeFabricacao = new Date(peca.dataDeFabricacao).toISOString();
 
-          const idPeca = await this._api.salvarPeca(peca);
+          let idPeca;
 
-          const rotaPaginaDetalhes = "detalhes";
+          if (peca.id) {
+            idPeca = await RepositorioPeca.atualizarPeca(peca);
+          } else {
+            idPeca = await RepositorioPeca.criarPeca(peca);
+          }
 
-          oRouter.navTo(rotaPaginaDetalhes, {
+          oRouter.navTo(this.rotasDaAplicacao.paginaDetalhes, {
             id: idPeca,
           });
         } catch (erro) {
           const mensagemErro = "criarPeca";
-          throw new Error(oResourceBundle.getText(mensagemErro, [erro]));
+          throw new Error(
+            this.carregarRecursoI18n().getText(mensagemErro, [erro])
+          );
         }
       },
 
       _validarCampos: function () {
-        this._processarEvento(() => {
+        this.processarEvento(() => {
           const validarFormulario = new ValidarFormulario();
 
           const camposInput = [
@@ -157,7 +149,7 @@ sap.ui.define(
       },
 
       aoMudarValorCampoInput: function (oEvent) {
-        this._processarEvento(() => {
+        this.processarEvento(() => {
           const validarFormulario = new ValidarFormulario();
           const campoInput = oEvent.getSource();
 
@@ -166,28 +158,12 @@ sap.ui.define(
       },
 
       aoMudarValorCampoData: function (oEvent) {
-        this._processarEvento(() => {
+        this.processarEvento(() => {
           const validarFormulario = new ValidarFormulario();
           const campoData = oEvent.getSource();
 
           validarFormulario.validarData(campoData);
         });
-      },
-
-      _processarEvento: function (action) {
-        const tipoDaPromise = "catch";
-        const tipoBuscado = "function";
-        try {
-          let promise = action();
-
-          if (promise && typeof promise[tipoDaPromise] == tipoBuscado) {
-            promise.catch((error) => MessageBox.error(error.message));
-          }
-
-          return promise;
-        } catch (error) {
-          MessageBox.error(error.message);
-        }
       },
     });
   }

@@ -5,7 +5,10 @@
   xmlns:core="sap.ui.core"
   xmlns:f="sap.ui.layout.form"
 >
-  <Page showNavButton="true" navButtonPress=".aoClicarNavegarParaHome">
+  <Page
+    showNavButton="true"
+    navButtonPress=".aoClicarNavegarParaPaginaAnterior"
+  >
     <headerContent>
       <Button
         icon="sap-icon://save"
@@ -16,7 +19,7 @@
       <Button
         icon="sap-icon://decline"
         ariaHasPopup="Dialog"
-        press=".aoClicarNavegarParaHome"
+        press=".aoClicarNavegarParaPaginaAnterior"
         text="{i18n>botaoCancelar}"
       />
     </headerContent>
@@ -95,9 +98,9 @@
                   <DatePicker
                     id="dataDeFabricacao"
                     value="{peca>/dataDeFabricacao}"
+                    displayFormat="short"
+                    valueFormat="yyyy-MM-ddTHH:mm:ss"
                     required="true"
-                    displayFormat="dd/MM/yyyy"
-                    valueFormat="MM-dd-yyyy"
                     change=".aoMudarValorCampoData"
                     placeholder="{i18n>campoDataPlaceholder}"
                   />

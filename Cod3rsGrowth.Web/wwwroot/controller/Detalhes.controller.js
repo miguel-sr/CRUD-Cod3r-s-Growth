@@ -1,41 +1,33 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "sap/ui/cod3rsgrowth/common/BaseController",
     "sap/ui/core/routing/History",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
-    "sap/ui/cod3rsgrowth/repositorios/Api",
+    "sap/ui/cod3rsgrowth/repositorios/RepositorioPeca",
   ],
-  function (Controller, History, JSONModel, MessageBox, Api) {
+  function (BaseController, History, JSONModel, MessageBox, RepositorioPeca) {
     "use strict";
 
     let oResourceBundle;
     let oRouter;
     let _idPeca;
 
-    const rotaPaginaPrincipal = "home";
-
-    return Controller.extend("sap.ui.cod3rsgrowth.controller.Detalhes", {
+    return BaseController.extend("sap.ui.cod3rsgrowth.controller.Detalhes", {
       onInit: function () {
-        oResourceBundle = this.getOwnerComponent()
-          .getModel("i18n")
-          .getResourceBundle();
-
-        const rotaPaginaDetalhes = "detalhes";
-
-        this._api = new Api();
+        oResourceBundle = this.carregarRecursoI18n();
 
         oRouter = this.getOwnerComponent().getRouter();
 
         oRouter
-          .getRoute(rotaPaginaDetalhes)
+          .getRoute(this.rotasDaAplicacao.paginaDetalhes)
           .attachPatternMatched(this._renderizarPecaNaTela, this);
       },
 
       _renderizarPecaNaTela: function (oEvent) {
         _idPeca = oEvent.getParameter("arguments").id;
 
-        this._processarEvento(async () => {
+        this.processarEvento(async () => {
           try {
             const idComponentePeca = "HeaderPeca";
 
@@ -43,7 +35,7 @@ sap.ui.define(
 
             let oModel = new JSONModel();
 
-            const peca = await this._api.carregarPecaComId(_idPeca);
+            const peca = await RepositorioPeca.obterPorId(_idPeca);
 
             this.byId(idComponentePeca).setVisible(true);
 
@@ -57,22 +49,20 @@ sap.ui.define(
         });
       },
 
-      aoClicarNavegarParaHome: function () {
-        this._processarEvento(() => {
+      aoClicarNavegarParaPaginaAnterior: function () {
+        this.processarEvento(() => {
           const historico = History.getInstance();
           const paginaAnterior = historico.getPreviousHash();
 
           paginaAnterior
             ? window.history.go(-1)
-            : oRouter.navTo(rotaPaginaPrincipal);
+            : oRouter.navTo(this.rotasDaAplicacao.paginaPrincipal);
         });
       },
 
       aoClicarNavegarParaCadastro: function () {
-        this._processarEvento(() => {
-          const rotaPaginaCadastro = "cadastro";
-
-          oRouter.navTo(rotaPaginaCadastro, {
+        this.processarEvento(() => {
+          oRouter.navTo(this.rotasDaAplicacao.paginaCadastro, {
             id: _idPeca,
           });
         });
@@ -88,7 +78,7 @@ sap.ui.define(
           actions: [MessageBox.Action.YES, MessageBox.Action.CANCEL],
           onClose: (oAction) => {
             if (oAction == MessageBox.Action.YES) {
-              this._processarEvento(this._apagarPeca);
+              this.processarEvento(this._apagarPeca);
             }
           },
         });
@@ -96,26 +86,12 @@ sap.ui.define(
 
       _apagarPeca: async function () {
         try {
-          this._api.apagarPeca(_idPeca);
+          RepositorioPeca.apagarPeca(_idPeca);
 
-          oRouter.navTo(rotaPaginaPrincipal);
+          oRouter.navTo(this.rotasDaAplicacao.paginaPrincipal);
         } catch (erro) {
           const mensagemErro = "deletarPeca";
           throw new Error(oResourceBundle.getText(mensagemErro, [erro]));
-        }
-      },
-
-      _processarEvento: function (action) {
-        const tipoDaPromise = "catch";
-        const tipoBuscado = "function";
-
-        try {
-          let promise = action();
-          if (promise && typeof promise[tipoDaPromise] == tipoBuscado) {
-            promise.catch((error) => MessageBox.error(error.message));
-          }
-        } catch (error) {
-          MessageBox.error(error.message);
         }
       },
     });
