@@ -10,6 +10,7 @@ sap.ui.define(
 
     let oResourceBundle;
     let oRouter;
+    let _idPeca;
 
     const rotaPaginaPrincipal = "home";
 
@@ -28,25 +29,25 @@ sap.ui.define(
           .attachPatternMatched(this._carregarPeca, this);
       },
 
-      _carregarPeca: function () {
+      _carregarPeca: function (oEvent) {
+        _idPeca = oEvent.getParameter("arguments").id;
+
         this._processarEvento(async () => {
           try {
             const httpStatusOk = 200;
             const idComponentePeca = "HeaderPeca";
 
-            const id = this._buscarPeloId();
-
             this.byId(idComponentePeca).setVisible(false);
 
             let oModel = new JSONModel();
 
-            let peca = await fetch(`http://localhost:5285/pecas/${id}`).then(
-              (response) => {
-                if (response.status !== httpStatusOk) throw response.statusText;
+            let peca = await fetch(
+              `http://localhost:5285/pecas/${_idPeca}`
+            ).then((response) => {
+              if (response.status !== httpStatusOk) throw response.statusText;
 
-                return response.json();
-              }
-            );
+              return response.json();
+            });
 
             this.byId(idComponentePeca).setVisible(true);
 
@@ -73,12 +74,10 @@ sap.ui.define(
 
       aoClicarNavegarParaCadastro: function () {
         this._processarEvento(() => {
-          const id = this._buscarPeloId();
-
           const rotaPaginaCadastro = "cadastro";
 
           oRouter.navTo(rotaPaginaCadastro, {
-            id: id,
+            id: _idPeca,
           });
         });
       },
@@ -102,11 +101,13 @@ sap.ui.define(
       _apagarPeca: async function () {
         try {
           const httpStatusNoContent = 204;
-          const id = this._buscarPeloId();
 
-          const response = await fetch(`http://localhost:5285/pecas/${id}`, {
-            method: "DELETE",
-          });
+          const response = await fetch(
+            `http://localhost:5285/pecas/${_idPeca}`,
+            {
+              method: "DELETE",
+            }
+          );
 
           if (response.status !== httpStatusNoContent)
             throw response.statusText;
@@ -116,10 +117,6 @@ sap.ui.define(
           const mensagemErro = "deletarPeca";
           throw new Error(oResourceBundle.getText(mensagemErro, [erro]));
         }
-      },
-
-      _buscarPeloId: function () {
-        return oRouter.oHashChanger.hash.split("/")[1];
       },
 
       _processarEvento: function (action) {
