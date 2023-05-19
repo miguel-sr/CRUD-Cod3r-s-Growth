@@ -1,0 +1,57 @@
+{
+  "name": "cod3rsgrowth",
+  "version": "1.0.0",
+  "author": "Miguel S. Ramos",
+  "description": "UI5: Walkthrough",
+  "scripts": {
+    "start": "fiori run --open index.html",
+    "tests": "fiori run --open test/integration/opaTests.qunit.html",
+    "mock": "fiori run --open test/mockServer.html",
+    "build": "ui5 build -a --clean-dest --include-task=generateCachebusterInfo",
+    "proxy": "node proxy.js"
+  },
+  "dependencies": {
+    "@openui5/sap.m": "^1.113.0",
+    "@openui5/sap.ui.core": "^1.113.0",
+    "@openui5/themelib_sap_fiori_3": "^1"
+  },
+  "devDependencies": {
+    "@prettier/plugin-xml": "^2.2.0",
+    "@sap/ux-ui5-tooling": "1",
+    "@sapui5/types": "^1.113.0",
+    "@ui5/cli": "^3.0.0",
+    "cors-anywhere": "^0.4.4",
+    "prettier": "^2.8.8",
+    "rimraf": "3.0.2"
+  },
+  "ui5": {
+    "ui5parser": {
+      "ui5version": "1.84.30",
+      "dataSource": "https://sapui5.hana.ondemand.com/",
+      "rejectUnauthorized": true,
+      "libsToLoad": [
+        "sap.uxap",
+        "sap.viz"
+      ],
+      "additionalWorkspaces": [
+        "../MyLibrary"
+      ]
+    },
+    "ui5linter": {
+      "severity": {
+        "WrongFieldMethodLinter": "Warning",
+        "UnusedClassLinter": "Hint"
+      },
+      "usage": {
+        "WrongOverrideLinter": true
+      }
+    }
+  },
+  "private": true,
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "wwwroot/index.html"
+}
