@@ -1,62 +1,57 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
     "sap/ui/core/routing/History",
     "sap/ui/model/json/JSONModel",
     "sap/ui/cod3rsgrowth/services/ValidarFormulario",
     "sap/ui/core/ValueState",
-    "sap/ui/core/format/DateFormat",
-    "sap/m/MessageBox",
+    "sap/ui/cod3rsgrowth/repositorios/RepositorioPeca",
+    "sap/ui/cod3rsgrowth/common/BaseController",
   ],
   function (
-    Controller,
     History,
     JSONModel,
     ValidarFormulario,
     ValueState,
-    DateFormat,
-    MessageBox
+    RepositorioPeca,
+    BaseController
   ) {
     "use strict";
 
-    let oResourceBundle;
     let oRouter;
+    let oResourceBundle;
 
     const idCampoNome = "nome";
     const idCampoCategoria = "categoria";
     const idCampoEstoque = "estoque";
     const idCampoFabricacao = "dataDeFabricacao";
 
-    return Controller.extend("sap.ui.cod3rsgrowth.controller.Cadastro", {
+    return BaseController.extend("sap.ui.cod3rsgrowth.controller.Cadastro", {
       onInit: function () {
-        oResourceBundle = this.getOwnerComponent()
-          .getModel("i18n")
-          .getResourceBundle();
+        oResourceBundle = this.carregarRecursoI18n();
 
-        oRouter = this.getOwnerComponent().getRouter();
-
-        const rotaPaginaCadastro = "cadastro";
+        oRouter = this.obterRouter();
+        const rotaCadastro = "cadastro";
 
         oRouter
-          .getRoute(rotaPaginaCadastro)
+          .getRoute(rotaCadastro)
           .attachPatternMatched(this._inicializarFormulario, this);
       },
 
-      _inicializarFormulario: function () {
-        this._criarModeloParaFormulario();
+      _inicializarFormulario: function (oEvent) {
+        this._criarModeloParaFormulario(oEvent);
         this._definirIntervaloValidoDeDatas();
         this._resetarValidacao();
       },
 
-      _criarModeloParaFormulario: async function () {
+      _criarModeloParaFormulario: async function (oEvent) {
         const nomeDoModelo = "peca";
 
         let oModel;
 
-        const id = oRouter.oHashChanger.hash.split("/")[1];
+        const idPeca = oEvent.getParameter("arguments").id;
 
-        if (id) {
-          const modeloPeca = await this._carregarPeca();
+        if (idPeca) {
+          const modeloPeca = await RepositorioPeca.obterPorId(idPeca);
           oModel = new JSONModel(modeloPeca);
         } else {
           const stringVazia = "";
@@ -89,7 +84,6 @@ sap.ui.define(
       },
 
       _definirIntervaloValidoDeDatas: function () {
-        const idCampoFabricacao = "dataDeFabricacao";
         const dataMinima = new Date("1754-01-01T12:00:00.000Z");
         const dataMaxima = new Date();
 
@@ -101,50 +95,39 @@ sap.ui.define(
         datePicker.setMaxDate(dataMaxima);
       },
 
-      aoClicarNavegarParaHome: function () {
-        const rotaPaginaPrincipal = "home";
+      aoClicarNavegarParaPaginaAnterior: function () {
+        this.processarEvento(() => {
+          const historico = History.getInstance();
+          const paginaAnterior = historico.getPreviousHash();
+          const rotaPaginaPrincipal = "home";
 
-        const historico = History.getInstance();
-        const paginaAnterior = historico.getPreviousHash();
-
-        paginaAnterior
-          ? window.history.go(-1)
-          : oRouter.navTo(rotaPaginaPrincipal);
+          paginaAnterior
+            ? window.history.go(-1)
+            : oRouter.navTo(rotaPaginaPrincipal);
+        });
       },
 
       aoClicarSalvarPeca: async function () {
         try {
           const pecaInvalida = this._validarCampos();
-
+          const modeloPeca = "peca";
+          const rotaDetalhe = "detalhes";
           if (pecaInvalida) {
             const mensagemErro = "formularioInvalido";
             throw new Error(oResourceBundle.getText(mensagemErro));
           }
 
-          const httpStatusCreated = 201;
-          const httpStatusNoContent = 204;
-
-          const peca = this.getView().getModel("peca").getData();
+          const peca = this.obterDadosModelo(modeloPeca);
 
           peca.dataDeFabricacao = new Date(peca.dataDeFabricacao).toISOString();
 
-          const idPeca = await fetch(
-            "http://localhost:5285/pecas",
-            this._retornaConfiguracaoFetch(peca)
-          ).then(async (response) => {
-            if (response.status == httpStatusCreated) {
-              const pecaCriada = await response.json();
-              return pecaCriada.id;
-            }
+          let idPeca;
 
-            if (response.status == httpStatusNoContent) return peca.id;
+          idPeca = peca.id
+            ? await RepositorioPeca.atualizarPeca(peca)
+            : await RepositorioPeca.criarPeca(peca);
 
-            throw response.statusText;
-          });
-
-          const rotaPaginaDetalhes = "detalhes";
-
-          oRouter.navTo(rotaPaginaDetalhes, {
+          oRouter.navTo(rotaDetalhe, {
             id: idPeca,
           });
         } catch (erro) {
@@ -153,24 +136,8 @@ sap.ui.define(
         }
       },
 
-      _retornaConfiguracaoFetch: function (peca) {
-        let configuracaoFetch = {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(peca),
-        };
-
-        const metodoCriar = "POST";
-        const metodoAtualizar = "PATCH";
-
-        configuracaoFetch.method = peca.id ? metodoAtualizar : metodoCriar;
-
-        return configuracaoFetch;
-      },
-
       _validarCampos: function () {
-        this._processarEvento(() => {
+        this.processarEvento(() => {
           const validarFormulario = new ValidarFormulario();
 
           const camposInput = [
@@ -186,7 +153,7 @@ sap.ui.define(
       },
 
       aoMudarValorCampoInput: function (oEvent) {
-        this._processarEvento(() => {
+        this.processarEvento(() => {
           const validarFormulario = new ValidarFormulario();
           const campoInput = oEvent.getSource();
 
@@ -195,53 +162,12 @@ sap.ui.define(
       },
 
       aoMudarValorCampoData: function (oEvent) {
-        this._processarEvento(() => {
+        this.processarEvento(() => {
           const validarFormulario = new ValidarFormulario();
           const campoData = oEvent.getSource();
 
           validarFormulario.validarData(campoData);
         });
-      },
-
-      _carregarPeca: async function () {
-        try {
-          const httpStatusOk = 200;
-
-          const id = oRouter.oHashChanger.hash.split("/")[1];
-
-          let peca = await fetch(`http://localhost:5285/pecas/${id}`).then(
-            (response) => {
-              if (response.status !== httpStatusOk) throw response.statusText;
-
-              return response.json();
-            }
-          );
-
-          peca.dataDeFabricacao = DateFormat.getDateInstance({
-            pattern: "yyyy-MM-dd",
-          }).format(new Date(peca.dataDeFabricacao));
-
-          return peca;
-        } catch (erro) {
-          const mensagemErro = "obterPeca";
-          throw new Error(oResourceBundle.getText(mensagemErro, [erro]));
-        }
-      },
-
-      _processarEvento: function (action) {
-        const tipoDaPromise = "catch";
-        const tipoBuscado = "function";
-        try {
-          let promise = action();
-
-          if (promise && typeof promise[tipoDaPromise] == tipoBuscado) {
-            promise.catch((error) => MessageBox.error(error.message));
-          }
-
-          return promise;
-        } catch (error) {
-          MessageBox.error(error.message);
-        }
       },
     });
   }
