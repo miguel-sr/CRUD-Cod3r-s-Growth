@@ -127,7 +127,6 @@ sap.ui.define(
             ? await RepositorioPeca.atualizarPeca(peca)
             : await RepositorioPeca.criarPeca(peca);
 
-          debugger;
           oRouter.navTo(rotaDetalhe, {
             id: idPeca,
           });
