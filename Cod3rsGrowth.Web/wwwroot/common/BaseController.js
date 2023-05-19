@@ -1,21 +1,16 @@
 sap.ui.define(
-  [
-    "sap/ui/core/mvc/Controller",
-    "sap/m/MessageBox",
-    "sap/ui/core/routing/History",
-  ],
-  function (Controller, MessageBox, History) {
+  ["sap/ui/core/mvc/Controller", "sap/m/MessageBox"],
+  function (Controller, MessageBox) {
     "use strict";
 
     return Controller.extend("sap.ui.cod3rsgrowth.common.BaseController", {
-      pegarDadosModeloPeca: function () {
-        const nomeDoModelo = "peca";
-        const peca = this.getView().getModel(nomeDoModelo).getData();
+      obterDadosModelo: function (nomeModelo) {
+        const modelo = this.getView().getModel(nomeModelo).getData();
 
-        return peca;
+        return modelo;
       },
 
-      pegarRouter: function () {
+      obterRouter: function () {
         const router = this.getOwnerComponent().getRouter();
         return router;
       },
@@ -43,12 +38,6 @@ sap.ui.define(
         } catch (error) {
           MessageBox.error(error.message);
         }
-      },
-
-      rotasDaAplicacao: {
-        paginaPrincipal: "home",
-        paginaCadastro: "cadastro",
-        paginaDetalhes: "detalhes",
       },
     });
   }

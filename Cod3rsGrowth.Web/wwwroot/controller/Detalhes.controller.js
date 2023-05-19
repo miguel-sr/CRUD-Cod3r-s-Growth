@@ -17,10 +17,11 @@ sap.ui.define(
       onInit: function () {
         oResourceBundle = this.carregarRecursoI18n();
 
-        oRouter = this.pegarRouter();
+        oRouter = this.obterRouter();
+        const rotaDetalhes = "detalhes";
 
         oRouter
-          .getRoute(this.rotasDaAplicacao.paginaDetalhes)
+          .getRoute(rotaDetalhes)
           .attachPatternMatched(this._renderizarPecaNaTela, this);
       },
 
@@ -51,18 +52,20 @@ sap.ui.define(
 
       aoClicarNavegarParaPaginaAnterior: function () {
         this.processarEvento(() => {
+          const rotaPaginaPrincipal = "home";
           const historico = History.getInstance();
           const paginaAnterior = historico.getPreviousHash();
 
           paginaAnterior
             ? window.history.go(-1)
-            : oRouter.navTo(this.rotasDaAplicacao.paginaPrincipal);
+            : oRouter.navTo(rotaPaginaPrincipal);
         });
       },
 
       aoClicarNavegarParaCadastro: function () {
         this.processarEvento(() => {
-          oRouter.navTo(this.rotasDaAplicacao.paginaCadastro, {
+          const rotaCadastro = "cadastro";
+          oRouter.navTo(rotaCadastro, {
             id: _idPeca,
           });
         });
@@ -87,8 +90,9 @@ sap.ui.define(
       _apagarPeca: async function () {
         try {
           RepositorioPeca.apagarPeca(_idPeca);
+          const rotaPaginaPrincipal = "home";
 
-          oRouter.navTo(this.rotasDaAplicacao.paginaPrincipal);
+          oRouter.navTo(rotaPaginaPrincipal);
         } catch (erro) {
           const mensagemErro = "deletarPeca";
           throw new Error(oResourceBundle.getText(mensagemErro, [erro]));

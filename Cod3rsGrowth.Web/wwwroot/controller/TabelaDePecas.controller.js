@@ -25,11 +25,11 @@ sap.ui.define(
       {
         onInit: function () {
           oResourceBundle = this.carregarRecursoI18n();
-
-          oRouter = this.pegarRouter();
+          const rotaPaginaPrincipal = "home";
+          oRouter = this.obterRouter();
 
           oRouter
-            .getRoute(this.rotasDaAplicacao.paginaPrincipal)
+            .getRoute(rotaPaginaPrincipal)
             .attachPatternMatched(this._renderizarPecasNaTela, this);
         },
 
@@ -50,8 +50,9 @@ sap.ui.define(
 
         aoClicarMostrarDetalhes: async function (oEvent) {
           const id = this._obterIdPeca(oEvent);
+          const rotaDetalhes = "detalhes";
 
-          oRouter.navTo(this.rotasDaAplicacao.paginaDetalhes, {
+          oRouter.navTo(rotaDetalhes, {
             id: id,
           });
         },
@@ -85,7 +86,8 @@ sap.ui.define(
         },
 
         aoClicarNavegarParaCadastro: function () {
-          oRouter.navTo(this.rotasDaAplicacao.paginaCadastro);
+          const rotaCadastro = "cadastro";
+          oRouter.navTo(rotaCadastro);
         },
       }
     );

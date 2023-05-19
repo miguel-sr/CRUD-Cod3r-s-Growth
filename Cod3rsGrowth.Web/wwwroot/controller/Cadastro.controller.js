@@ -29,10 +29,11 @@ sap.ui.define(
       onInit: function () {
         oResourceBundle = this.carregarRecursoI18n();
 
-        oRouter = this.pegarRouter();
+        oRouter = this.obterRouter();
+        const rotaCadastro = "cadastro";
 
         oRouter
-          .getRoute(this.rotasDaAplicacao.paginaCadastro)
+          .getRoute(rotaCadastro)
           .attachPatternMatched(this._inicializarFormulario, this);
       },
 
@@ -98,35 +99,36 @@ sap.ui.define(
         this.processarEvento(() => {
           const historico = History.getInstance();
           const paginaAnterior = historico.getPreviousHash();
+          const rotaPaginaPrincipal = "home";
 
           paginaAnterior
             ? window.history.go(-1)
-            : oRouter.navTo(this.rotasDaAplicacao.paginaPrincipal);
+            : oRouter.navTo(rotaPaginaPrincipal);
         });
       },
 
       aoClicarSalvarPeca: async function () {
         try {
           const pecaInvalida = this._validarCampos();
-
+          const modeloPeca = "peca";
+          const rotaDetalhe = "detalhes";
           if (pecaInvalida) {
             const mensagemErro = "formularioInvalido";
             throw new Error(oResourceBundle.getText(mensagemErro));
           }
 
-          const peca = this.pegarDadosModeloPeca();
+          const peca = this.obterDadosModelo(modeloPeca);
 
           peca.dataDeFabricacao = new Date(peca.dataDeFabricacao).toISOString();
 
           let idPeca;
 
-          if (peca.id) {
-            idPeca = await RepositorioPeca.atualizarPeca(peca);
-          } else {
-            idPeca = await RepositorioPeca.criarPeca(peca);
-          }
+          idPeca = peca.id
+            ? await RepositorioPeca.atualizarPeca(peca)
+            : await RepositorioPeca.criarPeca(peca);
 
-          oRouter.navTo(this.rotasDaAplicacao.paginaDetalhes, {
+          debugger;
+          oRouter.navTo(rotaDetalhe, {
             id: idPeca,
           });
         } catch (erro) {
