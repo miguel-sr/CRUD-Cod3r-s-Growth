@@ -4,7 +4,16 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>b17121cc-cd60-4883-ab01-8b3dc86c7933</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\Repositorio\**" />
+    <Content Remove="wwwroot\Repositorio\**" />
+    <EmbeddedResource Remove="wwwroot\Repositorio\**" />
+    <None Remove="wwwroot\Repositorio\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Remove="App.config" />
@@ -14,6 +23,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
@@ -36,10 +46,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>App.config</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\Repositorio\" />
   </ItemGroup>
 
 </Project>
